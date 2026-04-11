@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   output: 'static',
-  site: 'https://sophiemoreau.netlify.app',
+  site: 'https://citronphoto.netlify.app',
   vite: {
     plugins: [tailwindcss()],
   },

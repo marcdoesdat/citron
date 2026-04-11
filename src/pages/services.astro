@@ -1,11 +1,6 @@
 ---
-/**
- * services.astro — Page des forfaits et tarifs.
- * 4 forfaits en grille 2×2, le forfait Mariage est mis en avant (featured).
- */
 import Layout from '../layouts/Layout.astro';
 import ServiceCard from '../components/ServiceCard.astro';
-import Button from '../components/Button.astro';
 
 const services = [
   {
@@ -62,6 +57,25 @@ const services = [
     ],
   },
 ];
+
+const faq = [
+  {
+    q: 'Dans quel délai vais-je recevoir mes photos ?',
+    a: 'Les portraits sont livrés sous 5 à 7 jours ouvrés. Pour les mariages, comptez 3 à 4 semaines pour une retouche soignée de chaque image.',
+  },
+  {
+    q: 'Est-il possible de vous déplacer en dehors de Montréal ?',
+    a: "Oui, je me déplace partout au Canada et à l'international. Des frais de déplacement peuvent s'appliquer selon la distance.",
+  },
+  {
+    q: 'Comment se déroule une séance portrait ?',
+    a: 'Nous commençons par un échange pour définir vos envies. La séance dure entre 1h et 1h30 dans un lieu choisi ensemble (studio, extérieur, domicile).',
+  },
+  {
+    q: 'Puis-je modifier les photos reçues ?',
+    a: "Les photos livrées sont déjà retouchées avec soin. Je vous demande de ne pas appliquer de filtres supplémentaires afin de conserver la cohérence artistique.",
+  },
+];
 ---
 
 <Layout
@@ -99,24 +113,7 @@ const services = [
       <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-10 text-center">Questions fréquentes</h2>
 
       <div class="space-y-6">
-        {[
-          {
-            q: 'Dans quel délai vais-je recevoir mes photos ?',
-            a: 'Les portraits sont livrés sous 5 à 7 jours ouvrés. Pour les mariages, comptez 3 à 4 semaines pour une retouche soignée de chaque image.',
-          },
-          {
-            q: 'Est-il possible de vous déplacer en dehors de Montréal ?',
-            a: 'Oui, je me déplace partout au Canada et à l\'international. Des frais de déplacement peuvent s\'appliquer selon la distance.',
-          },
-          {
-            q: 'Comment se déroule une séance portrait ?',
-            a: 'Nous commençons par un échange pour définir vos envies. La séance dure entre 1h et 1h30 dans un lieu choisi ensemble (studio, extérieur, domicile).',
-          },
-          {
-            q: 'Puis-je modifier les photos reçues ?',
-            a: 'Les photos livrées sont déjà retouchées avec soin. Je vous demande de ne pas appliquer de filtres supplémentaires afin de conserver la cohérence artistique.',
-          },
-        ].map(({ q, a }) => (
+        {faq.map(({ q, a }) => (
           <div class="border-b border-neutral-100 pb-6">
             <h3 class="font-medium text-neutral-900 mb-2">{q}</h3>
             <p class="text-sm text-neutral-500 leading-relaxed">{a}</p>

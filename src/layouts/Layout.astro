@@ -1,8 +1,4 @@
 ---
-/**
- * Layout.astro — Structure HTML de base partagée par toutes les pages.
- * Inclut SEO, Header, Footer et les polices Google.
- */
 import SEO from '../components/SEO.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -32,16 +28,23 @@ const { title, description, ogImage, canonicalPath } = Astro.props;
       canonicalPath={canonicalPath}
     />
 
-    <!-- Polices Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Non-blocking font load: preload triggers fetch, onload swaps rel to stylesheet -->
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
+      />
+    </noscript>
   </head>
   <body class="bg-white text-neutral-900">
-    <!-- Lien d'évitement pour l'accessibilité -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-neutral-900 focus:text-white focus:rounded">
       Passer au contenu principal
     </a>

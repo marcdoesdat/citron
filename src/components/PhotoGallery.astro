@@ -1,17 +1,4 @@
 ---
-/**
- * PhotoGallery.astro — Grille d'images responsive.
- *
- * PATTERN DE PRODUCTION : remplacer les URLs picsum par des imports locaux :
- *   import monImage from '../assets/mon-image.jpg';
- *   <Image src={monImage} alt="..." />
- * Les images importées depuis src/assets/ sont automatiquement optimisées par Astro
- * (WebP, AVIF, dimensionnement, hash de cache, lazy-loading natif).
- *
- * Pour ce scaffold, on utilise des <img> HTML standard avec picsum.photos
- * comme images de démonstration.
- */
-
 interface GalleryImage {
   src: string;
   alt: string;
@@ -36,16 +23,16 @@ const gridCols: Record<number, string> = {
 };
 ---
 
+<style>
+  .masonry-grid { columns: 1; column-gap: 1rem; }
+  @media (min-width: 640px)  { .masonry-grid { columns: 2; } }
+  @media (min-width: 1024px) { .masonry-grid { columns: 3; } }
+  .masonry-item { break-inside: avoid; margin-bottom: 1rem; }
+</style>
+
 {masonry ? (
-  <!-- Mode masonry : CSS columns pour un rendu naturel sans JavaScript -->
   <div class="masonry-grid">
-    <style>
-      .masonry-grid { columns: 1; column-gap: 1rem; }
-      @media (min-width: 640px)  { .masonry-grid { columns: 2; } }
-      @media (min-width: 1024px) { .masonry-grid { columns: 3; } }
-      .masonry-item { break-inside: avoid; margin-bottom: 1rem; }
-    </style>
-    {images.map((img) => (
+    {images.map((img, i) => (
       <div class="masonry-item overflow-hidden group">
         <img
           src={img.src}
@@ -54,15 +41,15 @@ const gridCols: Record<number, string> = {
           height={img.height}
           loading="lazy"
           decoding="async"
+          fetchpriority={i === 0 ? 'high' : undefined}
           class="w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
     ))}
   </div>
 ) : (
-  <!-- Mode grille standard -->
   <div class={`grid gap-4 ${gridCols[columns]}`}>
-    {images.map((img) => (
+    {images.map((img, i) => (
       <div class="overflow-hidden aspect-[4/3] group">
         <img
           src={img.src}
@@ -71,6 +58,7 @@ const gridCols: Record<number, string> = {
           height={img.height}
           loading="lazy"
           decoding="async"
+          fetchpriority={i === 0 ? 'high' : undefined}
           class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>

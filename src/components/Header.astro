@@ -9,7 +9,7 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="bg-white">
+<header id="site-header" class="sticky top-0 z-50 bg-white transition-[background-color,backdrop-filter,box-shadow] duration-300">
   <div class="max-w-5xl mx-auto px-6 pt-10 pb-6 text-center">
 
     <a href="/" class="block mb-6">
@@ -33,9 +33,7 @@ const currentPath = Astro.url.pathname;
         </a>
       ))}
       <a
-        href="https://www.instagram.com/_citronnnade_/"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="/#instagram"
         class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors duration-200"
       >
         Instagram
@@ -75,9 +73,7 @@ const currentPath = Astro.url.pathname;
           </a>
         ))}
         <a
-          href="https://www.instagram.com/_citronnnade_/"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/#instagram"
           class="text-xs font-medium tracking-[0.18em] uppercase text-center text-neutral-500 hover:text-neutral-900 transition-colors"
         >
           Instagram
@@ -89,3 +85,22 @@ const currentPath = Astro.url.pathname;
 
   <div class="border-b border-neutral-200"></div>
 </header>
+
+<script is:inline>
+  const header = document.getElementById('site-header');
+
+  if (header) {
+    const toggleHeaderState = () => {
+      const isScrolled = window.scrollY > 8;
+
+      header.classList.toggle('bg-white/80', isScrolled);
+      header.classList.toggle('backdrop-blur-md', isScrolled);
+      header.classList.toggle('shadow-sm', isScrolled);
+
+      header.classList.toggle('bg-white', !isScrolled);
+    };
+
+    toggleHeaderState();
+    window.addEventListener('scroll', toggleHeaderState, { passive: true });
+  }
+</script>

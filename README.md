@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-# Alex Diotte Photographie
-=======
 # citron
 photographie
->>>>>>> 16a6762ab78375def53beb1481fe4291c63cac18
 
 Site web professionnel de photographe — construit avec [Astro](https://astro.build) et [Tailwind CSS v4](https://tailwindcss.com).
 

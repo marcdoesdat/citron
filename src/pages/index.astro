@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PhotoGallery from '../components/PhotoGallery.astro';
+import InstagramFeed from '../components/InstagramFeed.astro';
 
 const previewImages = [
   { src: 'https://picsum.photos/seed/sophie1/800/600', alt: 'Portrait en lumière naturelle', width: 800, height: 600 },
@@ -85,6 +86,12 @@ const previewImages = [
       </div>
     </div>
   </section>
+
+  <InstagramFeed posts={[
+    'https://www.instagram.com/p/XXXXXXXXXX/',
+    'https://www.instagram.com/p/XXXXXXXXXX/',
+    'https://www.instagram.com/p/XXXXXXXXXX/',
+  ]} />
 
   <!-- ═══ CTA FINAL ═══════════════════════════════════════════════════════ -->
   <section class="py-24 px-6">

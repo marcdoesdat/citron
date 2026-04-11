@@ -1,0 +1,145 @@
+---
+/**
+ * services.astro — Page des forfaits et tarifs.
+ * 4 forfaits en grille 2×2, le forfait Mariage est mis en avant (featured).
+ */
+import Layout from '../layouts/Layout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Button from '../components/Button.astro';
+
+const services = [
+  {
+    title: 'Portrait',
+    price: '199€',
+    description: 'Séance individuelle ou en famille, en studio ou en extérieur.',
+    icon: '◎',
+    featured: false,
+    features: [
+      '1h à 1h30 de séance photo',
+      '25 photos retouchées en haute résolution',
+      'Galerie en ligne privée pendant 30 jours',
+      'Impression A4 offerte',
+    ],
+  },
+  {
+    title: 'Événementiel',
+    price: '299€',
+    description: 'Couverture de vos événements professionnels et privés.',
+    icon: '◈',
+    featured: false,
+    features: [
+      'Jusqu\'à 3h de couverture',
+      '80 photos retouchées en haute résolution',
+      'Livraison sous 72h',
+      'Galerie en ligne privée pendant 60 jours',
+    ],
+  },
+  {
+    title: 'Mariage',
+    price: '1 499€',
+    description: 'Couverture complète de votre plus beau jour, de la préparation à la soirée.',
+    icon: '◇',
+    featured: true,
+    features: [
+      'Journée complète (préparatifs inclus)',
+      '300+ photos retouchées en haute résolution',
+      'Album photo premium (20×20 cm)',
+      'Séance engagement offerte (1h)',
+      'Galerie en ligne pendant 12 mois',
+    ],
+  },
+  {
+    title: 'Corporatif',
+    price: '399€',
+    description: 'Photos professionnelles pour valoriser votre image de marque.',
+    icon: '◰',
+    featured: false,
+    features: [
+      '2h de séance en studio ou sur site',
+      '40 photos retouchées en haute résolution',
+      'Format adapté réseaux sociaux / LinkedIn',
+      'Livraison sous 5 jours ouvrés',
+    ],
+  },
+];
+---
+
+<Layout
+  title="Services & Tarifs"
+  description="Découvrez les forfaits photographiques d'Alex Diotte : Portrait (199€+), Événementiel (299€+), Corporatif (399€+) et Mariage (1499€+). Devis personnalisé sur demande."
+>
+
+  <!-- En-tête -->
+  <section class="py-20 px-6 text-center">
+    <h1 class="font-serif text-5xl sm:text-6xl font-light tracking-[0.08em] text-neutral-900 mb-4">Services & Tarifs</h1>
+    <p class="text-neutral-500 text-sm max-w-md mx-auto leading-relaxed">
+      Des forfaits pensés pour chaque occasion, avec un seul objectif : créer des images qui vous ressemblent.
+    </p>
+  </section>
+
+  <!-- Grille des forfaits -->
+  <section class="px-6 pb-16 max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {services.map((service) => (
+        <ServiceCard {...service} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Note sur les tarifs -->
+  <div class="max-w-5xl mx-auto px-6 mb-16">
+    <p class="text-sm text-slate-400 text-center border-t border-slate-100 pt-8">
+      * Les tarifs indiqués sont des prix de départ. Chaque projet est unique — contactez-moi pour obtenir un devis personnalisé adapté à vos besoins.
+    </p>
+  </div>
+
+  <!-- Section FAQ rapide -->
+  <section class="py-16 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-10 text-center">Questions fréquentes</h2>
+
+      <div class="space-y-6">
+        {[
+          {
+            q: 'Dans quel délai vais-je recevoir mes photos ?',
+            a: 'Les portraits sont livrés sous 5 à 7 jours ouvrés. Pour les mariages, comptez 3 à 4 semaines pour une retouche soignée de chaque image.',
+          },
+          {
+            q: 'Est-il possible de vous déplacer en dehors de Paris ?',
+            a: 'Oui, je me déplace partout en France et à l\'international. Des frais de déplacement peuvent s\'appliquer selon la distance.',
+          },
+          {
+            q: 'Comment se déroule une séance portrait ?',
+            a: 'Nous commençons par un échange pour définir vos envies. La séance dure entre 1h et 1h30 dans un lieu choisi ensemble (studio, extérieur, domicile).',
+          },
+          {
+            q: 'Puis-je modifier les photos reçues ?',
+            a: 'Les photos livrées sont déjà retouchées avec soin. Je vous demande de ne pas appliquer de filtres supplémentaires afin de conserver la cohérence artistique.',
+          },
+        ].map(({ q, a }) => (
+          <div class="border-b border-neutral-100 pb-6">
+            <h3 class="font-medium text-neutral-900 mb-2">{q}</h3>
+            <p class="text-sm text-neutral-500 leading-relaxed">{a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 px-6 text-center">
+    <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-4">
+      Prêt·e à commencer ?
+    </h2>
+    <p class="text-neutral-500 text-sm mb-8 max-w-sm mx-auto">
+      Décrivez votre projet et je vous répondrai dans les 24h avec une proposition sur mesure.
+    </p>
+    <a
+      href="/contact"
+      class="inline-block text-xs font-medium tracking-[0.18em] uppercase text-neutral-900 border-b border-neutral-900 pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-colors"
+    >
+      Demander un devis gratuit
+    </a>
+  </section>
+
+</Layout>

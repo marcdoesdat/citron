@@ -1,0 +1,72 @@
+---
+/**
+ * SEO.astro — Gestion des balises meta, Open Graph et JSON-LD
+ * Utilisé dans Layout.astro pour chaque page.
+ */
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonicalPath?: string;
+}
+
+const { title, description, ogImage, canonicalPath } = Astro.props;
+
+const siteName = "Alex Diotte Photographie";
+const fullTitle = title === siteName ? siteName : `${title} | ${siteName}`;
+
+// Construction de l'URL canonique absolue
+const canonical = new URL(
+  canonicalPath ?? Astro.url.pathname,
+  Astro.site ?? "https://alexdiotte.netlify.app"
+).toString();
+
+const ogImageUrl = ogImage
+  ? new URL(ogImage, Astro.site ?? "https://alexdiotte.netlify.app").toString()
+  : new URL("/og-default.jpg", Astro.site ?? "https://alexdiotte.netlify.app").toString();
+
+// Schéma JSON-LD LocalBusiness pour le SEO local
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": siteName,
+  "description": description,
+  "url": Astro.site?.toString() ?? "https://alexdiotte.netlify.app",
+  "image": ogImageUrl,
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Montréal",
+    "addressRegion": "QC",
+    "addressCountry": "CA"
+  },
+  "sameAs": [
+    "https://www.instagram.com/alexdiotte",
+    "https://www.linkedin.com/in/alexdiotte"
+  ]
+};
+---
+
+<!-- Balises essentielles -->
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content="index, follow" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:locale" content="fr_FR" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

@@ -1,0 +1,41 @@
+---
+/**
+ * Footer.astro — Pied de page minimal, style éditorial.
+ */
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-neutral-200 mt-16">
+  <div class="max-w-5xl mx-auto px-6 py-16 text-center space-y-8">
+
+    <!-- Nom en serif -->
+    <a href="/" class="inline-block">
+      <p class="font-serif text-3xl sm:text-4xl font-light tracking-[0.12em] uppercase text-neutral-900">
+        Alex Diotte
+      </p>
+    </a>
+
+    <!-- Liens -->
+    <nav class="flex flex-wrap items-center justify-center gap-8" aria-label="Liens du pied de page">
+      <a href="/" class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors">Accueil</a>
+      <a href="/portfolio" class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors">Portfolio</a>
+      <a href="/services" class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors">Services</a>
+      <a href="/contact" class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors">Contact</a>
+      <a href="https://www.instagram.com/alexdiotte" target="_blank" rel="noopener noreferrer" class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors">Instagram</a>
+    </nav>
+
+    <!-- Contact -->
+    <div class="space-y-1">
+      <a href="mailto:alexdiottephoto@gmail.com" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
+        alexdiottephoto@gmail.com
+      </a>
+      <p class="text-sm text-neutral-400">Montréal, Québec</p>
+    </div>
+
+    <!-- Copyright -->
+    <p class="text-xs text-neutral-400">
+      &copy; {currentYear} Alex Diotte Photographie
+    </p>
+
+  </div>
+</footer>

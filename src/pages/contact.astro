@@ -1,0 +1,218 @@
+---
+/**
+ * contact.astro — Page de contact avec formulaire Netlify Forms.
+ * Le formulaire est détecté automatiquement par Netlify via data-netlify="true".
+ * Le champ honeypot anti-spam (bot-field) est caché visuellement.
+ */
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contact"
+  description="Contactez Alex Diotte Photographie pour réserver une séance, demander un devis mariage ou poser vos questions. Réponse sous 24h."
+>
+
+  <!-- En-tête -->
+  <section class="py-20 px-6 text-center">
+    <h1 class="font-serif text-5xl sm:text-6xl font-light tracking-[0.08em] text-neutral-900 mb-4">Contact</h1>
+    <p class="text-neutral-500 text-sm max-w-md mx-auto">
+      Une question ? Un projet ? Je réponds à tous les messages dans les 24 heures.
+    </p>
+  </section>
+
+  <!-- Bloc principal : infos + formulaire -->
+  <section class="px-6 pb-24 max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-16">
+
+      <!-- ── Informations de contact ─────────────────────────────────────── -->
+      <div class="lg:col-span-2 space-y-10">
+        <div>
+          <h2 class="font-serif text-2xl font-light text-neutral-900 mb-6">Coordonnées</h2>
+          <address class="not-italic space-y-5">
+
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 flex items-center justify-center border border-slate-200 shrink-0">
+                <span class="text-xs text-slate-400" aria-hidden="true">@</span>
+              </div>
+              <div>
+                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Email</p>
+                <a href="mailto:alexdiottephoto@gmail.com" class="text-sm text-neutral-900 hover:text-slate-600 transition-colors">
+                  alexdiottephoto@gmail.com
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 flex items-center justify-center border border-slate-200 shrink-0">
+                <span class="text-xs text-slate-400" aria-hidden="true">☎</span>
+              </div>
+              <div>
+                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Téléphone</p>
+                <a href="tel:+14388126026" class="text-sm text-neutral-900 hover:text-slate-600 transition-colors">
+                  438-812-6026
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 flex items-center justify-center border border-slate-200 shrink-0">
+                <span class="text-xs text-slate-400" aria-hidden="true">◎</span>
+              </div>
+              <div>
+                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Localisation</p>
+                <p class="text-sm text-neutral-900">Montréal, Québec</p>
+                <p class="text-xs text-slate-400 mt-0.5">Déplacements Canada & international</p>
+              </div>
+            </div>
+
+          </address>
+        </div>
+
+        <!-- Réseaux sociaux -->
+        <div>
+          <h3 class="text-xs font-medium uppercase tracking-widest text-slate-400 mb-4">Retrouvez-moi</h3>
+          <div class="flex gap-3">
+            {[
+              { href: 'https://www.instagram.com/alexdiotte', label: 'Instagram' },
+              { href: 'https://www.linkedin.com/in/alexdiotte', label: 'LinkedIn' },
+            ].map(({ href, label }) => (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-4 py-2 border border-slate-200 text-xs font-medium text-slate-500 hover:border-slate-400 hover:text-neutral-900 transition-colors"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Formulaire Netlify ───────────────────────────────────────────── -->
+      <div class="lg:col-span-3">
+        <h2 class="font-serif text-2xl font-light text-neutral-900 mb-8">Envoyer un message</h2>
+
+        <!--
+          IMPORTANT Netlify :
+          - data-netlify="true" : active la détection Netlify Forms
+          - name="contact" : identifiant du formulaire dans le dashboard Netlify
+          - data-netlify-honeypot="bot-field" : protection anti-spam
+          - L'input caché form-name DOIT correspondre au name du formulaire
+        -->
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          class="space-y-6"
+        >
+          <!-- Champ caché requis par Netlify pour la soumission AJAX -->
+          <input type="hidden" name="form-name" value="contact" />
+
+          <!-- Honeypot anti-spam (caché visuellement, ne pas montrer à l'utilisateur) -->
+          <div hidden aria-hidden="true">
+            <label>
+              Ne pas remplir ce champ si vous êtes humain :
+              <input name="bot-field" type="text" autocomplete="off" />
+            </label>
+          </div>
+
+          <!-- Ligne Nom + Email -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="nom" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
+                Nom complet <span class="text-slate-400" aria-label="requis">*</span>
+              </label>
+              <input
+                type="text"
+                id="nom"
+                name="nom"
+                required
+                autocomplete="name"
+                placeholder="Marie Dupont"
+                class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 placeholder-slate-300 focus:outline-none focus:border-slate-400 transition-colors"
+              />
+            </div>
+            <div>
+              <label for="email" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
+                Email <span class="text-slate-400" aria-label="requis">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                autocomplete="email"
+                placeholder="marie@exemple.fr"
+                class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 placeholder-slate-300 focus:outline-none focus:border-slate-400 transition-colors"
+              />
+            </div>
+          </div>
+
+          <!-- Type de séance -->
+          <div>
+            <label for="type-seance" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
+              Type de séance <span class="text-slate-400" aria-label="requis">*</span>
+            </label>
+            <select
+              id="type-seance"
+              name="type-seance"
+              required
+              class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 focus:outline-none focus:border-slate-400 transition-colors appearance-none cursor-pointer"
+            >
+              <option value="" disabled selected>Sélectionner une option…</option>
+              <option value="mariage">Mariage</option>
+              <option value="portrait">Portrait</option>
+              <option value="evenementiel">Événementiel</option>
+              <option value="corporatif">Corporatif</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+
+          <!-- Date souhaitée -->
+          <div>
+            <label for="date" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
+              Date souhaitée
+            </label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 focus:outline-none focus:border-slate-400 transition-colors"
+            />
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="message" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
+              Message <span class="text-slate-400" aria-label="requis">*</span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows={5}
+              placeholder="Décrivez votre projet, le lieu envisagé, le nombre de personnes, vos attentes…"
+              class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 placeholder-slate-300 focus:outline-none focus:border-slate-400 transition-colors resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Bouton d'envoi -->
+          <button
+            type="submit"
+            class="w-full sm:w-auto px-8 py-3 bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-700 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2"
+          >
+            Envoyer le message
+          </button>
+
+          <p class="text-xs text-slate-400">
+            * Champs obligatoires. Vos données sont utilisées uniquement pour vous répondre.
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>

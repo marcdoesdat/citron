@@ -1,0 +1,80 @@
+---
+/**
+ * portfolio.astro — Galerie complète en style masonry.
+ * Utilise PhotoGallery en mode masonry avec 12 images.
+ * Les boutons de filtre sont cosmétiques (extensibles via JS si nécessaire).
+ */
+import Layout from '../layouts/Layout.astro';
+import PhotoGallery from '../components/PhotoGallery.astro';
+
+// 12 images avec seeds stables et dimensions variées pour un rendu masonry naturel
+const allImages = [
+  { src: 'https://picsum.photos/seed/port1/800/1067', alt: 'Portrait femme en lumière dorée', width: 800, height: 1067, category: 'Portrait' },
+  { src: 'https://picsum.photos/seed/port2/800/600',  alt: 'Cérémonie de mariage en plein air', width: 800, height: 600,  category: 'Mariage' },
+  { src: 'https://picsum.photos/seed/port3/800/1200', alt: 'Mariée regardant par la fenêtre', width: 800, height: 1200, category: 'Mariage' },
+  { src: 'https://picsum.photos/seed/port4/800/600',  alt: 'Conférence d\'entreprise en soirée', width: 800, height: 600,  category: 'Événementiel' },
+  { src: 'https://picsum.photos/seed/port5/800/800',  alt: 'Portrait corporatif en studio blanc', width: 800, height: 800,  category: 'Corporatif' },
+  { src: 'https://picsum.photos/seed/port6/800/1067', alt: 'Enfants jouant dans un jardin', width: 800, height: 1067, category: 'Portrait' },
+  { src: 'https://picsum.photos/seed/port7/800/600',  alt: 'Premiers pas de danse des mariés', width: 800, height: 600,  category: 'Mariage' },
+  { src: 'https://picsum.photos/seed/port8/800/1000', alt: 'Portrait homme en lumière naturelle', width: 800, height: 1000, category: 'Portrait' },
+  { src: 'https://picsum.photos/seed/port9/800/600',  alt: 'Gala associatif, soirée de remise de prix', width: 800, height: 600,  category: 'Événementiel' },
+  { src: 'https://picsum.photos/seed/port10/800/800', alt: 'Équipe dirigeante en extérieur', width: 800, height: 800,  category: 'Corporatif' },
+  { src: 'https://picsum.photos/seed/port11/800/1067',alt: 'Famille dans les champs au coucher du soleil', width: 800, height: 1067, category: 'Portrait' },
+  { src: 'https://picsum.photos/seed/port12/800/600', alt: 'Détails floraux d\'un mariage bohème', width: 800, height: 600,  category: 'Mariage' },
+];
+
+const categories = ['Tous', 'Mariage', 'Portrait', 'Événementiel', 'Corporatif'];
+---
+
+<Layout
+  title="Portfolio"
+  description="Découvrez le portfolio d'Alex Diotte : mariage, portrait, événementiel et corporatif. Une sélection de travaux photographiques réalisés en France et à l'international."
+>
+
+  <!-- En-tête de page -->
+  <section class="py-20 px-6 text-center">
+    <h1 class="font-serif text-5xl sm:text-6xl font-light tracking-[0.08em] text-neutral-900 mb-4">Portfolio</h1>
+    <p class="text-neutral-500 text-sm max-w-md mx-auto">
+      Une sélection de moments capturés avec soin, de l'intime à l'événementiel.
+    </p>
+  </section>
+
+  <!-- Filtres de catégorie (cosmétiques — extensibles avec JS) -->
+  <div class="flex flex-wrap justify-center gap-6 px-6 mb-12">
+    {categories.map((cat, i) => (
+      <button
+        class={`text-xs font-medium tracking-[0.18em] uppercase transition-colors duration-200 pb-1 ${
+          i === 0
+            ? 'text-amber-700 border-b border-amber-700'
+            : 'text-neutral-500 hover:text-neutral-900'
+        }`}
+        aria-pressed={i === 0 ? 'true' : 'false'}
+        data-filter={cat}
+      >
+        {cat}
+      </button>
+    ))}
+  </div>
+
+  <!-- Galerie masonry -->
+  <section class="px-6 pb-24 max-w-5xl mx-auto">
+    <PhotoGallery images={allImages} masonry={true} />
+  </section>
+
+  <!-- CTA bas de page -->
+  <section class="py-20 px-6 text-center">
+    <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-4">
+      Vous avez un projet en tête ?
+    </h2>
+    <p class="text-neutral-500 text-sm mb-8 max-w-sm mx-auto">
+      Contactez-moi pour discuter de votre vision et obtenir un devis personnalisé.
+    </p>
+    <a
+      href="/contact"
+      class="inline-block text-xs font-medium tracking-[0.18em] uppercase text-neutral-900 border-b border-neutral-900 pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-colors"
+    >
+      Me contacter
+    </a>
+  </section>
+
+</Layout>

@@ -1,0 +1,100 @@
+---
+/**
+ * Header.astro — Navigation éditoriale centrée, style photographe.
+ * Nom en grande typographie serif, navigation horizontale en dessous.
+ */
+const navLinks = [
+  { href: '/',          label: 'Accueil'   },
+  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/services',  label: 'Services'  },
+  { href: '/contact',   label: 'Contact'   },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="bg-white">
+  <div class="max-w-5xl mx-auto px-6 pt-10 pb-6 text-center">
+
+    <!-- Nom — grande typographie serif -->
+    <a href="/" class="block mb-6">
+      <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-[0.12em] uppercase text-neutral-900 leading-tight">
+        Alex Diotte
+      </h1>
+    </a>
+
+    <!-- Navigation desktop — liens uppercase espacés -->
+    <nav aria-label="Navigation principale" class="hidden md:flex items-center justify-center gap-10">
+      {navLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          class={`text-xs font-medium tracking-[0.18em] uppercase transition-colors duration-200 ${
+            currentPath === href
+              ? 'text-amber-700'
+              : 'text-neutral-500 hover:text-neutral-900'
+          }`}
+          aria-current={currentPath === href ? 'page' : undefined}
+        >
+          {label}
+        </a>
+      ))}
+      <a
+        href="https://www.instagram.com/alexdiotte"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors duration-200"
+      >
+        Instagram
+      </a>
+    </nav>
+
+    <!-- Hamburger mobile (CSS pur) -->
+    <div class="md:hidden flex justify-center">
+      <input type="checkbox" id="nav-toggle" class="sr-only peer" />
+      <label
+        for="nav-toggle"
+        class="flex flex-col justify-center gap-[5px] w-8 h-8 cursor-pointer"
+        aria-label="Ouvrir le menu de navigation"
+      >
+        <span class="block h-[1px] w-full bg-neutral-900 transition-all duration-300 peer-checked:rotate-45 peer-checked:translate-y-[6px] origin-center"></span>
+        <span class="block h-[1px] w-full bg-neutral-900 transition-all duration-300 peer-checked:opacity-0"></span>
+        <span class="block h-[1px] w-full bg-neutral-900 transition-all duration-300 peer-checked:-rotate-45 peer-checked:-translate-y-[6px] origin-center"></span>
+      </label>
+
+      <!-- Menu mobile -->
+      <nav
+        aria-label="Menu mobile"
+        class="fixed top-36 left-0 right-0 bg-white border-b border-neutral-100 shadow-sm
+               max-h-0 overflow-hidden transition-all duration-300
+               peer-checked:max-h-80
+               hidden peer-checked:flex flex-col px-6 py-6 gap-5 z-50"
+      >
+        {navLinks.map(({ href, label }) => (
+          <a
+            href={href}
+            class={`text-xs font-medium tracking-[0.18em] uppercase text-center transition-colors duration-200 ${
+              currentPath === href
+                ? 'text-amber-700'
+                : 'text-neutral-500 hover:text-neutral-900'
+            }`}
+            aria-current={currentPath === href ? 'page' : undefined}
+          >
+            {label}
+          </a>
+        ))}
+        <a
+          href="https://www.instagram.com/alexdiotte"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-xs font-medium tracking-[0.18em] uppercase text-center text-neutral-500 hover:text-neutral-900 transition-colors"
+        >
+          Instagram
+        </a>
+      </nav>
+    </div>
+
+  </div>
+
+  <!-- Ligne séparatrice fine -->
+  <div class="border-b border-neutral-200"></div>
+</header>

@@ -1,0 +1,38 @@
+---
+interface Props {
+  posts: string[];        // URLs des posts Instagram publics
+  handle?: string;
+}
+
+const { posts, handle = '_citronnnade_' } = Astro.props;
+---
+
+<section id="instagram" class="py-16 px-6 border-t border-neutral-100">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-baseline justify-between mb-10">
+      <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900">Instagram</h2>
+      <a
+        href={`https://www.instagram.com/${handle}/`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors"
+      >
+        @{handle}
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+      {posts.map((url) => (
+        <blockquote
+          class="instagram-media !m-0 !min-w-0 !w-full"
+          data-instgrm-permalink={url}
+          data-instgrm-version="14"
+          data-instgrm-captioned
+        ></blockquote>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Chargé une seule fois même si le composant est inclus plusieurs fois -->
+<script async src="https://www.instagram.com/embed.js" is:inline></script>

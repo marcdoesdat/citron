@@ -1,10 +1,6 @@
 ---
-/**
- * contact.astro — Page de contact avec formulaire Netlify Forms.
- * Le formulaire est détecté automatiquement par Netlify via data-netlify="true".
- * Le champ honeypot anti-spam (bot-field) est caché visuellement.
- */
 import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
 ---
 
 <Layout
@@ -72,18 +68,14 @@ import Layout from '../layouts/Layout.astro';
         <div>
           <h3 class="text-xs font-medium uppercase tracking-widest text-slate-400 mb-4">Retrouvez-moi</h3>
           <div class="flex gap-3">
-            {[
-              { href: 'https://www.instagram.com/_citronnnade_/', label: 'Instagram' },
-            ].map(({ href, label }) => (
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="px-4 py-2 border border-slate-200 text-xs font-medium text-slate-500 hover:border-slate-400 hover:text-neutral-900 transition-colors"
-              >
-                {label}
-              </a>
-            ))}
+            <a
+              href="https://www.instagram.com/_citronnnade_/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2 border border-slate-200 text-xs font-medium text-slate-500 hover:border-slate-400 hover:text-neutral-900 transition-colors"
+            >
+              Instagram
+            </a>
           </div>
         </div>
       </div>
@@ -197,13 +189,9 @@ import Layout from '../layouts/Layout.astro';
             ></textarea>
           </div>
 
-          <!-- Bouton d'envoi -->
-          <button
-            type="submit"
-            class="w-full sm:w-auto px-8 py-3 bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-700 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2"
-          >
+          <Button type="submit" class="w-full sm:w-auto">
             Envoyer le message
-          </button>
+          </Button>
 
           <p class="text-xs text-slate-400">
             * Champs obligatoires. Vos données sont utilisées uniquement pour vous répondre.

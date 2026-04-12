@@ -29,6 +29,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Boost body-copy contrast on white backgrounds for outdoor readability. */
+main .text-neutral-500,
+main .text-slate-500,
+main .text-slate-400 {
+  color: #333333;
+}
+
 /* ─── Typographie éditoriale ─────────────────────────────────────────────── */
 .font-serif {
   font-family: var(--font-serif);

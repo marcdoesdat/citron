@@ -41,8 +41,7 @@ const landscapeImages = [
 
   <!-- ═══ HERO — Image pleine page ═══════════════════════════════════════ -->
   <section
-    class="relative w-full overflow-hidden"
-    style="height: calc(100dvh - var(--header-height, 64px))"
+    class="home-hero relative w-full overflow-hidden"
   >
     <Image
       src="/hero.jpg"
@@ -52,18 +51,22 @@ const landscapeImages = [
       loading="eager"
       decoding="sync"
       fetchpriority="high"
-      class="absolute inset-0 w-full h-full object-cover"
+      class="home-hero-image absolute inset-0 w-full h-full object-cover"
+      style="height: 100%;"
     />
     <!-- Gradient overlay -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/88 via-black/42 to-transparent"></div>
     <!-- Contenu hero -->
-    <div class="absolute bottom-0 left-0 right-0 p-8 sm:p-14 text-white">
-      <p class="text-sm text-white/75 mb-8 max-w-xs leading-relaxed">
-        Photographe et vidéaste à Montréal — portraits et événements.
+    <div class="home-hero-copy absolute bottom-0 left-0 right-0 p-8 sm:p-14 text-white" style="padding-bottom: max(2rem, env(safe-area-inset-bottom));">
+      <h1 class="font-serif text-3xl sm:text-5xl font-semibold leading-[1.05] tracking-[0.01em] max-w-md text-balance">
+        Photographe et vidéaste à Montréal
+      </h1>
+      <p class="mt-3 text-sm sm:text-base text-white/85 max-w-xs leading-relaxed">
+        Portraits et événements
       </p>
       <a
         href="/portfolio"
-        class="inline-block text-xs font-medium tracking-[0.18em] uppercase text-white border-b border-white pb-1 hover:text-white/70 hover:border-white/70 transition-colors"
+        class="flex w-fit mx-auto items-center justify-center mt-8 px-6 py-3 text-xs font-semibold tracking-[0.14em] uppercase text-white border border-white/90 rounded-sm min-h-11 hover:bg-white hover:text-neutral-900 active:bg-white active:text-neutral-900 active:border-white transition-colors duration-150"
       >
         Voir le portfolio
       </a>
@@ -75,7 +78,7 @@ const landscapeImages = [
     <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
       <div class="overflow-hidden">
         <Image
-          src="/alex-bio.jpg"
+          src="/images/portfolio/AlexDiotteBlackandWhite.jpg"
           alt="Alex Diotte, photographe professionnel"
           width={600}
           height={800}
@@ -89,17 +92,20 @@ const landscapeImages = [
           Bonjour, je suis<br/>Alex.
         </h2>
         <p class="text-neutral-500 leading-relaxed text-sm">
-          Photographe et vidéaste depuis 2016, mon histoire avec l'image a commencé par un déclic lors d'un voyage à Cuba. Si la passion est née à ce moment-là, c'est en 2020 que j'ai fait le choix de m'y consacrer à 100 %.
+          <strong>Photographe et vidéaste depuis 2016</strong>, mon histoire avec l'image a commencé par un déclic lors d'un voyage à Cuba. Si la passion est née à ce moment-là, c'est en <strong>2020</strong> que j'ai fait le choix de m'y consacrer à <strong>100 %</strong>.
         </p>
         <p class="text-neutral-500 leading-relaxed text-sm">
-          J'ai d'abord plongé au cœur de la scène musicale, immortalisant l'énergie brute des foules et des artistes dans les soirées dubstep et riddim. C'est là que j'ai forgé ma signature : des images vivantes, intenses et sans artifices.
+          J'ai d'abord forgé mon œil au cœur de la scène musicale. Immortaliser <strong>l'énergie brute</strong> des foules dans les soirées dubstep et riddim m'a appris l'essentiel : réagir en une fraction de seconde, gérer un environnement sous pression et capturer l'instant <strong>sur le vif</strong>, sans artifices. C'est cette agilité que j'apporte aujourd'hui sur chaque plateau.
         </p>
         <p class="text-neutral-500 leading-relaxed text-sm">
-          Au fil des années, j'ai élargi mon terrain de jeu. Des vlogs aux vidéoclips, en passant par des événements corporatifs et des projets scolaires, j'applique toujours la même philosophie. Mon but ? Capturer le vrai <em>vibe</em>. Que ce soit au milieu d'une foule en délire, en coulisses ou dans un moment d'intimité, je crée des images qui racontent une histoire et transmettent une émotion authentique.
+          Des événements corporatifs aux projets scolaires, en passant par les vidéos promotionnelles, ma mission est de capturer le vrai <em>vibe</em>. Mon approche est <strong>100 % adaptée à vos objectifs</strong> : je peux livrer un rendu <strong>épuré et hautement professionnel</strong>, tout comme je peux déployer une <strong>direction artistique audacieuse et assumée</strong> si vous souhaitez une image de marque qui sort du lot.
+        </p>
+        <p class="text-neutral-500 leading-relaxed text-sm">
+          Que ce soit en coulisses, lors d'un grand événement ou dans un moment d'intimité, je crée des images qui racontent votre histoire avec une <strong>émotion authentique</strong>.
         </p>
         <a
           href="/portfolio"
-          class="inline-block text-xs font-medium tracking-[0.18em] uppercase text-neutral-900 border-b border-neutral-900 pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-colors"
+          class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
         >
           Découvrir mon travail
         </a>
@@ -112,20 +118,43 @@ const landscapeImages = [
     <div class="max-w-5xl mx-auto">
       <div class="text-center mb-14">
         <h2 class="font-serif text-4xl sm:text-5xl font-light text-neutral-900 mb-4">Portfolio</h2>
-        <p class="text-neutral-500 text-sm max-w-md mx-auto">
-          Une sélection de moments capturés avec soin.
-        </p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-6 px-2 mb-8">
+        <button
+          type="button"
+          class="text-xs font-medium tracking-[0.18em] uppercase transition-colors duration-200 pb-1 text-amber-700 border-b border-amber-700"
+          aria-pressed="true"
+          data-preview-filter="all"
+        >
+          Tous
+        </button>
+        <button
+          type="button"
+          class="text-xs font-medium tracking-[0.18em] uppercase transition-colors duration-200 pb-1 text-neutral-500 hover:text-neutral-900"
+          aria-pressed="false"
+          data-preview-filter="portrait"
+        >
+          Portrait
+        </button>
+        <button
+          type="button"
+          class="text-xs font-medium tracking-[0.18em] uppercase transition-colors duration-200 pb-1 text-neutral-500 hover:text-neutral-900"
+          aria-pressed="false"
+          data-preview-filter="evenementiel"
+        >
+          Événementiel
+        </button>
       </div>
       <div
         id="preview-gallery"
-        class="masonry-preview"
+        class="preview-grid"
         data-portrait={JSON.stringify(portraitImages)}
         data-landscape={JSON.stringify(landscapeImages)}
       ></div>
       <div class="text-center mt-12">
         <a
           href="/portfolio"
-          class="inline-block text-xs font-medium tracking-[0.18em] uppercase text-neutral-900 border-b border-neutral-900 pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-colors"
+          class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
         >
           Voir tout le portfolio
         </a>
@@ -143,21 +172,27 @@ const landscapeImages = [
         </p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-        <div class="border border-neutral-200 p-8 space-y-4">
+        <div class="service-card-item border border-neutral-200 p-8 space-y-4 cursor-pointer transition-all duration-300">
           <h3 class="font-serif text-2xl font-light text-neutral-900">Portrait</h3>
-          <p class="text-2xl font-light text-neutral-900">199$</p>
+          <div class="flex items-baseline gap-2">
+            <p class="text-2xl font-bold text-neutral-900">199$</p>
+            <span class="text-sm text-neutral-500">à partir de</span>
+          </div>
           <p class="text-sm text-neutral-500">Séance individuelle ou en famille, en studio ou en extérieur.</p>
         </div>
-        <div class="border border-neutral-200 p-8 space-y-4">
+        <div class="service-card-item border border-neutral-200 p-8 space-y-4 cursor-pointer transition-all duration-300">
           <h3 class="font-serif text-2xl font-light text-neutral-900">Événementiel</h3>
-          <p class="text-2xl font-light text-neutral-900">299$</p>
+          <div class="flex items-baseline gap-2">
+            <p class="text-2xl font-bold text-neutral-900">399$</p>
+            <span class="text-sm text-neutral-500">à partir de</span>
+          </div>
           <p class="text-sm text-neutral-500">Couverture de vos événements professionnels et privés.</p>
         </div>
       </div>
       <div class="text-center mt-12">
         <a
           href="/services"
-          class="inline-block text-xs font-medium tracking-[0.18em] uppercase text-neutral-900 border-b border-neutral-900 pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-colors"
+          class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
         >
           Voir tous les services
         </a>
@@ -182,7 +217,7 @@ const landscapeImages = [
       </p>
       <a
         href="/contact"
-        class="inline-block text-xs font-medium tracking-[0.18em] uppercase text-neutral-900 border-b border-neutral-900 pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-colors"
+        class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
       >
         Prendre rendez-vous
       </a>
@@ -191,26 +226,153 @@ const landscapeImages = [
 
 
 <style is:global>
-  .masonry-preview { columns: 1; column-gap: 1rem; }
-  @media (min-width: 640px)  { .masonry-preview { columns: 2; } }
-  @media (min-width: 1024px) { .masonry-preview { columns: 3; } }
-  .masonry-preview-item { break-inside: avoid; margin-bottom: 1rem; }
+  .home-hero-copy h1,
+  .home-hero-copy p {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .home-hero-image {
+    object-position: 50% 42%;
+  }
+
+  .home-hero {
+    height: calc(100dvh - var(--header-height, 64px));
+  }
+
+  @media (max-width: 767px) {
+    .home-hero-image {
+      object-position: 52% 28%;
+    }
+
+    .home-hero {
+      height: 100dvh;
+      margin-top: calc(var(--header-height, 64px) * -1);
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .home-hero-image {
+      object-position: 52% 36%;
+    }
+  }
+
+  @supports not (height: 100dvh) {
+    .home-hero {
+      height: calc(100vh - var(--header-height, 64px));
+    }
+
+    @media (max-width: 767px) {
+      .home-hero {
+        height: 100vh;
+      }
+    }
+  }
+
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    max-width: 38rem;
+    margin: 0 auto;
+  }
+
+  .preview-grid-item {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+
+  .service-card-item {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card-item::after {
+    content: 'en savoir plus';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .service-card-item:hover::after,
+  .service-card-item.active::after {
+    opacity: 1;
+  }
 </style>
 
 <script>
+  const serviceCards = document.querySelectorAll<HTMLDivElement>('.service-card-item');
+  serviceCards.forEach(card => {
+    card.addEventListener('click', () => {
+      window.location.href = '/services';
+    });
+    card.addEventListener('touchstart', () => {
+      card.classList.add('active');
+    });
+    card.addEventListener('touchend', () => {
+      setTimeout(() => card.classList.remove('active'), 300);
+    });
+  });
+
   const gallery = document.getElementById('preview-gallery');
+  const previewFilterButtons = document.querySelectorAll<HTMLButtonElement>('[data-preview-filter]');
+
   if (gallery) {
-    const shuffle = (arr: string[]) => arr.sort(() => Math.random() - 0.5);
-    const portrait = shuffle(JSON.parse(gallery.dataset.portrait || '[]')).slice(0, 3);
-    const landscape = shuffle(JSON.parse(gallery.dataset.landscape || '[]')).slice(0, 3);
-    // Alterner verticale / horizontale
-    const interleaved = portrait.flatMap((p, i) => [p, landscape[i]]);
-    gallery.innerHTML = interleaved.map(src => `
-      <div class="masonry-preview-item overflow-hidden group">
+    const shuffle = (arr: string[]) => [...arr].sort(() => Math.random() - 0.5);
+    const portraitAll = JSON.parse(gallery.dataset.portrait || '[]');
+    const landscapeAll = JSON.parse(gallery.dataset.landscape || '[]');
+
+    const renderPreview = (filter: string) => {
+      let selection: string[] = [];
+
+      if (filter === 'portrait') {
+        selection = shuffle(portraitAll).slice(0, 4);
+      } else if (filter === 'evenementiel') {
+        selection = shuffle(landscapeAll).slice(0, 4);
+      } else {
+        selection = shuffle([
+          ...shuffle(portraitAll).slice(0, 2),
+          ...shuffle(landscapeAll).slice(0, 2),
+        ]).slice(0, 4);
+      }
+
+      gallery.innerHTML = selection.map(src => `
+      <div class="preview-grid-item group">
         <img src="${src}" alt="Photo" loading="lazy" decoding="async"
-          class="w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
       </div>
     `).join('');
+    };
+
+    previewFilterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.previewFilter || 'all';
+
+        previewFilterButtons.forEach((b) => {
+          b.classList.remove('text-amber-700', 'border-b', 'border-amber-700');
+          b.classList.add('text-neutral-500');
+          b.setAttribute('aria-pressed', 'false');
+        });
+
+        button.classList.add('text-amber-700', 'border-b', 'border-amber-700');
+        button.classList.remove('text-neutral-500');
+        button.setAttribute('aria-pressed', 'true');
+
+        renderPreview(filter);
+      });
+    });
+
+    renderPreview('all');
   }
 </script>
 

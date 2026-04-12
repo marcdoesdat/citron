@@ -1,0 +1,154 @@
+---
+interface GalleryItem {
+  src: string;
+  alt: string;
+  category?: string;
+}
+
+interface Props {
+  images: GalleryItem[];
+  count?: number;
+}
+
+const { images = [], count = 4 } = Astro.props;
+// On passe toutes les images au HTML ; le JS en choisira `count` au hasard côté client
+const galleryId = `swipe-gallery-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div id={galleryId} class="md:hidden -mx-6 px-6">
+  <div class="swipe-gallery-scrollbar flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 scroll-smooth" data-swipe-rail>
+    {images.map((image) => (
+      <figure class="snap-center shrink-0 w-[85vw]" data-swipe-item>
+        {image.category && (
+          <p class="mb-2 text-xs font-medium tracking-[0.18em] uppercase text-neutral-400">{image.category}</p>
+        )}
+        <img
+          src={image.src}
+          alt={image.alt}
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full aspect-[4/5] object-cover rounded-md"
+        />
+      </figure>
+    ))}
+  </div>
+
+  <div class="flex items-center justify-center gap-2 pt-4" data-swipe-dots aria-label="Navigation du carrousel">
+    {images.map((_, index) => (
+      <button
+        type="button"
+        class={`h-2.5 w-2.5 rounded-full transition-all duration-200 ${index === 0 ? 'bg-neutral-900' : 'bg-neutral-300'}`}
+        data-swipe-dot={index}
+        aria-label={`Voir la photo ${index + 1}`}
+        aria-current={index === 0 ? 'true' : 'false'}
+      ></button>
+    ))}
+  </div>
+</div>
+
+<div class="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-4" id={`${galleryId}-desktop`}>
+  {images.map((image) => (
+    <figure>
+      {image.category && (
+        <p class="mb-2 text-xs font-medium tracking-[0.18em] uppercase text-neutral-400">{image.category}</p>
+      )}
+      <img
+        src={image.src}
+        alt={image.alt}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-full aspect-[4/5] object-cover rounded-md"
+      />
+    </figure>
+  ))}
+</div>
+
+<style>
+  .swipe-gallery-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .swipe-gallery-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script is:inline define:vars={{ galleryId, count }}>
+  const galleryRoot = document.getElementById(galleryId);
+
+  if (galleryRoot) {
+    // ── Sélection aléatoire de `count` images au chargement ──────────────
+    const allItems = Array.from(galleryRoot.querySelectorAll('[data-swipe-item]'));
+    const allDots  = Array.from(galleryRoot.querySelectorAll('[data-swipe-dot]'));
+    const desktopFigs = Array.from(galleryRoot.closest('div')?.nextElementSibling?.querySelectorAll('figure') ?? []);
+
+    // Fisher-Yates shuffle sur les indices
+    const indices = allItems.map((_, i) => i);
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    const chosen = new Set(indices.slice(0, count));
+
+    // Cacher les éléments non choisis (mobile rail + dots)
+    allItems.forEach((item, i) => { if (!chosen.has(i)) item.style.display = 'none'; });
+    allDots.forEach((dot, i)   => { if (!chosen.has(i)) dot.style.display  = 'none'; });
+
+    // Desktop : cacher les figures non choisies
+    const desktopGrid = document.getElementById(`${galleryId}-desktop`);
+    if (desktopGrid) {
+      const dFigs = Array.from(desktopGrid.querySelectorAll('figure'));
+      dFigs.forEach((fig, i) => { if (!chosen.has(i)) fig.style.display = 'none'; });
+    }
+
+    const rail  = galleryRoot.querySelector('[data-swipe-rail]');
+    const items = allItems.filter((_, i) => chosen.has(i));
+    const dots  = allDots.filter((_, i)  => chosen.has(i));
+
+    const setActiveDot = (activeIndex) => {
+      dots.forEach((dot, index) => {
+        const isActive = index === activeIndex;
+        dot.classList.toggle('bg-neutral-900', isActive);
+        dot.classList.toggle('bg-neutral-300', !isActive);
+        dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+      });
+    };
+
+    const getNearestIndex = () => {
+      const railCenter = rail.scrollLeft + rail.clientWidth / 2;
+      let nearestIndex = 0;
+      let minDistance = Number.POSITIVE_INFINITY;
+
+      items.forEach((item, index) => {
+        const itemCenter = item.offsetLeft + item.clientWidth / 2;
+        const distance = Math.abs(itemCenter - railCenter);
+        if (distance < minDistance) {
+          minDistance = distance;
+          nearestIndex = index;
+        }
+      });
+
+      return nearestIndex;
+    };
+
+    const syncFromScroll = () => {
+      setActiveDot(getNearestIndex());
+    };
+
+    rail.addEventListener('scroll', syncFromScroll, { passive: true });
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        const item = items[index];
+        if (!item) return;
+        rail.scrollTo({
+          left: item.offsetLeft - (rail.clientWidth - item.clientWidth) / 2,
+          behavior: 'smooth',
+        });
+        setActiveDot(index);
+      });
+    });
+
+    syncFromScroll();
+  }
+</script>

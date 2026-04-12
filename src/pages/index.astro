@@ -1,37 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import InstagramFeed from '../components/InstagramFeed.astro';
+import SwipeGallery from '../components/SwipeGallery.astro';
 import { Image } from 'astro:assets';
 
-// Verticales (hauteur > largeur)
-const portraitImages = [
-  '/images/portfolio/DSC08557.jpg',
-  '/images/portfolio/_DSC3143.jpg',
-  '/images/portfolio/_DSC1428.jpg',
-  '/images/portfolio/_DSC3964.jpg',
-  '/images/portfolio/_DSC3942.jpg',
-  '/images/portfolio/_DSC6843.jpg',
-  '/images/portfolio/_DSC8007.jpg',
-  '/images/portfolio/_CTN6791.jpg',
-  '/images/portfolio/_CTN6835.jpg',
+const allPortfolioImages = [
+  { src: '/images/portfolio/DSC08557.jpg', alt: 'Portrait en lumière naturelle', category: 'Portrait' },
+  { src: '/images/portfolio/_DSC3143.jpg', alt: 'Portrait urbain',               category: 'Portrait' },
+  { src: '/images/portfolio/_DSC1428.jpg', alt: 'Portrait expressif',            category: 'Portrait' },
+  { src: '/images/portfolio/_DSC3834.jpg', alt: 'Portrait contemplatif',         category: 'Portrait' },
+  { src: '/images/portfolio/_DSC3964.jpg', alt: 'Portrait en extérieur',         category: 'Portrait' },
+  { src: '/images/portfolio/_DSC5194.jpg', alt: 'Lumière de ville',              category: 'Portrait' },
+  { src: '/images/portfolio/_DSC3942.jpg', alt: 'Regard naturel',                category: 'Portrait' },
+  { src: '/images/portfolio/_DSC6843.jpg', alt: 'Portrait artistique',           category: 'Portrait' },
+  { src: '/images/portfolio/_DSC8007.jpg', alt: 'Portrait en milieu urbain',     category: 'Portrait' },
+  { src: '/images/portfolio/_CTN5839.jpg', alt: 'Ambiance événementielle',       category: 'Événement' },
+  { src: '/images/portfolio/_CTN6190.jpg', alt: 'Ambiance événementielle',       category: 'Événement' },
+  { src: '/images/portfolio/_CTN6198.jpg', alt: 'Moment de fête',                category: 'Événement' },
+  { src: '/images/portfolio/_CTN6390.jpg', alt: 'Scène capturée en événement',   category: 'Événement' },
+  { src: '/images/portfolio/_CTN6791.jpg', alt: 'Événement en salle',            category: 'Événement' },
+  { src: '/images/portfolio/_CTN6835.jpg', alt: 'Reportage événementiel',        category: 'Événement' },
+  { src: '/images/portfolio/_CTN7110.jpg', alt: 'Reportage événementiel',        category: 'Événement' },
+  { src: '/images/portfolio/_CTN7436.jpg', alt: 'Scène capturée en événement',   category: 'Événement' },
+  { src: '/images/portfolio/_CTN8165.jpg', alt: 'Ambiance festive',              category: 'Événement' },
+  { src: '/images/portfolio/_CTN8171.jpg', alt: 'Scène de vie',                  category: 'Événement' },
+  { src: '/images/portfolio/_CTN8181.jpg', alt: 'Portrait en lumière douce',     category: 'Événement' },
+  { src: '/images/portfolio/_CTN8218.jpg', alt: 'Moment capturé',                category: 'Événement' },
+  { src: '/images/portfolio/_CTN8263.jpg', alt: 'Ambiance festive',              category: 'Événement' },
 ];
 
-// Horizontales (largeur > hauteur)
-const landscapeImages = [
-  '/images/portfolio/_DSC3834.jpg',
-  '/images/portfolio/_DSC5194.jpg',
-  '/images/portfolio/_CTN5839.jpg',
-  '/images/portfolio/_CTN6190.jpg',
-  '/images/portfolio/_CTN6198.jpg',
-  '/images/portfolio/_CTN6390.jpg',
-  '/images/portfolio/_CTN7110.jpg',
-  '/images/portfolio/_CTN7436.jpg',
-  '/images/portfolio/_CTN8165.jpg',
-  '/images/portfolio/_CTN8171.jpg',
-  '/images/portfolio/_CTN8181.jpg',
-  '/images/portfolio/_CTN8218.jpg',
-  '/images/portfolio/_CTN8263.jpg',
-];
+const previewImages = allPortfolioImages;
 ---
 
 <Layout
@@ -61,15 +59,27 @@ const landscapeImages = [
       <h1 class="font-serif text-3xl sm:text-5xl font-semibold leading-[1.05] tracking-[0.01em] max-w-md text-balance">
         Photographe et vidéaste à Montréal
       </h1>
-      <p class="mt-3 text-sm sm:text-base text-white/85 max-w-xs leading-relaxed">
-        Portraits et événements
+      <p class="site-tagline font-serif mt-3 text-white/85 leading-relaxed">
+        Création visuelle pour particuliers et professionnels
       </p>
-      <a
-        href="/portfolio"
-        class="flex w-fit mx-auto items-center justify-center mt-8 px-6 py-3 text-xs font-semibold tracking-[0.14em] uppercase text-white border border-white/90 rounded-sm min-h-11 hover:bg-white hover:text-neutral-900 active:bg-white active:text-neutral-900 active:border-white transition-colors duration-150"
-      >
-        Voir le portfolio
-      </a>
+    </div>
+  </section>
+
+  <!-- ═══ APERÇU PORTFOLIO ════════════════════════════════════════════════ -->
+  <section class="py-16 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="font-serif text-4xl sm:text-5xl font-light text-neutral-900 mb-4">Portfolio</h2>
+      </div>
+      <SwipeGallery images={previewImages} />
+      <div class="text-center mt-12">
+        <a
+          href="/portfolio"
+          class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
+        >
+          Voir tout le portfolio
+        </a>
+      </div>
     </div>
   </section>
 
@@ -108,55 +118,6 @@ const landscapeImages = [
           class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
         >
           Découvrir mon travail
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ APERÇU PORTFOLIO ════════════════════════════════════════════════ -->
-  <section class="py-16 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-14">
-        <h2 class="font-serif text-4xl sm:text-5xl font-light text-neutral-900 mb-4">Portfolio</h2>
-      </div>
-      <div class="flex flex-wrap justify-center gap-6 px-2 mb-8">
-        <button
-          type="button"
-          class="text-xs font-medium tracking-[0.18em] uppercase transition-colors duration-200 pb-1 text-amber-700 border-b border-amber-700"
-          aria-pressed="true"
-          data-preview-filter="all"
-        >
-          Tous
-        </button>
-        <button
-          type="button"
-          class="text-xs font-medium tracking-[0.18em] uppercase transition-colors duration-200 pb-1 text-neutral-500 hover:text-neutral-900"
-          aria-pressed="false"
-          data-preview-filter="portrait"
-        >
-          Portrait
-        </button>
-        <button
-          type="button"
-          class="text-xs font-medium tracking-[0.18em] uppercase transition-colors duration-200 pb-1 text-neutral-500 hover:text-neutral-900"
-          aria-pressed="false"
-          data-preview-filter="evenementiel"
-        >
-          Événementiel
-        </button>
-      </div>
-      <div
-        id="preview-gallery"
-        class="preview-grid"
-        data-portrait={JSON.stringify(portraitImages)}
-        data-landscape={JSON.stringify(landscapeImages)}
-      ></div>
-      <div class="text-center mt-12">
-        <a
-          href="/portfolio"
-          class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
-        >
-          Voir tout le portfolio
         </a>
       </div>
     </div>
@@ -268,19 +229,6 @@ const landscapeImages = [
     }
   }
 
-  .preview-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
-    max-width: 38rem;
-    margin: 0 auto;
-  }
-
-  .preview-grid-item {
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-  }
-
   .service-card-item {
     position: relative;
     overflow: hidden;
@@ -323,57 +271,6 @@ const landscapeImages = [
       setTimeout(() => card.classList.remove('active'), 300);
     });
   });
-
-  const gallery = document.getElementById('preview-gallery');
-  const previewFilterButtons = document.querySelectorAll<HTMLButtonElement>('[data-preview-filter]');
-
-  if (gallery) {
-    const shuffle = (arr: string[]) => [...arr].sort(() => Math.random() - 0.5);
-    const portraitAll = JSON.parse(gallery.dataset.portrait || '[]');
-    const landscapeAll = JSON.parse(gallery.dataset.landscape || '[]');
-
-    const renderPreview = (filter: string) => {
-      let selection: string[] = [];
-
-      if (filter === 'portrait') {
-        selection = shuffle(portraitAll).slice(0, 4);
-      } else if (filter === 'evenementiel') {
-        selection = shuffle(landscapeAll).slice(0, 4);
-      } else {
-        selection = shuffle([
-          ...shuffle(portraitAll).slice(0, 2),
-          ...shuffle(landscapeAll).slice(0, 2),
-        ]).slice(0, 4);
-      }
-
-      gallery.innerHTML = selection.map(src => `
-      <div class="preview-grid-item group">
-        <img src="${src}" alt="Photo" loading="lazy" decoding="async"
-          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-      </div>
-    `).join('');
-    };
-
-    previewFilterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const filter = button.dataset.previewFilter || 'all';
-
-        previewFilterButtons.forEach((b) => {
-          b.classList.remove('text-amber-700', 'border-b', 'border-amber-700');
-          b.classList.add('text-neutral-500');
-          b.setAttribute('aria-pressed', 'false');
-        });
-
-        button.classList.add('text-amber-700', 'border-b', 'border-amber-700');
-        button.classList.remove('text-neutral-500');
-        button.setAttribute('aria-pressed', 'true');
-
-        renderPreview(filter);
-      });
-    });
-
-    renderPreview('all');
-  }
 </script>
 
 </Layout>

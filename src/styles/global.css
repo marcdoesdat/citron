@@ -76,6 +76,19 @@ img {
   display: block;
 }
 
+.site-tagline {
+  white-space: nowrap;
+  font-size: clamp(0.62rem, 2.9vw, 0.95rem);
+}
+
+@media (min-width: 640px) {
+  .site-tagline {
+    white-space: normal;
+    text-wrap: balance;
+    font-size: 1rem;
+  }
+}
+
 /* ─── Scroll reveal ──────────────────────────────────────────────────────── */
 .reveal {
   opacity: 0;

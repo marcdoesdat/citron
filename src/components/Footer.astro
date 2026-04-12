@@ -6,36 +6,53 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer class="border-t border-neutral-200 mt-16">
-  <div class="max-w-5xl mx-auto px-6 py-16 text-center space-y-8">
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-10">
 
-    <!-- Nom en serif -->
-    <a href="/" class="inline-block">
-      <p class="font-serif text-3xl sm:text-4xl font-light tracking-[0.12em] uppercase text-neutral-900">
-        Alex Diotte
-      </p>
-    </a>
-
-    <!-- Liens -->
-    <nav class="flex flex-wrap items-center justify-center gap-8" aria-label="Liens du pied de page">
-      <a href="/" class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors">Accueil</a>
-      <a href="/portfolio" class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors">Portfolio</a>
-      <a href="/services" class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors">Services</a>
-      <a href="/contact" class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors">Contact</a>
-      <a href="https://www.instagram.com/_citronnnade_/" target="_blank" rel="noopener noreferrer" class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors">Instagram</a>
-    </nav>
-
-    <!-- Contact -->
-    <div class="space-y-1">
-      <a href="mailto:alexdiottephoto@gmail.com" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">
-        alexdiottephoto@gmail.com
+    <!-- Signature -->
+    <div class="text-center space-y-3">
+      <a href="/" class="inline-block">
+        <p class="font-serif text-3xl sm:text-4xl font-light tracking-[0.12em] uppercase text-neutral-900">
+          Alex Diotte
+        </p>
       </a>
-      <p class="text-sm text-neutral-400">Montréal, Québec</p>
+      <p class="site-tagline font-serif text-neutral-500">Création visuelle pour particuliers et professionnels</p>
     </div>
 
-    <!-- Copyright -->
-    <p class="text-xs text-neutral-400">
-      &copy; {currentYear} Alex Diotte Photographie
-    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+      <div class="space-y-4">
+        <h3 class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-900">Navigation</h3>
+        <nav class="space-y-2" aria-label="Liens du pied de page">
+          <a href="/" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">Accueil</a>
+          <a href="/portfolio" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">Portfolio</a>
+          <a href="/services" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">Services & Tarifs</a>
+          <a href="/contact" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">Contact</a>
+        </nav>
+      </div>
+
+      <div class="space-y-4">
+        <h3 class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-900">Réseaux sociaux</h3>
+        <div class="space-y-2">
+          <a href="https://www.instagram.com/_citronnnade_/" target="_blank" rel="noopener noreferrer" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">Instagram</a>
+          <a href="https://www.youtube.com/channel/UCz7TYiKkP3mUXyYoNa0P09g" target="_blank" rel="noopener noreferrer" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">YouTube</a>
+          <a href="mailto:alexdiottephoto@gmail.com" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">alexdiottephoto@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <h3 class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-900">Zone desservie</h3>
+        <p class="text-sm text-neutral-500 leading-relaxed">
+          Montréal et Rive-Nord.
+        </p>
+        <p class="text-xs text-neutral-400 uppercase tracking-[0.12em]">
+          Photographe portrait, corporatif et événementiel
+        </p>
+      </div>
+    </div>
+
+    <div class="pt-6 border-t border-neutral-100 text-center space-y-2">
+      <p class="text-xs text-neutral-400">&copy; {currentYear} Alex Diotte Photographie. Tous droits réservés.</p>
+      <a href="/mentions-legales" class="inline-block text-xs text-neutral-400 uppercase tracking-[0.12em] hover:text-neutral-900 transition-colors">Mentions légales</a>
+    </div>
 
   </div>
 </footer>

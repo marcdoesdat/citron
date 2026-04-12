@@ -1,4 +1,4 @@
----
+﻿---
 const navLinks = [
   { href: '/',          label: 'Accueil'   },
   { href: '/portfolio', label: 'Portfolio' },
@@ -14,7 +14,7 @@ const currentPath = Astro.url.pathname;
 
     <!-- Logo gauche -->
     <a href="/" class="shrink-0 relative z-[60]">
-      <span id="logo-text" class="font-serif text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.12em] uppercase text-neutral-900 transition-colors duration-300">
+      <span id="logo-text" class="font-serif text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.12em] uppercase text-neutral-900 transition-colors duration-150">
         Alex Diotte
       </span>
     </a>
@@ -52,19 +52,19 @@ const currentPath = Astro.url.pathname;
         class="relative z-[60] flex flex-col justify-center gap-[5px] w-8 h-8 cursor-pointer"
         aria-label="Ouvrir le menu de navigation"
       >
-        <span class="block h-[1px] w-full bg-neutral-900 transition-all duration-400 peer-checked:rotate-45 peer-checked:translate-y-[6px] origin-center" id="bar1"></span>
-        <span class="block h-[1px] w-full bg-neutral-900 transition-all duration-400 peer-checked:opacity-0" id="bar2"></span>
-        <span class="block h-[1px] w-full bg-neutral-900 transition-all duration-400 peer-checked:-rotate-45 peer-checked:-translate-y-[6px] origin-center" id="bar3"></span>
+        <span class="block h-[1px] w-full bg-neutral-900 transition-transform duration-200 peer-checked:rotate-45 peer-checked:translate-y-[6px] origin-center" id="bar1"></span>
+        <span class="block h-[1px] w-full bg-neutral-900 transition-opacity duration-150 peer-checked:opacity-0" id="bar2"></span>
+        <span class="block h-[1px] w-full bg-neutral-900 transition-transform duration-200 peer-checked:-rotate-45 peer-checked:-translate-y-[6px] origin-center" id="bar3"></span>
       </label>
 
-      <!-- Overlay plein écran -->
+      <!-- Overlay plein ecran -->
       <nav
         id="mobile-nav"
         aria-label="Menu mobile"
         class="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8
-               bg-neutral-900/95 backdrop-blur-sm
+               bg-neutral-900/96
                opacity-0 pointer-events-none
-               transition-opacity duration-400
+               transition-opacity duration-200
                peer-checked:opacity-100 peer-checked:pointer-events-auto"
       >
         {navLinks.map(({ href, label }) => (

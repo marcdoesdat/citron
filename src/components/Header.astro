@@ -10,15 +10,17 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header id="site-header" class="sticky top-0 z-50 bg-white transition-[background-color,backdrop-filter,box-shadow] duration-300">
-  <div class="max-w-5xl mx-auto px-6 pt-10 pb-6 text-center">
+  <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
 
-    <a href="/" class="block mb-6">
-      <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-[0.12em] uppercase text-neutral-900 leading-tight">
+    <!-- Logo gauche -->
+    <a href="/" class="shrink-0 relative z-[60]">
+      <span id="logo-text" class="font-serif text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.12em] uppercase text-neutral-900 transition-colors duration-300">
         Alex Diotte
-      </h1>
+      </span>
     </a>
 
-    <nav aria-label="Navigation principale" class="hidden md:flex items-center justify-center gap-10">
+    <!-- Nav desktop (droite) -->
+    <nav aria-label="Navigation principale" class="hidden md:flex items-center gap-10">
       {navLinks.map(({ href, label }) => (
         <a
           href={href}
@@ -40,32 +42,38 @@ const currentPath = Astro.url.pathname;
       </a>
     </nav>
 
-    <div class="md:hidden flex justify-center">
+    <!-- Hamburger mobile (droite) -->
+    <div class="md:hidden">
       <input type="checkbox" id="nav-toggle" class="sr-only peer" />
+
+      <!-- Bouton hamburger / croix -->
       <label
         for="nav-toggle"
-        class="flex flex-col justify-center gap-[5px] w-8 h-8 cursor-pointer"
+        class="relative z-[60] flex flex-col justify-center gap-[5px] w-8 h-8 cursor-pointer"
         aria-label="Ouvrir le menu de navigation"
       >
-        <span class="block h-[1px] w-full bg-neutral-900 transition-all duration-300 peer-checked:rotate-45 peer-checked:translate-y-[6px] origin-center"></span>
-        <span class="block h-[1px] w-full bg-neutral-900 transition-all duration-300 peer-checked:opacity-0"></span>
-        <span class="block h-[1px] w-full bg-neutral-900 transition-all duration-300 peer-checked:-rotate-45 peer-checked:-translate-y-[6px] origin-center"></span>
+        <span class="block h-[1px] w-full bg-neutral-900 transition-all duration-400 peer-checked:rotate-45 peer-checked:translate-y-[6px] origin-center" id="bar1"></span>
+        <span class="block h-[1px] w-full bg-neutral-900 transition-all duration-400 peer-checked:opacity-0" id="bar2"></span>
+        <span class="block h-[1px] w-full bg-neutral-900 transition-all duration-400 peer-checked:-rotate-45 peer-checked:-translate-y-[6px] origin-center" id="bar3"></span>
       </label>
 
+      <!-- Overlay plein écran -->
       <nav
+        id="mobile-nav"
         aria-label="Menu mobile"
-        class="fixed top-36 left-0 right-0 bg-white border-b border-neutral-100 shadow-sm
-               flex flex-col max-h-0 overflow-hidden transition-all duration-300
-               peer-checked:max-h-80
-               px-6 py-0 peer-checked:py-6 gap-5 z-50"
+        class="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8
+               bg-neutral-900/95 backdrop-blur-sm
+               opacity-0 pointer-events-none
+               transition-opacity duration-400
+               peer-checked:opacity-100 peer-checked:pointer-events-auto"
       >
         {navLinks.map(({ href, label }) => (
           <a
             href={href}
-            class={`text-xs font-medium tracking-[0.18em] uppercase text-center transition-colors duration-200 ${
+            class={`font-serif text-4xl font-light tracking-[0.1em] transition-colors duration-200 ${
               currentPath === href
-                ? 'text-amber-700'
-                : 'text-neutral-500 hover:text-neutral-900'
+                ? 'text-amber-400'
+                : 'text-white hover:text-amber-400'
             }`}
             aria-current={currentPath === href ? 'page' : undefined}
           >
@@ -74,33 +82,68 @@ const currentPath = Astro.url.pathname;
         ))}
         <a
           href="/#instagram"
-          class="text-xs font-medium tracking-[0.18em] uppercase text-center text-neutral-500 hover:text-neutral-900 transition-colors"
+          class="font-serif text-4xl font-light tracking-[0.1em] text-white hover:text-amber-400 transition-colors duration-200"
         >
           Instagram
         </a>
+
+        <!-- Infos de contact en bas -->
+        <div class="absolute bottom-12 text-center space-y-1">
+          <a href="mailto:alexdiottephoto@gmail.com" class="block text-xs tracking-[0.15em] text-white/40 hover:text-white/70 transition-colors">
+            alexdiottephoto@gmail.com
+          </a>
+          <p class="text-xs tracking-[0.15em] text-white/25 uppercase">Montréal, Québec</p>
+        </div>
       </nav>
     </div>
 
   </div>
-
   <div class="border-b border-neutral-200"></div>
 </header>
 
 <script is:inline>
   const header = document.getElementById('site-header');
+  const logoText = document.getElementById('logo-text');
+  const navToggle = document.getElementById('nav-toggle');
+
+  const setHeaderHeight = () => {
+    if (header) {
+      document.documentElement.style.setProperty('--header-height', header.offsetHeight + 'px');
+    }
+  };
 
   if (header) {
+    setHeaderHeight();
+    window.addEventListener('resize', setHeaderHeight, { passive: true });
+
     const toggleHeaderState = () => {
       const isScrolled = window.scrollY > 8;
-
       header.classList.toggle('bg-white/80', isScrolled);
       header.classList.toggle('backdrop-blur-md', isScrolled);
       header.classList.toggle('shadow-sm', isScrolled);
-
       header.classList.toggle('bg-white', !isScrolled);
     };
 
     toggleHeaderState();
     window.addEventListener('scroll', toggleHeaderState, { passive: true });
   }
+
+  // Logo blanc quand le menu overlay est ouvert
+  if (navToggle && logoText) {
+    navToggle.addEventListener('change', () => {
+      logoText.classList.toggle('text-white', navToggle.checked);
+      logoText.classList.toggle('text-neutral-900', !navToggle.checked);
+    });
+  }
+
+  // Fermer le menu au clic sur un lien
+  document.querySelectorAll('#mobile-nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (navToggle) navToggle.checked = false;
+      if (logoText) {
+        logoText.classList.remove('text-white');
+        logoText.classList.add('text-neutral-900');
+      }
+    });
+  });
 </script>

@@ -8,36 +8,95 @@ interface Props {
 
 const { title, description, ogImage, canonicalPath } = Astro.props;
 
-const siteName = "Alex Diotte Photographie";
-const siteUrl = Astro.site?.toString() ?? "https://citronphoto.netlify.app";
-const fullTitle = title === siteName ? siteName : `${title} | ${siteName}`;
+const siteName   = "Alex Diotte Photographie";
+const siteUrl    = Astro.site?.toString() ?? "https://citronphoto.netlify.app";
+const fullTitle  = title === siteName ? siteName : `${title} | ${siteName}`;
 
-const canonical = new URL(
-  canonicalPath ?? Astro.url.pathname,
-  siteUrl
-).toString();
-
+const canonical  = new URL(canonicalPath ?? Astro.url.pathname, siteUrl).toString();
 const ogImageUrl = ogImage
   ? new URL(ogImage, siteUrl).toString()
   : new URL("/og-default.jpg", siteUrl).toString();
 
+const riveNordCities = [
+  "Montréal", "Terrebonne", "Laval", "Repentigny", "Mascouche",
+  "Saint-Jérôme", "Blainville", "Mirabel", "Boisbriand", "Sainte-Thérèse",
+  "Rosemère", "Bois-des-Filion", "Deux-Montagnes", "Saint-Eustache",
+  "L'Assomption", "Joliette", "Lachenaie", "Charlemagne",
+];
+
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["LocalBusiness", "ProfessionalService"],
   "name": siteName,
   "description": description,
   "url": siteUrl,
   "image": ogImageUrl,
+  "telephone": "+14388126026",
   "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Montréal",
+    "addressLocality": "Terrebonne",
     "addressRegion": "QC",
     "addressCountry": "CA"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 45.7059,
+    "longitude": -73.6447
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday","Tuesday","Wednesday","Thursday",
+      "Friday","Saturday","Sunday"
+    ],
+    "opens": "09:00",
+    "closes": "23:59"
+  },
+  "areaServed": riveNordCities.map(city => ({
+    "@type": "City",
+    "name": city
+  })),
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services photographiques",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Séance portrait",
+          "description": "Séance photo portrait individuelle ou en famille, en studio ou en extérieur à Montréal et sur la Rive-Nord",
+          "areaServed": "Montréal et Rive-Nord, Québec"
+        },
+        "price": "199",
+        "priceCurrency": "CAD"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Photographie événementielle",
+          "description": "Couverture photo d'événements professionnels et privés à Montréal et sur la Rive-Nord",
+          "areaServed": "Montréal et Rive-Nord, Québec"
+        },
+        "price": "299",
+        "priceCurrency": "CAD"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Photographie de mariage",
+          "description": "Couverture complète de mariage à Montréal et sur la Rive-Nord",
+          "areaServed": "Montréal et Rive-Nord, Québec"
+        }
+      }
+    ]
+  },
   "sameAs": [
     "https://www.instagram.com/_citronnnade_/",
-    "https://www.linkedin.com/in/alexdiotte"
+    "https://www.youtube.com/channel/UCz7TYiKkP3mUXyYoNa0P09g"
   ]
 };
 ---
@@ -47,14 +106,22 @@ const jsonLd = {
 <link rel="canonical" href={canonical} />
 <meta name="robots" content="index, follow" />
 
+<!-- Géolocalisation -->
+<meta name="geo.region" content="CA-QC" />
+<meta name="geo.placename" content="Terrebonne, Québec" />
+<meta name="geo.position" content="45.7059;-73.6447" />
+<meta name="ICBM" content="45.7059, -73.6447" />
+
+<!-- Open Graph -->
 <meta property="og:type" content="business.business" />
 <meta property="og:site_name" content={siteName} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={ogImageUrl} />
-<meta property="og:locale" content="fr_FR" />
+<meta property="og:locale" content="fr_CA" />
 
+<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />

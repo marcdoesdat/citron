@@ -7,28 +7,37 @@
 import Layout from '../layouts/Layout.astro';
 import PhotoGallery from '../components/PhotoGallery.astro';
 
-// 12 images avec seeds stables et dimensions variées pour un rendu masonry naturel
 const allImages = [
-  { src: 'https://picsum.photos/seed/port1/800/1067', alt: 'Portrait femme en lumière dorée', width: 800, height: 1067, category: 'Portrait' },
-  { src: 'https://picsum.photos/seed/port2/800/600',  alt: 'Cérémonie de mariage en plein air', width: 800, height: 600,  category: 'Mariage' },
-  { src: 'https://picsum.photos/seed/port3/800/1200', alt: 'Mariée regardant par la fenêtre', width: 800, height: 1200, category: 'Mariage' },
-  { src: 'https://picsum.photos/seed/port4/800/600',  alt: 'Conférence d\'entreprise en soirée', width: 800, height: 600,  category: 'Événementiel' },
-  { src: 'https://picsum.photos/seed/port5/800/800',  alt: 'Portrait corporatif en studio blanc', width: 800, height: 800,  category: 'Corporatif' },
-  { src: 'https://picsum.photos/seed/port6/800/1067', alt: 'Enfants jouant dans un jardin', width: 800, height: 1067, category: 'Portrait' },
-  { src: 'https://picsum.photos/seed/port7/800/600',  alt: 'Premiers pas de danse des mariés', width: 800, height: 600,  category: 'Mariage' },
-  { src: 'https://picsum.photos/seed/port8/800/1000', alt: 'Portrait homme en lumière naturelle', width: 800, height: 1000, category: 'Portrait' },
-  { src: 'https://picsum.photos/seed/port9/800/600',  alt: 'Gala associatif, soirée de remise de prix', width: 800, height: 600,  category: 'Événementiel' },
-  { src: 'https://picsum.photos/seed/port10/800/800', alt: 'Équipe dirigeante en extérieur', width: 800, height: 800,  category: 'Corporatif' },
-  { src: 'https://picsum.photos/seed/port11/800/1067',alt: 'Famille dans les champs au coucher du soleil', width: 800, height: 1067, category: 'Portrait' },
-  { src: 'https://picsum.photos/seed/port12/800/600', alt: 'Détails floraux d\'un mariage bohème', width: 800, height: 600,  category: 'Mariage' },
+  { src: '/images/portfolio/DSC08557.jpg',  alt: 'Portrait', width: 3211, height: 4817, category: 'Portrait' },
+  { src: '/images/portfolio/_DSC3143.jpg',  alt: 'Portrait', width: 4000, height: 6000, category: 'Portrait' },
+  { src: '/images/portfolio/_DSC1428.jpg',  alt: 'Portrait', width: 3376, height: 6000, category: 'Portrait' },
+  { src: '/images/portfolio/_DSC3834.jpg',  alt: 'Portrait', width: 6000, height: 4000, category: 'Portrait' },
+  { src: '/images/portfolio/_DSC3964.jpg',  alt: 'Portrait', width: 4000, height: 6000, category: 'Portrait' },
+  { src: '/images/portfolio/_DSC5194.jpg',  alt: 'Portrait', width: 4805, height: 3203, category: 'Portrait' },
+  { src: '/images/portfolio/_DSC3942.jpg',  alt: 'Portrait', width: 4000, height: 6000, category: 'Portrait' },
+  { src: '/images/portfolio/_DSC6843.jpg',  alt: 'Portrait', width: 4000, height: 6000, category: 'Portrait' },
+  { src: '/images/portfolio/_DSC8007.jpg',  alt: 'Portrait', width: 3991, height: 4392, category: 'Portrait' },
+  { src: '/images/portfolio/_CTN5839.jpg',  alt: 'Événement', width: 6000, height: 3376, category: 'Événementiel' },
+  { src: '/images/portfolio/_CTN6190.jpg',  alt: 'Événement', width: 6000, height: 3376, category: 'Événementiel' },
+  { src: '/images/portfolio/_CTN6198.jpg',  alt: 'Événement', width: 6000, height: 4000, category: 'Événementiel' },
+  { src: '/images/portfolio/_CTN6390.jpg',  alt: 'Événement', width: 6000, height: 4000, category: 'Événementiel' },
+  { src: '/images/portfolio/_CTN6791.jpg',  alt: 'Événement', width: 3389, height: 5083, category: 'Événementiel' },
+  { src: '/images/portfolio/_CTN6835.jpg',  alt: 'Événement', width: 3503, height: 5254, category: 'Événementiel' },
+  { src: '/images/portfolio/_CTN7110.jpg',  alt: 'Événement', width: 4861, height: 3241, category: 'Événementiel' },
+  { src: '/images/portfolio/_CTN7436.jpg',  alt: 'Événement', width: 6000, height: 4000, category: 'Événementiel' },
+  { src: '/images/portfolio/_CTN8165.jpg',  alt: 'Événement', width: 6000, height: 3376, category: 'Événementiel' },
+  { src: '/images/portfolio/_CTN8171.jpg',  alt: 'Événement', width: 6000, height: 4000, category: 'Événementiel' },
+  { src: '/images/portfolio/_CTN8181.jpg',  alt: 'Événement', width: 3850, height: 2166, category: 'Événementiel' },
+  { src: '/images/portfolio/_CTN8218.jpg',  alt: 'Événement', width: 6000, height: 4000, category: 'Événementiel' },
+  { src: '/images/portfolio/_CTN8263.jpg',  alt: 'Événement', width: 3098, height: 1743, category: 'Événementiel' },
 ];
 
-const categories = ['Tous', 'Mariage', 'Portrait', 'Événementiel', 'Corporatif'];
+const categories = ['Tous', 'Portrait', 'Événementiel'];
 ---
 
 <Layout
   title="Portfolio"
-  description="Découvrez le portfolio d'Alex Diotte : mariage, portrait, événementiel et corporatif. Une sélection de travaux photographiques réalisés en France et à l'international."
+  description="Portfolio d'Alex Diotte, photographe portrait et événementiel à Montréal, Terrebonne et sur toute la Rive-Nord du Québec."
 >
 
   <!-- En-tête de page -->
@@ -76,5 +85,33 @@ const categories = ['Tous', 'Mariage', 'Portrait', 'Événementiel', 'Corporatif
       Me contacter
     </a>
   </section>
+
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const items = document.querySelectorAll<HTMLElement>('[data-category]');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      // Mettre à jour l'état actif des boutons
+      buttons.forEach(b => {
+        b.classList.remove('text-amber-700', 'border-b', 'border-amber-700');
+        b.classList.add('text-neutral-500');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('text-amber-700', 'border-b', 'border-amber-700');
+      btn.classList.remove('text-neutral-500');
+      btn.setAttribute('aria-pressed', 'true');
+
+      // Afficher/masquer les photos
+      items.forEach(item => {
+        const show = filter === 'Tous' || item.dataset.category === filter;
+        item.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>
 
 </Layout>

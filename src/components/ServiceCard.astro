@@ -13,9 +13,10 @@ interface Props {
   icon?: string;
   featured?: boolean;
   ctaLabel?: string;
+  showStartingFrom?: boolean;
 }
 
-const { title, price, description, features, icon = 'portrait', featured = false, ctaLabel = 'Demander un devis' } = Astro.props;
+const { title, price, description, features, icon = 'portrait', featured = false, ctaLabel = 'Demander un devis', showStartingFrom = true } = Astro.props;
 ---
 
 <article
@@ -90,7 +91,7 @@ const { title, price, description, features, icon = 'portrait', featured = false
   <!-- Prix -->
   <div class="mb-6 flex items-baseline">
     <span class="text-3xl font-bold text-neutral-900">{price}</span>
-    <span class="ml-1 text-sm text-slate-500">à partir de</span>
+    {showStartingFrom && <span class="ml-1 text-sm text-slate-500">à partir de</span>}
   </div>
 
   <!-- Liste des inclus -->

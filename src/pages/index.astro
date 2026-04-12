@@ -1,43 +1,84 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import PhotoGallery from '../components/PhotoGallery.astro';
 import InstagramFeed from '../components/InstagramFeed.astro';
+import { Image } from 'astro:assets';
 
-const previewImages = [
-  { src: 'https://picsum.photos/seed/sophie1/800/600', alt: 'Portrait en lumière naturelle', width: 800, height: 600 },
-  { src: 'https://picsum.photos/seed/sophie2/800/600', alt: 'Cérémonie de mariage en extérieur', width: 800, height: 600 },
-  { src: 'https://picsum.photos/seed/sophie3/800/600', alt: 'Reportage événementiel en soirée', width: 800, height: 600 },
-  { src: 'https://picsum.photos/seed/sophie4/800/600', alt: 'Portrait corporatif en studio', width: 800, height: 600 },
-  { src: 'https://picsum.photos/seed/sophie5/800/600', alt: 'Séance portrait en plein air', width: 800, height: 600 },
-  { src: 'https://picsum.photos/seed/sophie6/800/600', alt: 'Détails de décoration de mariage', width: 800, height: 600 },
+// Verticales (hauteur > largeur)
+const portraitImages = [
+  '/images/portfolio/DSC08557.jpg',
+  '/images/portfolio/_DSC3143.jpg',
+  '/images/portfolio/_DSC1428.jpg',
+  '/images/portfolio/_DSC3964.jpg',
+  '/images/portfolio/_DSC3942.jpg',
+  '/images/portfolio/_DSC6843.jpg',
+  '/images/portfolio/_DSC8007.jpg',
+  '/images/portfolio/_CTN6791.jpg',
+  '/images/portfolio/_CTN6835.jpg',
+];
+
+// Horizontales (largeur > hauteur)
+const landscapeImages = [
+  '/images/portfolio/_DSC3834.jpg',
+  '/images/portfolio/_DSC5194.jpg',
+  '/images/portfolio/_CTN5839.jpg',
+  '/images/portfolio/_CTN6190.jpg',
+  '/images/portfolio/_CTN6198.jpg',
+  '/images/portfolio/_CTN6390.jpg',
+  '/images/portfolio/_CTN7110.jpg',
+  '/images/portfolio/_CTN7436.jpg',
+  '/images/portfolio/_CTN8165.jpg',
+  '/images/portfolio/_CTN8171.jpg',
+  '/images/portfolio/_CTN8181.jpg',
+  '/images/portfolio/_CTN8218.jpg',
+  '/images/portfolio/_CTN8263.jpg',
 ];
 ---
 
 <Layout
   title="Photographe Professionnelle"
-  description="Alex Diotte, photographe professionnel basé à Montréal, Québec. Spécialisé en mariage, portrait, événementiel et corporatif."
+  description="Alex Diotte, photographe professionnel à Montréal et sur la Rive-Nord (Terrebonne, Laval, Repentigny). Spécialisé en portrait et événementiel."
 >
 
   <!-- ═══ HERO — Image pleine page ═══════════════════════════════════════ -->
-  <section class="relative z-0 h-screen w-full overflow-hidden">
-    <img
+  <section
+    class="relative w-full overflow-hidden"
+    style="height: calc(100dvh - var(--header-height, 64px))"
+  >
+    <Image
       src="/hero.jpg"
       alt="Portrait photographique par Alex Diotte"
+      width={1920}
+      height={1080}
       loading="eager"
       decoding="sync"
-      class="w-full h-full object-cover"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
     />
+    <!-- Gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+    <!-- Contenu hero -->
+    <div class="absolute bottom-0 left-0 right-0 p-8 sm:p-14 text-white">
+      <p class="text-sm text-white/75 mb-8 max-w-xs leading-relaxed">
+        Photographe et vidéaste à Montréal — portraits et événements.
+      </p>
+      <a
+        href="/portfolio"
+        class="inline-block text-xs font-medium tracking-[0.18em] uppercase text-white border-b border-white pb-1 hover:text-white/70 hover:border-white/70 transition-colors"
+      >
+        Voir le portfolio
+      </a>
+    </div>
   </section>
 
   <!-- ═══ BIO ═════════════════════════════════════════════════════════════ -->
-  <section class="relative z-10 bg-white py-24 px-6">
-    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+  <section class="relative z-10 bg-white py-12 md:py-24 px-6">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
       <div class="overflow-hidden">
-        <img
+        <Image
           src="/alex-bio.jpg"
           alt="Alex Diotte, photographe professionnel"
-          width="600"
-          height="800"
+          width={600}
+          height={800}
           loading="lazy"
           decoding="async"
           class="w-full h-auto object-cover"
@@ -75,7 +116,12 @@ const previewImages = [
           Une sélection de moments capturés avec soin.
         </p>
       </div>
-      <PhotoGallery images={previewImages} columns={3} />
+      <div
+        id="preview-gallery"
+        class="masonry-preview"
+        data-portrait={JSON.stringify(portraitImages)}
+        data-landscape={JSON.stringify(landscapeImages)}
+      ></div>
       <div class="text-center mt-12">
         <a
           href="/portfolio"
@@ -87,10 +133,42 @@ const previewImages = [
     </div>
   </section>
 
+  <!-- ═══ SERVICES ════════════════════════════════════════════════════════ -->
+  <section class="py-16 px-6 border-t border-neutral-100">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="font-serif text-4xl sm:text-5xl font-light text-neutral-900 mb-4">Services & Tarifs</h2>
+        <p class="text-neutral-500 text-sm max-w-md mx-auto">
+          Des forfaits pensés pour chaque occasion.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+        <div class="border border-neutral-200 p-8 space-y-4">
+          <h3 class="font-serif text-2xl font-light text-neutral-900">Portrait</h3>
+          <p class="text-2xl font-light text-neutral-900">199$</p>
+          <p class="text-sm text-neutral-500">Séance individuelle ou en famille, en studio ou en extérieur.</p>
+        </div>
+        <div class="border border-neutral-200 p-8 space-y-4">
+          <h3 class="font-serif text-2xl font-light text-neutral-900">Événementiel</h3>
+          <p class="text-2xl font-light text-neutral-900">299$</p>
+          <p class="text-sm text-neutral-500">Couverture de vos événements professionnels et privés.</p>
+        </div>
+      </div>
+      <div class="text-center mt-12">
+        <a
+          href="/services"
+          class="inline-block text-xs font-medium tracking-[0.18em] uppercase text-neutral-900 border-b border-neutral-900 pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-colors"
+        >
+          Voir tous les services
+        </a>
+      </div>
+    </div>
+  </section>
+
   <InstagramFeed posts={[
-    'https://www.instagram.com/p/DTjIqmUEX8x/?img_index=1/',
-    'https://www.instagram.com/p/DT_nfv8jLck/?img_index=1/',
-    'https://www.instagram.com/p/DTtZNtvgXXU/?img_index=1/',
+    'https://www.instagram.com/p/DN_CcZmjttY/?img_index=1',
+    'https://www.instagram.com/p/DTjIqmUEX8x/?img_index=3',
+    'https://www.instagram.com/p/DO9ivZYDNLo/?img_index=1',
   ]} />
 
   <!-- ═══ CTA FINAL ═══════════════════════════════════════════════════════ -->
@@ -110,5 +188,30 @@ const previewImages = [
       </a>
     </div>
   </section>
+
+
+<style is:global>
+  .masonry-preview { columns: 1; column-gap: 1rem; }
+  @media (min-width: 640px)  { .masonry-preview { columns: 2; } }
+  @media (min-width: 1024px) { .masonry-preview { columns: 3; } }
+  .masonry-preview-item { break-inside: avoid; margin-bottom: 1rem; }
+</style>
+
+<script>
+  const gallery = document.getElementById('preview-gallery');
+  if (gallery) {
+    const shuffle = (arr: string[]) => arr.sort(() => Math.random() - 0.5);
+    const portrait = shuffle(JSON.parse(gallery.dataset.portrait || '[]')).slice(0, 3);
+    const landscape = shuffle(JSON.parse(gallery.dataset.landscape || '[]')).slice(0, 3);
+    // Alterner verticale / horizontale
+    const interleaved = portrait.flatMap((p, i) => [p, landscape[i]]);
+    gallery.innerHTML = interleaved.map(src => `
+      <div class="masonry-preview-item overflow-hidden group">
+        <img src="${src}" alt="Photo" loading="lazy" decoding="async"
+          class="w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+      </div>
+    `).join('');
+  }
+</script>
 
 </Layout>

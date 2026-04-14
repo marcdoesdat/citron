@@ -2,78 +2,155 @@
 import Layout from '../layouts/Layout.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 
-const services = [
+const portraitServices = [
   {
-    title: 'Portrait',
-    price: '199$',
-    description: 'Séance individuelle ou en famille, en studio ou en extérieur.',
+    title: 'Forfait de base',
+    price: '150 $',
+    showStartingFrom: false,
+    description: 'Portrait / contenu réseaux sociaux - formule essentielle.',
     icon: 'portrait',
     featured: true,
     ctaLabel: 'Réserver ma séance',
     features: [
-      '1h à 1h30 de séance photo',
-      '25 photos retouchées en haute résolution',
-      'Galerie en ligne privée pendant 30 jours',
-      'Impression A4 offerte',
+      'Durée : 1h30',
+      '10 photos retouchées',
+      'Livraison : 5 jours',
+      '1 emplacement',
     ],
   },
   {
-    title: 'Événementiel',
-    price: '399$',
-    description: 'Couverture de vos événements professionnels et privés.',
+    title: 'Forfait intermédiaire',
+    price: '225 $',
+    showStartingFrom: false,
+    description: 'Portrait / contenu réseaux sociaux - plus de temps et de variété.',
+    icon: 'portrait',
+    featured: false,
+    ctaLabel: 'Réserver ma séance',
+    features: [
+      'Durée : 2h30',
+      '20 photos retouchées',
+      'Livraison : 5 jours',
+      '1-2 emplacements',
+    ],
+  },
+  {
+    title: 'Forfait ultime',
+    price: '300 $',
+    showStartingFrom: false,
+    description: 'Portrait / contenu réseaux sociaux - expérience complète.',
+    icon: 'portrait',
+    featured: false,
+    ctaLabel: 'Réserver ma séance',
+    features: [
+      'Durée : 3h30',
+      '30 photos retouchées',
+      'Livraison rapide : 2-3 jours',
+      '1-3 emplacements',
+    ],
+  },
+];
+
+const eventServices = [
+  {
+    title: 'Forfait 3h',
+    price: '300 $',
+    showStartingFrom: false,
+    description: 'Événement (anniversaire, corporatif, etc.) - format court.',
     icon: 'event',
     featured: false,
     ctaLabel: 'Réserver ma séance',
     features: [
-      'Jusqu\'à 3h de couverture',
-      '80 photos retouchées en haute résolution',
-      'Livraison sous 72h',
-      'Galerie en ligne privée pendant 60 jours',
+      'Environ 100 photos livrées',
+      'Retouche incluse',
+      'Livraison sous 7 jours',
     ],
   },
   {
-    title: 'Mariage',
-    price: 'Sur demande',
+    title: 'Forfait 6h',
+    price: '450 $',
     showStartingFrom: false,
-    description: 'Couverture complète de votre plus beau jour, de la préparation à la soirée.',
-    icon: 'wedding',
-    featured: false,
-    ctaLabel: 'Vérifier mes disponibilités',
+    description: 'Événement (anniversaire, corporatif, etc.) - couverture complète.',
+    icon: 'event',
+    featured: true,
+    ctaLabel: 'Réserver ma séance',
     features: [
-      'Journée complète (préparatifs inclus)',
-      '300+ photos retouchées en haute résolution',
-      'Album photo premium (20×20 cm)',
-      'Séance engagement offerte (1h)',
-      'Galerie en ligne pendant 12 mois',
+      'Environ 200 photos livrées',
+      'Retouche incluse',
+      'Livraison sous 7 jours',
     ],
   },
   {
-    title: 'Corporatif',
-    price: '499$',
-    description: 'Photos professionnelles pour valoriser votre image de marque.',
+    title: 'Forfait 8h',
+    price: '600 $',
+    showStartingFrom: false,
+    description: 'Événement (anniversaire, corporatif, etc.) - journée longue.',
+    icon: 'event',
+    featured: false,
+    ctaLabel: 'Réserver ma séance',
+    features: [
+      'Environ 300 photos livrées',
+      'Retouche incluse',
+      'Livraison sous 7 jours',
+    ],
+  },
+];
+
+const corporateServices = [
+  {
+    title: 'Forfait Portrait d\'affaires',
+    price: '200 $',
+    showStartingFrom: true,
+    description: 'L\'essentiel - idéal pour les travailleurs autonomes ou la mise à jour d\'une équipe.',
     icon: 'corporate',
     featured: false,
+    ctaLabel: 'Réserver ma séance',
     features: [
-      '2h de séance en studio ou sur site',
-      '40 photos retouchées en haute résolution',
-      'Format adapté réseaux sociaux / LinkedIn',
-      'Livraison sous 5 jours ouvrés',
+      'Durée : 1h',
+      'Installation d\'un studio mobile dans vos bureaux ou en extérieur',
+      '5 photos retouchées en haute résolution',
+      'Licence d\'utilisation commerciale incluse',
+    ],
+  },
+  {
+    title: 'Forfait Banque d\'images',
+    price: '550 $',
+    showStartingFrom: true,
+    description: 'Le plus populaire 🌟 - idéal pour refondre un site web ou alimenter vos réseaux sociaux pendant plusieurs mois.',
+    icon: 'corporate',
+    featured: true,
+    ctaLabel: 'Réserver ma séance',
+    features: [
+      'Durée : demi-journée (environ 4h)',
+      'Mix de portraits de l\'équipe et de photos lifestyle en action',
+      '40+ photos retouchées',
+      'Licence d\'utilisation commerciale étendue',
+    ],
+  },
+  {
+    title: 'Forfait Production',
+    price: 'Sur devis',
+    showStartingFrom: false,
+    description: 'Sur mesure - pour les grandes campagnes, le lancement de produits ou la couverture complète d\'une entreprise.',
+    icon: 'corporate',
+    featured: false,
+    ctaLabel: 'Demander une soumission',
+    features: [
+      'Journée complète ou multi-jours',
+      'Direction artistique complète (planification en amont)',
+      'Retouches complexes (détourage, nettoyage de produits)',
+      'Cession de droits complète',
     ],
   },
 ];
 
 const faq = [
   {
-    q: 'Quels sont les délais pour recevoir mes photos ?',
-    a: 'Pour les séances portrait, vos photos vous seront livrées sous 5 à 7 jours ouvrables. Pour les mariages, prévoyez un délai de 3 à 4 semaines, le temps d\'accorder une attention minutieuse à la retouche de chaque cliché.',
-  },
-  {
     q: 'Vous déplacez-vous à l\'extérieur de Montréal ?',
     a: 'Oui ! Bien que je sois principalement actif dans la grande région de Montréal, je me déplace avec plaisir partout ailleurs, selon mes disponibilités. Des frais de kilométrage ou de déplacement peuvent s\'appliquer selon la distance.',
   },
   {
     q: 'Comment se déroule une séance portrait ?',
-    a: 'Tout commence par une discussion pour bien cerner vos attentes et votre vision. La séance en elle-même dure généralement de 1h à 1h30, dans le lieu qui correspond le mieux à votre projet (en studio, en extérieur ou dans le confort de votre domicile).',
+    a: 'Tout commence par une discussion pour bien cerner vos attentes et votre vision. La séance photo est dirigée avec un accompagnement sur les poses et l\'éclairage. Finalement, on fait la sélection et la retouche minutieuse des meilleures photos.',
   },
   {
     q: 'Puis-je ajouter des filtres aux photos reçues ?',
@@ -84,31 +161,63 @@ const faq = [
 
 <Layout
   title="Services & Tarifs"
-  description="Forfaits photo à Montréal et sur la Rive-Nord — Portrait dès 199$, Événementiel dès 299$. Alex Diotte, photographe professionnel à Terrebonne et environs."
+  description="Forfaits portrait, événement, corporatif et contenu réseaux sociaux à Montréal et sur la Rive-Nord."
 >
 
   <!-- En-tête -->
   <section class="py-20 px-6 text-center">
     <h1 class="font-serif text-5xl sm:text-6xl font-light tracking-[0.08em] text-neutral-900 mb-4">Services & Tarifs</h1>
     <p class="text-neutral-500 text-sm max-w-md mx-auto leading-relaxed">
-      Des forfaits pensés pour chaque occasion, avec un seul objectif : créer des images qui vous ressemblent.
+      Portrait, événement, corporatif et contenu réseaux sociaux : des forfaits clairs, flexibles et adaptés à vos objectifs.
     </p>
   </section>
 
-  <!-- Grille des forfaits -->
+  <!-- Grille Portrait / Réseaux sociaux -->
   <section class="px-6 pb-16 max-w-5xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {services.map((service) => (
+    <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-8 text-center">Portrait / Contenu Réseaux Sociaux</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {portraitServices.map((service) => (
         <ServiceCard {...service} />
       ))}
     </div>
   </section>
 
-  <!-- Note sur les tarifs -->
-  <div class="max-w-5xl mx-auto px-6 mb-16">
-    <p class="text-sm text-slate-400 text-center border-t border-slate-100 pt-8">
-      * Les tarifs ci-dessus sont à titre indicatif. Contactez-moi pour une soumission sur mesure.
+  <!-- Grille Événement -->
+  <section class="px-6 pb-16 max-w-5xl mx-auto">
+    <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-8 text-center">Événement</h2>
+    <p class="text-neutral-500 text-sm max-w-xl mx-auto text-center mb-8">
+      Anniversaire, corporatif et autres événements.
     </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {eventServices.map((service) => (
+        <ServiceCard {...service} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Grille Corporatif -->
+  <section class="px-6 pb-16 max-w-5xl mx-auto">
+    <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-4 text-center">Corporatif & Image de marque</h2>
+    <p class="text-neutral-500 text-sm max-w-2xl mx-auto text-center mb-8">
+      Pour les professionnels, les PME et la création de banques d'images.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {corporateServices.map((service) => (
+        <ServiceCard {...service} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Extras -->
+  <div class="max-w-5xl mx-auto px-6 mb-16 border-t border-slate-100 pt-8">
+    <h2 class="font-serif text-2xl font-light text-neutral-900 mb-4 text-center">Extras 🍋</h2>
+    <ul class="text-sm text-slate-500 max-w-2xl mx-auto space-y-2">
+      <li>+100 $ / heure supplémentaire</li>
+      <li>+250 $ pour montage vidéo récap (1-2 min)</li>
+      <li>+75 $ pour livraison rapide (2-3 jours)</li>
+      <li>Imprimerie disponible sur demande</li>
+      <li>50¢ / km en dehors de Montréal et Rive-Nord</li>
+    </ul>
   </div>
 
   <!-- Section FAQ rapide -->

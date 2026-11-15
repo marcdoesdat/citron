@@ -1,44 +1,65 @@
 @import "tailwindcss";
 
 /* ─── Design tokens ─────────────────────────────────────────────────────── */
+/* Identité « citron » : fond encre, texte cassé, un seul accent acide.      */
 @theme {
-  --color-background: #ffffff;
-  --color-foreground: #1a1a1a;
-  --color-accent:      #b8860b;
-  --color-accent-dark: #8b6914;
-  --color-accent-hover:#6b4f10;
-  --color-border:      #e5e5e5;
-  --color-muted:       #888888;
+  --color-ink:     #0a0a0a;   /* fond principal */
+  --color-surface: #151515;   /* champs, cartes */
+  --color-fg:      #f3f3ef;   /* texte principal */
+  --color-muted:   #a3a39c;   /* texte secondaire (contraste ~8:1) */
+  --color-subtle:  #7c7c76;   /* méta, légendes (contraste ~4.7:1) */
+  --color-line:    #2a2a2a;   /* bordures */
+  --color-citron:  #e4ff1a;   /* accent unique */
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Cormorant Garamond", "Georgia", serif;
+  --font-sans:    "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  color-scheme: dark;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  background-color: var(--color-ink);
+  color: var(--color-fg);
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Boost body-copy contrast on white backgrounds for outdoor readability. */
-main .text-neutral-500,
-main .text-slate-500,
-main .text-slate-400 {
-  color: #333333;
+::selection {
+  background: var(--color-citron);
+  color: var(--color-ink);
 }
 
-/* ─── Typographie éditoriale ─────────────────────────────────────────────── */
-.font-serif {
-  font-family: var(--font-serif);
+/* ─── Typographie display ────────────────────────────────────────────────── */
+/* `font-display` (utilitaire Tailwind) donne la famille ; ici le reste.
+   --tw-leading est repris par les utilitaires text-* sauf si leading-* est posé. */
+@layer components {
+  .font-display {
+    text-transform: uppercase;
+    font-weight: 400;
+    font-synthesis: none;
+    letter-spacing: 0.005em;
+    --tw-leading: 0.95;
+    line-height: 0.95; /* tailles arbitraires text-[…] qui ne posent pas de line-height */
+  }
+}
+
+/* ─── Grain argentique (hero) ────────────────────────────────────────────── */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.14;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ─── Accessibilité ──────────────────────────────────────────────────────── */
@@ -52,7 +73,7 @@ main .text-slate-400 {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent-dark);
+  outline: 2px solid var(--color-citron);
   outline-offset: 4px;
   border-radius: 2px;
 }
@@ -74,19 +95,6 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
-}
-
-.site-tagline {
-  white-space: nowrap;
-  font-size: clamp(0.62rem, 2.9vw, 0.95rem);
-}
-
-@media (min-width: 640px) {
-  .site-tagline {
-    white-space: normal;
-    text-wrap: balance;
-    font-size: 1rem;
-  }
 }
 
 /* ─── Scroll reveal ──────────────────────────────────────────────────────── */

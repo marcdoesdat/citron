@@ -2,7 +2,7 @@
 /**
  * Button.astro — Bouton réutilisable.
  * Rend un <a> si href est fourni, sinon un <button>.
- * Variantes : primary (fond sombre) et secondary (contour).
+ * Variantes : primary (fond citron) et secondary (contour).
  */
 interface Props {
   href?: string;
@@ -21,13 +21,13 @@ const {
 } = Astro.props;
 
 const base =
-  'inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
+  'inline-flex items-center justify-center gap-2 px-6 py-3 min-h-11 text-xs font-semibold uppercase tracking-[0.14em] rounded-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-citron focus-visible:ring-offset-2 focus-visible:ring-offset-ink';
 
 const variants = {
   primary:
-    'bg-neutral-900 text-white hover:bg-neutral-700 focus-visible:ring-neutral-900',
+    'bg-citron text-ink hover:bg-fg',
   secondary:
-    'border border-slate-300 text-neutral-700 bg-transparent hover:border-slate-500 hover:text-neutral-900 focus-visible:ring-slate-400',
+    'border border-line text-fg bg-transparent hover:border-citron hover:text-citron',
 };
 
 const classes = `${base} ${variants[variant]} ${className}`.trim();

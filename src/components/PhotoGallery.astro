@@ -7,6 +7,10 @@ interface GalleryImage {
   width: number;
   height: number;
   category?: string;
+  /** Légende affichée sous la photo */
+  caption?: string;
+  /** Ligne de méta (date, heure, réglages, lieu) */
+  meta?: string;
 }
 
 interface Props {
@@ -31,13 +35,16 @@ const targetDims = (img: GalleryImage) => ({
   width: TARGET_WIDTH,
   height: Math.round(TARGET_WIDTH * img.height / img.width),
 });
+
+// Numéro de planche : 01, 02, …
+const plate = (i: number) => String(i + 1).padStart(2, '0');
 ---
 
 <style>
   .masonry-grid { columns: 1; column-gap: 1rem; }
   @media (min-width: 640px)  { .masonry-grid { columns: 2; } }
   @media (min-width: 1024px) { .masonry-grid { columns: 3; } }
-  .masonry-item { break-inside: avoid; margin-bottom: 1rem; }
+  .masonry-item { break-inside: avoid; margin-bottom: 1.75rem; }
 </style>
 
 {masonry ? (
@@ -45,18 +52,27 @@ const targetDims = (img: GalleryImage) => ({
     {images.map((img, i) => {
       const { width, height } = targetDims(img);
       return (
-        <div class="masonry-item overflow-hidden group" data-category={img.category}>
-          <Image
-            src={img.src}
-            alt={img.alt}
-            width={width}
-            height={height}
-            loading={i === 0 ? 'eager' : 'lazy'}
-            decoding="async"
-            fetchpriority={i === 0 ? 'high' : undefined}
-            class="w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        </div>
+        <figure class="masonry-item group" data-category={img.category}>
+          <div class="overflow-hidden">
+            <Image
+              src={img.src}
+              alt={img.alt}
+              width={width}
+              height={height}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              fetchpriority={i === 0 ? 'high' : undefined}
+              class="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+          {img.caption && (
+            <figcaption class="mt-2.5 grid grid-cols-[auto_1fr] gap-x-3 font-mono text-[11px] uppercase tracking-[0.06em] leading-relaxed">
+              <span class="text-citron">{plate(i)}</span>
+              <span class="text-fg">{img.caption}</span>
+              {img.meta && <span class="col-start-2 text-subtle">{img.meta}</span>}
+            </figcaption>
+          )}
+        </figure>
       );
     })}
   </div>
@@ -65,18 +81,26 @@ const targetDims = (img: GalleryImage) => ({
     {images.map((img, i) => {
       const { width, height } = targetDims(img);
       return (
-        <div class="overflow-hidden aspect-[4/3] group">
-          <Image
-            src={img.src}
-            alt={img.alt}
-            width={width}
-            height={height}
-            loading={i === 0 ? 'eager' : 'lazy'}
-            decoding="async"
-            fetchpriority={i === 0 ? 'high' : undefined}
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        </div>
+        <figure class="group">
+          <div class="overflow-hidden aspect-[4/3]">
+            <Image
+              src={img.src}
+              alt={img.alt}
+              width={width}
+              height={height}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              fetchpriority={i === 0 ? 'high' : undefined}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+          {img.caption && (
+            <figcaption class="mt-2.5 font-mono text-[11px] uppercase tracking-[0.06em] text-fg">
+              {img.caption}
+              {img.meta && <span class="block text-subtle">{img.meta}</span>}
+            </figcaption>
+          )}
+        </figure>
       );
     })}
   </div>

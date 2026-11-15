@@ -2,56 +2,56 @@
 /**
  * Footer.astro — Pied de page minimal, style éditorial.
  */
+import Logo from './Logo.astro';
+
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="border-t border-neutral-200 mt-16">
+<footer class="border-t border-line mt-16">
   <div class="max-w-5xl mx-auto px-6 py-16 space-y-10">
 
     <!-- Signature -->
-    <div class="text-center space-y-3">
-      <a href="/" class="inline-block">
-        <p class="font-serif text-3xl sm:text-4xl font-light tracking-[0.12em] uppercase text-neutral-900">
-          Alex Diotte
-        </p>
+    <div class="text-center space-y-5">
+      <a href="/" class="inline-block" aria-label="Alex Diotte, accueil">
+        <Logo class="text-5xl sm:text-7xl" />
       </a>
-      <p class="site-tagline font-serif text-neutral-500">Création visuelle pour particuliers et professionnels</p>
+      <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">Création visuelle pour particuliers et professionnels</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
       <div class="space-y-4">
-        <h3 class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-900">Navigation</h3>
+        <h3 class="text-xs font-medium tracking-[0.18em] uppercase text-fg">Navigation</h3>
         <nav class="space-y-2" aria-label="Liens du pied de page">
-          <a href="/" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">Accueil</a>
-          <a href="/portfolio" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">Portfolio</a>
-          <a href="/services" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">Services & Tarifs</a>
-          <a href="/contact" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">Contact</a>
+          <a href="/" class="block text-sm text-muted hover:text-citron transition-colors">Accueil</a>
+          <a href="/portfolio" class="block text-sm text-muted hover:text-citron transition-colors">Portfolio</a>
+          <a href="/services" class="block text-sm text-muted hover:text-citron transition-colors">Services & Tarifs</a>
+          <a href="/contact" class="block text-sm text-muted hover:text-citron transition-colors">Contact</a>
         </nav>
       </div>
 
       <div class="space-y-4">
-        <h3 class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-900">Réseaux sociaux</h3>
+        <h3 class="text-xs font-medium tracking-[0.18em] uppercase text-fg">Réseaux sociaux</h3>
         <div class="space-y-2">
-          <a href="https://www.instagram.com/_citronnnade_/" target="_blank" rel="noopener noreferrer" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">Instagram</a>
-          <a href="https://www.youtube.com/channel/UCz7TYiKkP3mUXyYoNa0P09g" target="_blank" rel="noopener noreferrer" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">YouTube</a>
-          <a href="mailto:alexdiottephoto@gmail.com" class="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors">alexdiottephoto@gmail.com</a>
+          <a href="https://www.instagram.com/_citronnnade_/" target="_blank" rel="noopener noreferrer" class="block text-sm text-muted hover:text-citron transition-colors">Instagram</a>
+          <a href="https://www.youtube.com/channel/UCz7TYiKkP3mUXyYoNa0P09g" target="_blank" rel="noopener noreferrer" class="block text-sm text-muted hover:text-citron transition-colors">YouTube</a>
+          <a href="mailto:alexdiottephoto@gmail.com" class="block text-sm text-muted hover:text-citron transition-colors">alexdiottephoto@gmail.com</a>
         </div>
       </div>
 
       <div class="space-y-4">
-        <h3 class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-900">Zone desservie</h3>
-        <p class="text-sm text-neutral-500 leading-relaxed">
+        <h3 class="text-xs font-medium tracking-[0.18em] uppercase text-fg">Zone desservie</h3>
+        <p class="text-sm text-muted leading-relaxed">
           Montréal et Rive-Nord.
         </p>
-        <p class="text-xs text-neutral-400 uppercase tracking-[0.12em]">
+        <p class="text-xs text-subtle uppercase tracking-[0.12em]">
           Photographe portrait, corporatif et événementiel
         </p>
       </div>
     </div>
 
-    <div class="pt-6 border-t border-neutral-100 text-center space-y-2">
-      <p class="text-xs text-neutral-400">&copy; {currentYear} Alex Diotte Photographie. Tous droits réservés.</p>
-      <a href="/mentions-legales" class="inline-block text-xs text-neutral-400 uppercase tracking-[0.12em] hover:text-neutral-900 transition-colors">Mentions légales</a>
+    <div class="pt-6 border-t border-line text-center space-y-2">
+      <p class="text-xs text-subtle">&copy; {currentYear} Alex Diotte Photographie. Tous droits réservés.</p>
+      <a href="/mentions-legales" class="inline-block text-xs text-subtle uppercase tracking-[0.12em] hover:text-citron transition-colors">Mentions légales</a>
     </div>
 
   </div>

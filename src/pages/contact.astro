@@ -10,8 +10,8 @@ import Button from '../components/Button.astro';
 
   <!-- En-tête -->
   <section class="py-20 px-6 text-center">
-    <h1 class="font-serif text-5xl sm:text-6xl font-light tracking-[0.08em] text-neutral-900 mb-4">Contact</h1>
-    <p class="text-neutral-500 text-sm max-w-md mx-auto">
+    <h1 class="font-display text-6xl sm:text-8xl text-fg mb-4">Contact</h1>
+    <p class="text-muted text-sm max-w-md mx-auto">
       Une question ? Un projet ? Je réponds à tous les messages dans les 24 heures.
     </p>
   </section>
@@ -23,40 +23,40 @@ import Button from '../components/Button.astro';
       <!-- ── Informations de contact ─────────────────────────────────────── -->
       <div class="lg:col-span-2 space-y-10">
         <div>
-          <h2 class="font-serif text-2xl font-light text-neutral-900 mb-6">Coordonnées</h2>
+          <h2 class="font-display text-2xl text-fg mb-6">Coordonnées</h2>
           <address class="not-italic space-y-5">
 
             <div class="flex items-start gap-4">
-              <div class="w-8 h-8 flex items-center justify-center border border-slate-200 shrink-0">
-                <span class="text-xs text-slate-400" aria-hidden="true">@</span>
+              <div class="w-8 h-8 flex items-center justify-center border border-line shrink-0">
+                <span class="text-xs text-subtle" aria-hidden="true">@</span>
               </div>
               <div>
-                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Email</p>
-                <a href="mailto:alexdiottephoto@gmail.com" class="text-sm text-neutral-900 hover:text-slate-600 transition-colors">
+                <p class="text-xs font-medium text-subtle uppercase tracking-wider mb-1">Email</p>
+                <a href="mailto:alexdiottephoto@gmail.com" class="text-sm text-fg hover:text-citron transition-colors">
                   alexdiottephoto@gmail.com
                 </a>
               </div>
             </div>
 
             <div class="flex items-start gap-4">
-              <div class="w-8 h-8 flex items-center justify-center border border-slate-200 shrink-0">
-                <span class="text-xs text-slate-400" aria-hidden="true">☎</span>
+              <div class="w-8 h-8 flex items-center justify-center border border-line shrink-0">
+                <span class="text-xs text-subtle" aria-hidden="true">☎</span>
               </div>
               <div>
-                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Téléphone</p>
-                <a href="tel:+14388126026" class="text-sm text-neutral-900 hover:text-slate-600 transition-colors">
+                <p class="text-xs font-medium text-subtle uppercase tracking-wider mb-1">Téléphone</p>
+                <a href="tel:+14388126026" class="text-sm text-fg hover:text-citron transition-colors">
                   438-812-6026
                 </a>
               </div>
             </div>
 
             <div class="flex items-start gap-4">
-              <div class="w-8 h-8 flex items-center justify-center border border-slate-200 shrink-0">
-                <span class="text-xs text-slate-400" aria-hidden="true">◎</span>
+              <div class="w-8 h-8 flex items-center justify-center border border-line shrink-0">
+                <span class="text-xs text-subtle" aria-hidden="true">◎</span>
               </div>
               <div>
-                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Localisation</p>
-                <p class="text-sm text-neutral-900">Montréal, Québec</p>
+                <p class="text-xs font-medium text-subtle uppercase tracking-wider mb-1">Localisation</p>
+                <p class="text-sm text-fg">Montréal, Québec</p>
               </div>
             </div>
 
@@ -65,13 +65,13 @@ import Button from '../components/Button.astro';
 
         <!-- Réseaux sociaux -->
         <div>
-          <h3 class="text-xs font-medium uppercase tracking-widest text-slate-400 mb-4">Retrouvez-moi</h3>
+          <h3 class="text-xs font-medium uppercase tracking-widest text-subtle mb-4">Retrouvez-moi</h3>
           <div class="flex gap-3">
             <a
               href="https://www.instagram.com/_citronnnade_/"
               target="_blank"
               rel="noopener noreferrer"
-              class="px-4 py-2 border border-slate-200 text-xs font-medium text-slate-500 hover:border-slate-400 hover:text-neutral-900 transition-colors"
+              class="px-4 py-2 border border-line text-xs font-medium text-muted hover:border-citron hover:text-citron transition-colors"
             >
               Instagram
             </a>
@@ -79,7 +79,7 @@ import Button from '../components/Button.astro';
               href="https://www.youtube.com/channel/UCz7TYiKkP3mUXyYoNa0P09g?app=desktop&sub_confirmation=1"
               target="_blank"
               rel="noopener noreferrer"
-              class="px-4 py-2 border border-slate-200 text-xs font-medium text-slate-500 hover:border-slate-400 hover:text-neutral-900 transition-colors"
+              class="px-4 py-2 border border-line text-xs font-medium text-muted hover:border-citron hover:text-citron transition-colors"
             >
               YouTube
             </a>
@@ -89,7 +89,7 @@ import Button from '../components/Button.astro';
 
       <!-- ── Formulaire Netlify ───────────────────────────────────────────── -->
       <div class="lg:col-span-3">
-        <h2 class="font-serif text-2xl font-light text-neutral-900 mb-8">Envoyer un message</h2>
+        <h2 class="font-display text-2xl text-fg mb-8">Envoyer un message</h2>
 
         <!--
           IMPORTANT Netlify :
@@ -119,8 +119,8 @@ import Button from '../components/Button.astro';
           <!-- Ligne Nom + Email -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label for="nom" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
-                Nom complet <span class="text-slate-400" aria-label="requis">*</span>
+              <label for="nom" class="block text-xs font-medium uppercase tracking-wider text-muted mb-2">
+                Nom complet <span class="text-subtle" aria-label="requis">*</span>
               </label>
               <input
                 type="text"
@@ -129,12 +129,12 @@ import Button from '../components/Button.astro';
                 required
                 autocomplete="name"
                 placeholder="Yvan Potvin"
-                class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 placeholder-slate-300 focus:outline-none focus:border-slate-400 transition-colors"
+                class="w-full px-4 py-3 border border-line bg-surface text-sm text-fg placeholder-subtle focus:outline-none focus:border-citron transition-colors"
               />
             </div>
             <div>
-              <label for="email" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
-                Email <span class="text-slate-400" aria-label="requis">*</span>
+              <label for="email" class="block text-xs font-medium uppercase tracking-wider text-muted mb-2">
+                Email <span class="text-subtle" aria-label="requis">*</span>
               </label>
               <input
                 type="email"
@@ -143,21 +143,21 @@ import Button from '../components/Button.astro';
                 required
                 autocomplete="email"
                 placeholder="yvan@potvin.com"
-                class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 placeholder-slate-300 focus:outline-none focus:border-slate-400 transition-colors"
+                class="w-full px-4 py-3 border border-line bg-surface text-sm text-fg placeholder-subtle focus:outline-none focus:border-citron transition-colors"
               />
             </div>
           </div>
 
           <!-- Type de séance -->
           <div>
-            <label for="type-seance" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
-              Type de séance <span class="text-slate-400" aria-label="requis">*</span>
+            <label for="type-seance" class="block text-xs font-medium uppercase tracking-wider text-muted mb-2">
+              Type de séance <span class="text-subtle" aria-label="requis">*</span>
             </label>
             <select
               id="type-seance"
               name="type-seance"
               required
-              class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 focus:outline-none focus:border-slate-400 transition-colors appearance-none cursor-pointer"
+              class="w-full px-4 py-3 border border-line bg-surface text-sm text-fg focus:outline-none focus:border-citron transition-colors appearance-none cursor-pointer"
             >
               <option value="" disabled selected>Sélectionner une option…</option>
               <option value="portrait">Portrait</option>
@@ -171,7 +171,7 @@ import Button from '../components/Button.astro';
           <!-- Champs conditionnels Corporatif / Événementiel -->
           <div id="corporate-event-section" class="hidden space-y-4">
             <div>
-              <label for="nom-entreprise" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
+              <label for="nom-entreprise" class="block text-xs font-medium uppercase tracking-wider text-muted mb-2">
                 Nom de l'entreprise
               </label>
               <input
@@ -179,17 +179,17 @@ import Button from '../components/Button.astro';
                 id="nom-entreprise"
                 name="nom-entreprise"
                 placeholder="ABC Entreprise Inc."
-                class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 placeholder-slate-300 focus:outline-none focus:border-slate-400 transition-colors"
+                class="w-full px-4 py-3 border border-line bg-surface text-sm text-fg placeholder-subtle focus:outline-none focus:border-citron transition-colors"
               />
             </div>
             <div>
-              <label for="budget-estimé" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
+              <label for="budget-estimé" class="block text-xs font-medium uppercase tracking-wider text-muted mb-2">
                 Fourchette de budget estimée
               </label>
               <select
                 id="budget-estimé"
                 name="budget-estimé"
-                class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 focus:outline-none focus:border-slate-400 transition-colors appearance-none cursor-pointer"
+                class="w-full px-4 py-3 border border-line bg-surface text-sm text-fg focus:outline-none focus:border-citron transition-colors appearance-none cursor-pointer"
               >
                 <option value="">Sélectionner…</option>
                 <option value="moins-1000">Moins de 1 000 $</option>
@@ -202,7 +202,7 @@ import Button from '../components/Button.astro';
           <!-- Champs conditionnels Mariage -->
           <div id="mariage-section" class="hidden space-y-4">
             <div>
-              <label for="lieu-reception" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
+              <label for="lieu-reception" class="block text-xs font-medium uppercase tracking-wider text-muted mb-2">
                 Lieu de la réception
               </label>
               <input
@@ -210,17 +210,17 @@ import Button from '../components/Button.astro';
                 id="lieu-reception"
                 name="lieu-reception"
                 placeholder="ex: Salle des Fêtes, Château XYZ…"
-                class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 placeholder-slate-300 focus:outline-none focus:border-slate-400 transition-colors"
+                class="w-full px-4 py-3 border border-line bg-surface text-sm text-fg placeholder-subtle focus:outline-none focus:border-citron transition-colors"
               />
             </div>
             <div>
-              <label for="budget-mariage" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
+              <label for="budget-mariage" class="block text-xs font-medium uppercase tracking-wider text-muted mb-2">
                 Budget photographique
               </label>
               <select
                 id="budget-mariage"
                 name="budget-mariage"
-                class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 focus:outline-none focus:border-slate-400 transition-colors appearance-none cursor-pointer"
+                class="w-full px-4 py-3 border border-line bg-surface text-sm text-fg focus:outline-none focus:border-citron transition-colors appearance-none cursor-pointer"
               >
                 <option value="">Sélectionner…</option>
                 <option value="moins-1500">Moins de 1 500 $</option>
@@ -233,21 +233,21 @@ import Button from '../components/Button.astro';
 
           <!-- Date souhaitée -->
           <div>
-            <label for="date" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
+            <label for="date" class="block text-xs font-medium uppercase tracking-wider text-muted mb-2">
               Date souhaitée
             </label>
             <input
               type="date"
               id="date"
               name="date"
-              class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 focus:outline-none focus:border-slate-400 transition-colors"
+              class="w-full px-4 py-3 border border-line bg-surface text-sm text-fg focus:outline-none focus:border-citron transition-colors"
             />
           </div>
 
           <!-- Message -->
           <div>
-            <label for="message" class="block text-xs font-medium uppercase tracking-wider text-slate-500 mb-2">
-              Message <span class="text-slate-400" aria-label="requis">*</span>
+            <label for="message" class="block text-xs font-medium uppercase tracking-wider text-muted mb-2">
+              Message <span class="text-subtle" aria-label="requis">*</span>
             </label>
             <textarea
               id="message"
@@ -255,7 +255,7 @@ import Button from '../components/Button.astro';
               required
               rows={5}
               placeholder="Décrivez votre projet, le lieu envisagé, le nombre de personnes, vos attentes…"
-              class="w-full px-4 py-3 border border-slate-200 bg-white text-sm text-neutral-900 placeholder-slate-300 focus:outline-none focus:border-slate-400 transition-colors resize-none"
+              class="w-full px-4 py-3 border border-line bg-surface text-sm text-fg placeholder-subtle focus:outline-none focus:border-citron transition-colors resize-none"
             ></textarea>
           </div>
 
@@ -263,7 +263,7 @@ import Button from '../components/Button.astro';
             Envoyer le message
           </Button>
 
-          <p class="text-xs text-slate-400">
+          <p class="text-xs text-subtle">
             * Champs obligatoires. Vos données sont utilisées uniquement pour vous répondre.
           </p>
         </form>

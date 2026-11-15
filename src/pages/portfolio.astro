@@ -1,36 +1,21 @@
 ---
 /**
- * portfolio.astro — Galerie complète en style masonry.
- * Utilise PhotoGallery en mode masonry avec 12 images.
- * Les boutons de filtre sont cosmétiques (extensibles via JS si nécessaire).
+ * portfolio.astro — Galerie complète en style masonry, légendée façon planche contact.
+ * Les photos, légendes et métadonnées viennent de src/data/photos.ts.
  */
 import Layout from '../layouts/Layout.astro';
 import PhotoGallery from '../components/PhotoGallery.astro';
+import { photos, photoSrc, shotMeta } from '../data/photos';
 
-const allImages = [
-  { src: '/images/portfolio/DSC08557.jpg',  alt: 'Portrait', width: 3211, height: 4817, category: 'Portrait' },
-  { src: '/images/portfolio/_DSC3143.jpg',  alt: 'Portrait', width: 4000, height: 6000, category: 'Portrait' },
-  { src: '/images/portfolio/_DSC1428.jpg',  alt: 'Portrait', width: 3376, height: 6000, category: 'Portrait' },
-  { src: '/images/portfolio/_DSC3834.jpg',  alt: 'Portrait', width: 6000, height: 4000, category: 'Portrait' },
-  { src: '/images/portfolio/_DSC3964.jpg',  alt: 'Portrait', width: 4000, height: 6000, category: 'Portrait' },
-  { src: '/images/portfolio/_DSC5194.jpg',  alt: 'Portrait', width: 4805, height: 3203, category: 'Portrait' },
-  { src: '/images/portfolio/_DSC3942.jpg',  alt: 'Portrait', width: 4000, height: 6000, category: 'Portrait' },
-  { src: '/images/portfolio/_DSC6843.jpg',  alt: 'Portrait', width: 4000, height: 6000, category: 'Portrait' },
-  { src: '/images/portfolio/_DSC8007.jpg',  alt: 'Portrait', width: 3991, height: 4392, category: 'Portrait' },
-  { src: '/images/portfolio/_CTN5839.jpg',  alt: 'Événement', width: 6000, height: 3376, category: 'Événementiel' },
-  { src: '/images/portfolio/_CTN6190.jpg',  alt: 'Événement', width: 6000, height: 3376, category: 'Événementiel' },
-  { src: '/images/portfolio/_CTN6198.jpg',  alt: 'Événement', width: 6000, height: 4000, category: 'Événementiel' },
-  { src: '/images/portfolio/_CTN6390.jpg',  alt: 'Événement', width: 6000, height: 4000, category: 'Événementiel' },
-  { src: '/images/portfolio/_CTN6791.jpg',  alt: 'Événement', width: 3389, height: 5083, category: 'Événementiel' },
-  { src: '/images/portfolio/_CTN6835.jpg',  alt: 'Événement', width: 3503, height: 5254, category: 'Événementiel' },
-  { src: '/images/portfolio/_CTN7110.jpg',  alt: 'Événement', width: 4861, height: 3241, category: 'Événementiel' },
-  { src: '/images/portfolio/_CTN7436.jpg',  alt: 'Événement', width: 6000, height: 4000, category: 'Événementiel' },
-  { src: '/images/portfolio/_CTN8165.jpg',  alt: 'Événement', width: 6000, height: 3376, category: 'Événementiel' },
-  { src: '/images/portfolio/_CTN8171.jpg',  alt: 'Événement', width: 6000, height: 4000, category: 'Événementiel' },
-  { src: '/images/portfolio/_CTN8181.jpg',  alt: 'Événement', width: 3850, height: 2166, category: 'Événementiel' },
-  { src: '/images/portfolio/_CTN8218.jpg',  alt: 'Événement', width: 6000, height: 4000, category: 'Événementiel' },
-  { src: '/images/portfolio/_CTN8263.jpg',  alt: 'Événement', width: 3098, height: 1743, category: 'Événementiel' },
-];
+const allImages = photos.map((p) => ({
+  src: photoSrc(p),
+  alt: p.alt,
+  width: p.width,
+  height: p.height,
+  category: p.category,
+  caption: p.caption,
+  meta: shotMeta(p),
+}));
 
 const categories = [
   { label: 'Tous', value: 'all' },
@@ -46,9 +31,9 @@ const categories = [
 
   <!-- En-tête de page -->
   <section class="py-20 px-6 text-center">
-    <h1 class="font-serif text-5xl sm:text-6xl font-light tracking-[0.08em] text-neutral-900 mb-4">Portfolio</h1>
-    <p class="text-neutral-500 text-sm max-w-md mx-auto">
-      Une sélection de moments capturés avec soin, de l'intime à l'événementiel.
+    <h1 class="font-display text-6xl sm:text-8xl text-fg mb-5">Portfolio</h1>
+    <p class="text-muted text-sm max-w-md mx-auto">
+      Des shows, des foules, des visages. Sous chaque photo : le moment exact où elle a été prise.
     </p>
   </section>
 
@@ -59,8 +44,8 @@ const categories = [
         type="button"
         class={`text-xs font-medium tracking-[0.18em] uppercase transition-colors duration-200 pb-1 ${
           i === 0
-            ? 'text-amber-700 border-b border-amber-700'
-            : 'text-neutral-500 hover:text-neutral-900'
+            ? 'text-citron border-b border-citron'
+            : 'text-muted hover:text-citron'
         }`}
         aria-pressed={i === 0 ? 'true' : 'false'}
         data-filter={value}
@@ -77,15 +62,15 @@ const categories = [
 
   <!-- CTA bas de page -->
   <section class="py-20 px-6 text-center">
-    <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-4">
+    <h2 class="font-display text-4xl sm:text-5xl text-fg mb-4">
       Vous avez un projet en tête ?
     </h2>
-    <p class="text-neutral-500 text-sm mb-8 max-w-sm mx-auto">
+    <p class="text-muted text-sm mb-8 max-w-sm mx-auto">
       Contactez-moi pour discuter de votre vision et obtenir un devis personnalisé.
     </p>
     <a
       href="/contact"
-      class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
+      class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-fg border border-fg rounded-sm hover:bg-citron hover:text-ink hover:border-citron transition-colors duration-200"
     >
       Me contacter
     </a>
@@ -107,12 +92,12 @@ const categories = [
 
       // Mettre à jour l'état actif des boutons
       buttons.forEach(b => {
-        b.classList.remove('text-amber-700', 'border-b', 'border-amber-700');
-        b.classList.add('text-neutral-500');
+        b.classList.remove('text-citron', 'border-b', 'border-citron');
+        b.classList.add('text-muted');
         b.setAttribute('aria-pressed', 'false');
       });
-      btn.classList.add('text-amber-700', 'border-b', 'border-amber-700');
-      btn.classList.remove('text-neutral-500');
+      btn.classList.add('text-citron', 'border-b', 'border-citron');
+      btn.classList.remove('text-muted');
       btn.setAttribute('aria-pressed', 'true');
 
       // Afficher/masquer les photos

@@ -7,15 +7,15 @@ interface Props {
 const { posts, handle = '_citronnnade_' } = Astro.props;
 ---
 
-<section id="instagram" class="py-16 px-6 border-t border-neutral-100">
+<section id="instagram" class="py-16 px-6 border-t border-line">
   <div class="max-w-5xl mx-auto">
     <div class="flex items-baseline justify-between mb-10">
-      <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900">Instagram</h2>
+      <h2 class="font-display text-4xl sm:text-5xl text-fg">Instagram</h2>
       <a
         href={`https://www.instagram.com/${handle}/`}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-xs font-medium tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-900 transition-colors"
+        class="text-xs font-medium tracking-[0.18em] uppercase text-muted hover:text-citron transition-colors"
       >
         @{handle}
       </a>

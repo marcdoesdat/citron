@@ -166,15 +166,15 @@ const faq = [
 
   <!-- En-tête -->
   <section class="py-20 px-6 text-center">
-    <h1 class="font-serif text-5xl sm:text-6xl font-light tracking-[0.08em] text-neutral-900 mb-4">Services & Tarifs</h1>
-    <p class="text-neutral-500 text-sm max-w-md mx-auto leading-relaxed">
+    <h1 class="font-display text-6xl sm:text-8xl text-fg mb-4">Services & Tarifs</h1>
+    <p class="text-muted text-sm max-w-md mx-auto leading-relaxed">
       Portrait, événement, corporatif et contenu réseaux sociaux : des forfaits clairs, flexibles et adaptés à vos objectifs.
     </p>
   </section>
 
   <!-- Grille Portrait / Réseaux sociaux -->
   <section class="px-6 pb-16 max-w-5xl mx-auto">
-    <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-8 text-center">Portrait / Contenu Réseaux Sociaux</h2>
+    <h2 class="font-display text-4xl sm:text-5xl text-fg mb-8 text-center">Portrait / Contenu Réseaux Sociaux</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       {portraitServices.map((service) => (
         <ServiceCard {...service} />
@@ -184,8 +184,8 @@ const faq = [
 
   <!-- Grille Événement -->
   <section class="px-6 pb-16 max-w-5xl mx-auto">
-    <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-8 text-center">Événement</h2>
-    <p class="text-neutral-500 text-sm max-w-xl mx-auto text-center mb-8">
+    <h2 class="font-display text-4xl sm:text-5xl text-fg mb-8 text-center">Événement</h2>
+    <p class="text-muted text-sm max-w-xl mx-auto text-center mb-8">
       Anniversaire, corporatif et autres événements.
     </p>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -197,8 +197,8 @@ const faq = [
 
   <!-- Grille Corporatif -->
   <section class="px-6 pb-16 max-w-5xl mx-auto">
-    <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-4 text-center">Corporatif & Image de marque</h2>
-    <p class="text-neutral-500 text-sm max-w-2xl mx-auto text-center mb-8">
+    <h2 class="font-display text-4xl sm:text-5xl text-fg mb-4 text-center">Corporatif & Image de marque</h2>
+    <p class="text-muted text-sm max-w-2xl mx-auto text-center mb-8">
       Pour les professionnels, les PME et la création de banques d'images.
     </p>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -209,9 +209,9 @@ const faq = [
   </section>
 
   <!-- Extras -->
-  <div class="max-w-5xl mx-auto px-6 mb-16 border-t border-slate-100 pt-8">
-    <h2 class="font-serif text-2xl font-light text-neutral-900 mb-4 text-center">Extras 🍋</h2>
-    <ul class="text-sm text-slate-500 max-w-2xl mx-auto space-y-2">
+  <div class="max-w-5xl mx-auto px-6 mb-16 border-t border-line pt-8">
+    <h2 class="font-display text-2xl text-fg mb-4 text-center">Extras 🍋</h2>
+    <ul class="text-sm text-muted max-w-2xl mx-auto space-y-2">
       <li>+100 $ / heure supplémentaire</li>
       <li>+250 $ pour montage vidéo récap (1-2 min)</li>
       <li>+75 $ pour livraison rapide (2-3 jours)</li>
@@ -223,13 +223,13 @@ const faq = [
   <!-- Section FAQ rapide -->
   <section class="py-16 px-6">
     <div class="max-w-3xl mx-auto">
-      <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-10 text-center">Questions fréquentes</h2>
+      <h2 class="font-display text-4xl sm:text-5xl text-fg mb-10 text-center">Questions fréquentes</h2>
 
       <div class="space-y-6">
         {faq.map(({ q, a }) => (
-          <div class="border-b border-neutral-100 pb-6">
-            <h3 class="font-medium text-neutral-900 mb-2">{q}</h3>
-            <p class="text-sm text-neutral-500 leading-relaxed">{a}</p>
+          <div class="border-b border-line pb-6">
+            <h3 class="font-medium text-fg mb-2">{q}</h3>
+            <p class="text-sm text-muted leading-relaxed">{a}</p>
           </div>
         ))}
       </div>
@@ -238,15 +238,15 @@ const faq = [
 
   <!-- CTA -->
   <section class="py-20 px-6 text-center">
-    <h2 class="font-serif text-3xl sm:text-4xl font-light text-neutral-900 mb-4">
+    <h2 class="font-display text-4xl sm:text-5xl text-fg mb-4">
       Prêt·e à commencer ?
     </h2>
-    <p class="text-neutral-500 text-sm mb-8 max-w-sm mx-auto">
+    <p class="text-muted text-sm mb-8 max-w-sm mx-auto">
       Décrivez votre projet et je vous répondrai dans les 24h avec une proposition sur mesure.
     </p>
     <a
       href="/contact"
-      class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
+      class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-fg border border-fg rounded-sm hover:bg-citron hover:text-ink hover:border-citron transition-colors duration-200"
     >
       Demander un devis gratuit
     </a>

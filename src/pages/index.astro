@@ -3,33 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import InstagramFeed from '../components/InstagramFeed.astro';
 import SwipeGallery from '../components/SwipeGallery.astro';
 import { Image } from 'astro:assets';
+import { photos, photoSrc, shotTime } from '../data/photos';
 
-const allPortfolioImages = [
-  { src: '/images/portfolio/DSC08557.jpg', alt: 'Portrait en lumière naturelle', category: 'Portrait' },
-  { src: '/images/portfolio/_DSC3143.jpg', alt: 'Portrait urbain',               category: 'Portrait' },
-  { src: '/images/portfolio/_DSC1428.jpg', alt: 'Portrait expressif',            category: 'Portrait' },
-  { src: '/images/portfolio/_DSC3834.jpg', alt: 'Portrait contemplatif',         category: 'Portrait' },
-  { src: '/images/portfolio/_DSC3964.jpg', alt: 'Portrait en extérieur',         category: 'Portrait' },
-  { src: '/images/portfolio/_DSC5194.jpg', alt: 'Lumière de ville',              category: 'Portrait' },
-  { src: '/images/portfolio/_DSC3942.jpg', alt: 'Regard naturel',                category: 'Portrait' },
-  { src: '/images/portfolio/_DSC6843.jpg', alt: 'Portrait artistique',           category: 'Portrait' },
-  { src: '/images/portfolio/_DSC8007.jpg', alt: 'Portrait en milieu urbain',     category: 'Portrait' },
-  { src: '/images/portfolio/_CTN5839.jpg', alt: 'Ambiance événementielle',       category: 'Événement' },
-  { src: '/images/portfolio/_CTN6190.jpg', alt: 'Ambiance événementielle',       category: 'Événement' },
-  { src: '/images/portfolio/_CTN6198.jpg', alt: 'Moment de fête',                category: 'Événement' },
-  { src: '/images/portfolio/_CTN6390.jpg', alt: 'Scène capturée en événement',   category: 'Événement' },
-  { src: '/images/portfolio/_CTN6791.jpg', alt: 'Événement en salle',            category: 'Événement' },
-  { src: '/images/portfolio/_CTN6835.jpg', alt: 'Reportage événementiel',        category: 'Événement' },
-  { src: '/images/portfolio/_CTN7110.jpg', alt: 'Reportage événementiel',        category: 'Événement' },
-  { src: '/images/portfolio/_CTN7436.jpg', alt: 'Scène capturée en événement',   category: 'Événement' },
-  { src: '/images/portfolio/_CTN8165.jpg', alt: 'Ambiance festive',              category: 'Événement' },
-  { src: '/images/portfolio/_CTN8171.jpg', alt: 'Scène de vie',                  category: 'Événement' },
-  { src: '/images/portfolio/_CTN8181.jpg', alt: 'Portrait en lumière douce',     category: 'Événement' },
-  { src: '/images/portfolio/_CTN8218.jpg', alt: 'Moment capturé',                category: 'Événement' },
-  { src: '/images/portfolio/_CTN8263.jpg', alt: 'Ambiance festive',              category: 'Événement' },
-];
-
-const previewImages = allPortfolioImages;
+const previewImages = photos.map((p) => ({
+  src: photoSrc(p),
+  alt: p.alt,
+  caption: p.caption,
+  meta: shotTime(p),
+}));
 ---
 
 <Layout
@@ -38,30 +19,53 @@ const previewImages = allPortfolioImages;
 >
 
   <!-- ═══ HERO — Image pleine page ═══════════════════════════════════════ -->
-  <section
-    class="home-hero relative w-full overflow-hidden"
-  >
-    <Image
-      src="/hero.jpg"
-      alt="Portrait photographique par Alex Diotte"
-      width={1920}
-      height={1080}
-      loading="eager"
-      decoding="sync"
-      fetchpriority="high"
-      class="home-hero-image absolute inset-0 w-full h-full object-cover"
-      style="height: 100%;"
-    />
+  <section class="home-hero grain relative w-full overflow-hidden bg-ink">
+    <!-- Recadrage vertical dédié au mobile, 16:9 ailleurs -->
+    <picture>
+      <source media="(max-width: 767px)" srcset="/hero-mobile.webp" type="image/webp" />
+      <source srcset="/hero.webp" type="image/webp" />
+      <img
+        src="/hero.jpg"
+        alt="Fêtard qui crie face à l'objectif au milieu d'une foule serrée"
+        width="2400"
+        height="1350"
+        loading="eager"
+        decoding="sync"
+        fetchpriority="high"
+        class="home-hero-image absolute inset-0 w-full h-full object-cover"
+      />
+    </picture>
     <!-- Gradient overlay -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/88 via-black/42 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent"></div>
     <!-- Contenu hero -->
-    <div class="home-hero-copy absolute bottom-0 left-0 right-0 p-8 sm:p-14 text-white" style="padding-bottom: max(2rem, env(safe-area-inset-bottom));">
-      <h1 class="font-serif text-3xl sm:text-5xl font-semibold leading-[1.05] tracking-[0.01em] max-w-md text-balance">
-        Photographe et vidéaste à Montréal
+    <div class="home-hero-copy absolute bottom-0 left-0 right-0 px-6 pt-8 sm:px-14 text-fg">
+      <!-- Le h1 garde « photographe Montréal » pour le référencement ; la voix passe en grand -->
+      <h1>
+        <span class="block mb-4 font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-citron">
+          Photographe et vidéaste à Montréal
+        </span>
+        <span class="block font-display text-[clamp(2.75rem,10vw,6.5rem)]">
+          Le vrai vibe.<br />
+          <span class="text-fg/55">Pas de sourires<br class="hidden sm:inline" /> forcés.</span>
+        </span>
       </h1>
-      <p class="site-tagline font-serif mt-3 text-white/85 leading-relaxed">
-        Création visuelle pour particuliers et professionnels
+      <p class="mt-5 max-w-md text-sm sm:text-base text-fg/80 leading-relaxed">
+        Shows, événements et portraits, capturés sur le vif et sans artifices.
       </p>
+      <div class="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3">
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center px-6 py-3 min-h-11 bg-citron text-ink text-xs font-semibold uppercase tracking-[0.14em] rounded-sm hover:bg-fg transition-colors duration-200"
+        >
+          Réserver une date
+        </a>
+        <a
+          href="/portfolio"
+          class="inline-flex items-center min-h-11 text-xs font-semibold uppercase tracking-[0.14em] text-fg hover:text-citron transition-colors duration-200"
+        >
+          Voir le travail&nbsp;→
+        </a>
+      </div>
     </div>
   </section>
 
@@ -69,13 +73,13 @@ const previewImages = allPortfolioImages;
   <section class="py-16 px-6">
     <div class="max-w-5xl mx-auto">
       <div class="text-center mb-14">
-        <h2 class="font-serif text-4xl sm:text-5xl font-light text-neutral-900 mb-4">Portfolio</h2>
+        <h2 class="font-display text-5xl sm:text-7xl text-fg mb-4">Portfolio</h2>
       </div>
       <SwipeGallery images={previewImages} />
       <div class="text-center mt-12">
         <a
           href="/portfolio"
-          class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
+          class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-fg border border-fg rounded-sm hover:bg-citron hover:text-ink hover:border-citron transition-colors duration-200"
         >
           Voir tout le portfolio
         </a>
@@ -84,7 +88,7 @@ const previewImages = allPortfolioImages;
   </section>
 
   <!-- ═══ BIO ═════════════════════════════════════════════════════════════ -->
-  <section class="relative z-10 bg-white py-12 md:py-24 px-6">
+  <section class="relative z-10 bg-ink py-12 md:py-24 px-6">
     <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
       <div class="overflow-hidden">
         <Image
@@ -98,24 +102,24 @@ const previewImages = allPortfolioImages;
         />
       </div>
       <div class="space-y-6">
-        <h2 class="font-serif text-4xl sm:text-5xl font-light text-neutral-900 leading-tight">
+        <h2 class="font-display text-5xl sm:text-7xl text-fg">
           Bonjour, je suis<br/>Alex.
         </h2>
-        <p class="text-neutral-500 leading-relaxed text-sm">
+        <p class="text-muted leading-relaxed text-sm">
           <strong>Photographe et vidéaste depuis 2016</strong>, mon histoire avec l'image a commencé par un déclic lors d'un voyage à Cuba. Si la passion est née à ce moment-là, c'est en <strong>2020</strong> que j'ai fait le choix de m'y consacrer à <strong>100 %</strong>.
         </p>
-        <p class="text-neutral-500 leading-relaxed text-sm">
+        <p class="text-muted leading-relaxed text-sm">
           J'ai d'abord forgé mon œil au cœur de la scène musicale. Immortaliser <strong>l'énergie brute</strong> des foules dans les soirées dubstep et riddim m'a appris l'essentiel : réagir en une fraction de seconde, gérer un environnement sous pression et capturer l'instant <strong>sur le vif</strong>, sans artifices. C'est cette agilité que j'apporte aujourd'hui sur chaque plateau.
         </p>
-        <p class="text-neutral-500 leading-relaxed text-sm">
+        <p class="text-muted leading-relaxed text-sm">
           Des événements corporatifs aux projets scolaires, en passant par les vidéos promotionnelles, ma mission est de capturer le vrai <em>vibe</em>. Mon approche est <strong>100 % adaptée à vos objectifs</strong> : je peux livrer un rendu <strong>épuré et hautement professionnel</strong>, tout comme je peux déployer une <strong>direction artistique audacieuse et assumée</strong> si vous souhaitez une image de marque qui sort du lot.
         </p>
-        <p class="text-neutral-500 leading-relaxed text-sm">
+        <p class="text-muted leading-relaxed text-sm">
           Que ce soit en coulisses, lors d'un grand événement ou dans un moment d'intimité, je crée des images qui racontent votre histoire avec une <strong>émotion authentique</strong>.
         </p>
         <a
           href="/portfolio"
-          class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
+          class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-fg border border-fg rounded-sm hover:bg-citron hover:text-ink hover:border-citron transition-colors duration-200"
         >
           Découvrir mon travail
         </a>
@@ -124,45 +128,45 @@ const previewImages = allPortfolioImages;
   </section>
 
   <!-- ═══ SERVICES ════════════════════════════════════════════════════════ -->
-  <section class="py-16 px-6 border-t border-neutral-100">
+  <section class="py-16 px-6 border-t border-line">
     <div class="max-w-5xl mx-auto">
       <div class="text-center mb-14">
-        <h2 class="font-serif text-4xl sm:text-5xl font-light text-neutral-900 mb-4">Services & Tarifs</h2>
-        <p class="text-neutral-500 text-sm max-w-md mx-auto">
+        <h2 class="font-display text-5xl sm:text-7xl text-fg mb-4">Services & Tarifs</h2>
+        <p class="text-muted text-sm max-w-md mx-auto">
           Trois forfaits populaires pour portrait, événement et corporatif.
         </p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        <div class="service-card-item border border-neutral-200 p-8 space-y-4 cursor-pointer transition-all duration-300">
-          <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400">Portrait / Contenu Réseaux Sociaux</p>
-          <h3 class="font-serif text-2xl font-light text-neutral-900">Forfait de base</h3>
+        <div class="service-card-item border border-line p-8 space-y-4 cursor-pointer transition-all duration-300">
+          <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-subtle">Portrait / Contenu Réseaux Sociaux</p>
+          <h3 class="font-display text-2xl text-fg">Forfait de base</h3>
           <div class="flex items-baseline gap-2">
-            <p class="text-2xl font-bold text-neutral-900">150 $</p>
+            <p class="text-2xl font-bold text-fg">150 $</p>
           </div>
-          <p class="text-sm text-neutral-500">1h30, 10 photos retouchées, livraison en 5 jours.</p>
+          <p class="text-sm text-muted">1h30, 10 photos retouchées, livraison en 5 jours.</p>
         </div>
-        <div class="service-card-item border border-neutral-200 p-8 space-y-4 cursor-pointer transition-all duration-300">
-          <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400">Événement</p>
-          <h3 class="font-serif text-2xl font-light text-neutral-900">Forfait 6h</h3>
+        <div class="service-card-item border border-line p-8 space-y-4 cursor-pointer transition-all duration-300">
+          <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-subtle">Événement</p>
+          <h3 class="font-display text-2xl text-fg">Forfait 6h</h3>
           <div class="flex items-baseline gap-2">
-            <p class="text-2xl font-bold text-neutral-900">450 $</p>
+            <p class="text-2xl font-bold text-fg">450 $</p>
           </div>
-          <p class="text-sm text-neutral-500">Environ 200 photos livrées, retouche incluse, livraison sous 7 jours.</p>
+          <p class="text-sm text-muted">Environ 200 photos livrées, retouche incluse, livraison sous 7 jours.</p>
         </div>
-        <div class="service-card-item border border-neutral-200 p-8 space-y-4 cursor-pointer transition-all duration-300">
-          <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400">Corporatif & Image de marque</p>
-          <h3 class="font-serif text-2xl font-light text-neutral-900">Forfait Banque d'images</h3>
+        <div class="service-card-item border border-line p-8 space-y-4 cursor-pointer transition-all duration-300">
+          <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-subtle">Corporatif & Image de marque</p>
+          <h3 class="font-display text-2xl text-fg">Forfait Banque d'images</h3>
           <div class="flex items-baseline gap-2">
-            <p class="text-2xl font-bold text-neutral-900">550 $</p>
-            <span class="text-sm text-neutral-500">à partir de</span>
+            <p class="text-2xl font-bold text-fg">550 $</p>
+            <span class="text-sm text-muted">à partir de</span>
           </div>
-          <p class="text-sm text-neutral-500">Demi-journée (~4h), 40+ photos retouchées.</p>
+          <p class="text-sm text-muted">Demi-journée (~4h), 40+ photos retouchées.</p>
         </div>
       </div>
       <div class="text-center mt-12">
         <a
           href="/services"
-          class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
+          class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-fg border border-fg rounded-sm hover:bg-citron hover:text-ink hover:border-citron transition-colors duration-200"
         >
           Voir tous les services
         </a>
@@ -179,15 +183,15 @@ const previewImages = allPortfolioImages;
   <!-- ═══ CTA FINAL ═══════════════════════════════════════════════════════ -->
   <section class="py-24 px-6">
     <div class="max-w-5xl mx-auto text-center space-y-6">
-      <h2 class="font-serif text-4xl sm:text-5xl font-light text-neutral-900">
-        Discutons de votre projet.
+      <h2 class="font-display text-5xl sm:text-7xl text-fg">
+        Votre projet,<br /><span class="text-citron">sur le vif.</span>
       </h2>
-      <p class="text-neutral-500 text-sm leading-relaxed max-w-lg mx-auto">
-        Un mariage, une séance portrait ou un événement à immortaliser ? Contactez-moi pour que nous imaginions ensemble les photos qui vous ressemblent.
+      <p class="text-muted text-sm leading-relaxed max-w-lg mx-auto">
+        Un show, un lancement, une séance portrait ou du contenu pour vos réseaux : écrivez-moi et on bâtit les images ensemble.
       </p>
       <a
         href="/contact"
-        class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-900 border border-neutral-900 rounded-sm hover:bg-neutral-900 hover:text-white transition-colors duration-200"
+        class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-fg border border-fg rounded-sm hover:bg-citron hover:text-ink hover:border-citron transition-colors duration-200"
       >
         Prendre rendez-vous
       </a>
@@ -198,11 +202,22 @@ const previewImages = allPortfolioImages;
 <style is:global>
   .home-hero-copy h1,
   .home-hero-copy p {
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
   }
 
+  .home-hero-copy {
+    padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+  }
+
+  @media (min-width: 640px) {
+    .home-hero-copy {
+      padding-bottom: 3.5rem;
+    }
+  }
+
+  /* Visage du sujet ≈ 55 % / 45 % de la photo */
   .home-hero-image {
-    object-position: 50% 42%;
+    object-position: 55% 42%;
   }
 
   .home-hero {
@@ -211,7 +226,7 @@ const previewImages = allPortfolioImages;
 
   @media (max-width: 767px) {
     .home-hero-image {
-      object-position: 52% 28%;
+      object-position: 50% 35%;
     }
 
     .home-hero {
@@ -222,7 +237,7 @@ const previewImages = allPortfolioImages;
 
   @media (min-width: 768px) and (max-width: 1023px) {
     .home-hero-image {
-      object-position: 52% 36%;
+      object-position: 55% 40%;
     }
   }
 
@@ -250,8 +265,8 @@ const previewImages = allPortfolioImages;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.85);
-    color: white;
+    background-color: var(--color-citron);
+    color: var(--color-ink);
     font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: 0.18em;

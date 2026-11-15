@@ -1,0 +1,46 @@
+---
+/**
+ * Logo.astro — Logo « gaffer » : le nom sur une bande de ruban adhésif citron,
+ * bords déchirés, légèrement de travers. Tout en CSS : la taille suit font-size,
+ * donc on le dimensionne avec les utilitaires text-* (ex. class="text-3xl").
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<span class={`logo-gaffer ${className}`}>Alex Diotte</span>
+
+<style>
+  .logo-gaffer {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-synthesis: none;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--color-ink);
+    background:
+      linear-gradient(100deg, rgb(255 255 255 / 0.22), transparent 35%, rgb(0 0 0 / 0.07) 70%, transparent),
+      var(--color-citron);
+    padding: 0.14em 0.42em 0.1em;
+    transform: rotate(-2deg);
+    transition: transform 0.2s ease;
+    /* Bords gauche et droit déchirés ; les crans sont en em pour suivre la taille */
+    clip-path: polygon(
+      0 0, 100% 0,
+      calc(100% - 0.08em) 20%, 100% 42%, calc(100% - 0.11em) 64%, calc(100% - 0.02em) 82%,
+      100% 100%, 0 100%,
+      0.1em 80%, 0 58%, 0.12em 36%, 0.02em 16%
+    );
+  }
+
+  :global(a:hover) > .logo-gaffer,
+  :global(a:focus-visible) > .logo-gaffer {
+    transform: rotate(0deg);
+  }
+</style>

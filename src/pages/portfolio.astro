@@ -5,13 +5,11 @@
  */
 import Layout from '../layouts/Layout.astro';
 import PhotoGallery from '../components/PhotoGallery.astro';
-import { photos, photoSrc, shotMeta } from '../data/photos';
+import { photos, photoImage, shotMeta } from '../data/photos';
 
 const allImages = photos.map((p) => ({
-  src: photoSrc(p),
+  src: photoImage(p.file),
   alt: p.alt,
-  width: p.width,
-  height: p.height,
   category: p.category,
   caption: p.caption,
   meta: shotMeta(p),
@@ -57,7 +55,7 @@ const categories = [
 
   <!-- Galerie masonry -->
   <section class="px-6 pb-24 max-w-5xl mx-auto">
-    <PhotoGallery images={allImages} masonry={true} />
+    <PhotoGallery images={allImages} />
   </section>
 
   <!-- CTA bas de page -->

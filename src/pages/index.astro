@@ -3,10 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import InstagramFeed from '../components/InstagramFeed.astro';
 import SwipeGallery from '../components/SwipeGallery.astro';
 import { Image } from 'astro:assets';
-import { photos, photoSrc, shotTime } from '../data/photos';
+import alexPortrait from '../assets/alex-diotte.jpg';
+import { photos, photoImage, shotTime } from '../data/photos';
 
 const previewImages = photos.map((p) => ({
-  src: photoSrc(p),
+  src: photoImage(p.file),
   alt: p.alt,
   caption: p.caption,
   meta: shotTime(p),
@@ -92,10 +93,11 @@ const previewImages = photos.map((p) => ({
     <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
       <div class="overflow-hidden">
         <Image
-          src="/images/portfolio/AlexDiotteBlackandWhite.jpg"
+          src={alexPortrait}
           alt="Alex Diotte, photographe professionnel"
           width={600}
-          height={800}
+          widths={[400, 600, 900, 1200]}
+          sizes="(min-width: 768px) 480px, 100vw"
           loading="lazy"
           decoding="async"
           class="w-full h-auto object-cover"

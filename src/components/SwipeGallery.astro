@@ -1,6 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface GalleryItem {
-  src: string;
+  src: ImageMetadata;
   alt: string;
   /** Légende courte affichée sous la photo */
   caption?: string;
@@ -18,13 +21,21 @@ const { images = [], count = 4 } = Astro.props;
 const galleryId = `swipe-gallery-${Math.random().toString(36).slice(2, 9)}`;
 ---
 
-<div id={galleryId} class="md:hidden -mx-6 px-6">
-  <div class="swipe-gallery-scrollbar flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 scroll-smooth" data-swipe-rail>
+<div id={galleryId} class="-mx-6 px-6 md:mx-0 md:px-0">
+  <div
+    class="swipe-gallery-scrollbar flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 scroll-smooth md:grid md:grid-cols-2 lg:grid-cols-4 md:overflow-visible md:pb-0"
+    data-swipe-rail
+  >
     {images.map((image) => (
-      <figure class="snap-center shrink-0 w-[85vw]" data-swipe-item>
-        <img
+      <figure class="snap-center shrink-0 w-[85vw] md:w-auto" data-swipe-item>
+        <Image
           src={image.src}
           alt={image.alt}
+          width={640}
+          height={800}
+          fit="cover"
+          widths={[320, 640, 960]}
+          sizes="(min-width: 1024px) 240px, (min-width: 768px) 50vw, 85vw"
           loading="lazy"
           decoding="async"
           class="w-full aspect-[4/5] object-cover"
@@ -39,37 +50,19 @@ const galleryId = `swipe-gallery-${Math.random().toString(36).slice(2, 9)}`;
     ))}
   </div>
 
-  <div class="flex items-center justify-center gap-2 pt-4" data-swipe-dots aria-label="Navigation du carrousel">
+  <div class="flex items-center justify-center pt-2 md:hidden" data-swipe-dots>
     {images.map((_, index) => (
       <button
         type="button"
-        class={`h-2.5 w-2.5 transition-colors duration-200 ${index === 0 ? 'bg-citron' : 'bg-subtle'}`}
+        class="group grid h-6 w-6 place-items-center"
         data-swipe-dot={index}
         aria-label={`Voir la photo ${index + 1}`}
         aria-current={index === 0 ? 'true' : 'false'}
-      ></button>
+      >
+        <span class={`block h-2.5 w-2.5 transition-colors duration-200 ${index === 0 ? 'bg-citron' : 'bg-subtle'}`}></span>
+      </button>
     ))}
   </div>
-</div>
-
-<div class="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-4" id={`${galleryId}-desktop`}>
-  {images.map((image) => (
-    <figure>
-      <img
-        src={image.src}
-        alt={image.alt}
-        loading="lazy"
-        decoding="async"
-        class="w-full aspect-[4/5] object-cover"
-      />
-      {image.caption && (
-        <figcaption class="mt-3 flex items-baseline justify-between gap-3 font-mono text-[11px] uppercase tracking-[0.06em]">
-          <span class="text-fg">{image.caption}</span>
-          {image.meta && <span class="shrink-0 text-subtle">{image.meta}</span>}
-        </figcaption>
-      )}
-    </figure>
-  ))}
 </div>
 
 <style>
@@ -99,16 +92,9 @@ const galleryId = `swipe-gallery-${Math.random().toString(36).slice(2, 9)}`;
     }
     const chosen = new Set(indices.slice(0, count));
 
-    // Cacher les éléments non choisis (mobile rail + dots)
+    // Cacher les éléments non choisis (photos + points)
     allItems.forEach((item, i) => { if (!chosen.has(i)) item.style.display = 'none'; });
     allDots.forEach((dot, i)   => { if (!chosen.has(i)) dot.style.display  = 'none'; });
-
-    // Desktop : cacher les figures non choisies
-    const desktopGrid = document.getElementById(`${galleryId}-desktop`);
-    if (desktopGrid) {
-      const dFigs = Array.from(desktopGrid.querySelectorAll('figure'));
-      dFigs.forEach((fig, i) => { if (!chosen.has(i)) fig.style.display = 'none'; });
-    }
 
     const rail  = galleryRoot.querySelector('[data-swipe-rail]');
     const items = allItems.filter((_, i) => chosen.has(i));
@@ -117,8 +103,9 @@ const galleryId = `swipe-gallery-${Math.random().toString(36).slice(2, 9)}`;
     const setActiveDot = (activeIndex) => {
       dots.forEach((dot, index) => {
         const isActive = index === activeIndex;
-        dot.classList.toggle('bg-citron', isActive);
-        dot.classList.toggle('bg-subtle', !isActive);
+        const mark = dot.firstElementChild;
+        mark.classList.toggle('bg-citron', isActive);
+        mark.classList.toggle('bg-subtle', !isActive);
         dot.setAttribute('aria-current', isActive ? 'true' : 'false');
       });
     };

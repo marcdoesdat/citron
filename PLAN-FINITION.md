@@ -614,7 +614,7 @@ Appliquer la valeur par défaut, ne pas bloquer, et lister ces points dans le co
 
 | # | Question | Valeur par défaut |
 |---|---|---|
-| D1 | Titre de l'accueil : « Photographe Professionnelle » (féminin) contredit le reste du site (masculin). | Nouveau titre épicène du lot 4. |
+| D1 | Titre de l'accueil : « Photographe Professionnelle » (féminin) contredit le reste du site (masculin). | **Tranché par Marc : Alex est un homme, le masculin s'applique partout.** Le titre fautif a été remplacé au lot 4 ; relecture complète faite ensuite, aucune autre forme féminine ne le désigne. |
 | D2 | Mariage : le formulaire le propose (avec lieu de réception et budget), mais aucun forfait ni photo de mariage n'existe. Offert ou non ? | Garder l'option du formulaire ; retirer l'offre du JSON-LD. |
 | D3 | Localisation : le JSON-LD et les balises géo disent Terrebonne, le site affiche « Montréal, Québec ». | Ne rien changer. |
 | D4 | Heures d'ouverture déclarées aux moteurs : 9 h – 23 h 59, 7 jours sur 7. Exact ? | Ne rien changer. |

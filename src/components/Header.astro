@@ -1,11 +1,12 @@
 ---
 import Logo from './Logo.astro';
+import { site } from '../data/site';
 
 const navLinks = [
   { href: '/',          label: 'Accueil'   },
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/services',  label: 'Services'  },
-  { href: '/contact',   label: 'Contact'   },
+  { href: '/portfolio/', label: 'Portfolio' },
+  { href: '/services/', label: 'Services'  },
+  { href: '/contact/',  label: 'Contact'   },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -15,7 +16,7 @@ const currentPath = Astro.url.pathname;
   <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
 
     <!-- Logo gauche -->
-    <a href="/" class="shrink-0 relative z-[60]" aria-label="Alex Diotte, accueil">
+    <a href="/" class="shrink-0 relative z-[60]" aria-label={`${site.person}, accueil`}>
       <Logo class="text-xl sm:text-2xl md:text-3xl" />
     </a>
 
@@ -89,10 +90,10 @@ const currentPath = Astro.url.pathname;
 
         <!-- Infos de contact en bas -->
         <div class="absolute bottom-12 text-center space-y-1 font-mono">
-          <a href="mailto:alexdiottephoto@gmail.com" class="block text-xs tracking-[0.05em] text-muted hover:text-fg transition-colors">
-            alexdiottephoto@gmail.com
+          <a href={`mailto:${site.email}`} class="block text-xs tracking-[0.05em] text-muted hover:text-fg transition-colors">
+            {site.email}
           </a>
-          <p class="text-[11px] tracking-[0.15em] text-subtle uppercase">Montréal, Québec</p>
+          <p class="text-[11px] tracking-[0.15em] text-subtle uppercase">{site.city}</p>
         </div>
       </nav>
     </div>

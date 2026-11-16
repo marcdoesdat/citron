@@ -5,6 +5,8 @@ import SwipeGallery from '../components/SwipeGallery.astro';
 import { Image } from 'astro:assets';
 import alexPortrait from '../assets/alex-diotte.jpg';
 import { photos, photoImage, shotTime } from '../data/photos';
+import { featuredServices, serviceKinds } from '../data/services';
+import { site } from '../data/site';
 
 const previewImages = photos.map((p) => ({
   src: photoImage(p.file),
@@ -15,8 +17,9 @@ const previewImages = photos.map((p) => ({
 ---
 
 <Layout
-  title="Photographe Professionnelle"
-  description="Alex Diotte, photographe professionnel à Montréal et sur la Rive-Nord (Terrebonne, Laval, Repentigny). Spécialisé en portrait et événementiel."
+  title={site.homeTitle}
+  titleIsComplete
+  description={site.description}
 >
 
   <!-- ═══ HERO — Image pleine page ═══════════════════════════════════════ -->
@@ -55,13 +58,13 @@ const previewImages = photos.map((p) => ({
       </p>
       <div class="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3">
         <a
-          href="/contact"
+          href="/contact/"
           class="inline-flex items-center justify-center px-6 py-3 min-h-11 bg-citron text-ink text-xs font-semibold uppercase tracking-[0.14em] rounded-sm hover:bg-fg transition-colors duration-200"
         >
           Réserver une date
         </a>
         <a
-          href="/portfolio"
+          href="/portfolio/"
           class="inline-flex items-center min-h-11 text-xs font-semibold uppercase tracking-[0.14em] text-fg hover:text-citron transition-colors duration-200"
         >
           Voir le travail&nbsp;→
@@ -79,7 +82,7 @@ const previewImages = photos.map((p) => ({
       <SwipeGallery images={previewImages} />
       <div class="text-center mt-12">
         <a
-          href="/portfolio"
+          href="/portfolio/"
           class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-fg border border-fg rounded-sm hover:bg-citron hover:text-ink hover:border-citron transition-colors duration-200"
         >
           Voir tout le portfolio
@@ -120,7 +123,7 @@ const previewImages = photos.map((p) => ({
           Que ce soit en coulisses, lors d'un grand événement ou dans un moment d'intimité, je crée des images qui racontent votre histoire avec une <strong>émotion authentique</strong>.
         </p>
         <a
-          href="/portfolio"
+          href="/portfolio/"
           class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-fg border border-fg rounded-sm hover:bg-citron hover:text-ink hover:border-citron transition-colors duration-200"
         >
           Découvrir mon travail
@@ -139,35 +142,21 @@ const previewImages = photos.map((p) => ({
         </p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        <div class="service-card-item border border-line p-8 space-y-4 cursor-pointer transition-all duration-300">
-          <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-subtle">Portrait / Contenu Réseaux Sociaux</p>
-          <h3 class="font-display text-2xl text-fg">Forfait de base</h3>
-          <div class="flex items-baseline gap-2">
-            <p class="text-2xl font-bold text-fg">150 $</p>
+        {featuredServices.map((service) => (
+          <div class="service-card-item border border-line p-8 space-y-4 cursor-pointer transition-all duration-300">
+            <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-subtle">{serviceKinds[service.icon]}</p>
+            <h3 class="font-display text-2xl text-fg">{service.title}</h3>
+            <div class="flex items-baseline gap-2">
+              <p class="text-2xl font-bold text-fg">{service.price}</p>
+              {service.showStartingFrom && <span class="text-sm text-muted">à partir de</span>}
+            </div>
+            <p class="text-sm text-muted">{service.summary}</p>
           </div>
-          <p class="text-sm text-muted">1h30, 10 photos retouchées, livraison en 5 jours.</p>
-        </div>
-        <div class="service-card-item border border-line p-8 space-y-4 cursor-pointer transition-all duration-300">
-          <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-subtle">Événement</p>
-          <h3 class="font-display text-2xl text-fg">Forfait 6h</h3>
-          <div class="flex items-baseline gap-2">
-            <p class="text-2xl font-bold text-fg">450 $</p>
-          </div>
-          <p class="text-sm text-muted">Environ 200 photos livrées, retouche incluse, livraison sous 7 jours.</p>
-        </div>
-        <div class="service-card-item border border-line p-8 space-y-4 cursor-pointer transition-all duration-300">
-          <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-subtle">Corporatif & Image de marque</p>
-          <h3 class="font-display text-2xl text-fg">Forfait Banque d'images</h3>
-          <div class="flex items-baseline gap-2">
-            <p class="text-2xl font-bold text-fg">550 $</p>
-            <span class="text-sm text-muted">à partir de</span>
-          </div>
-          <p class="text-sm text-muted">Demi-journée (~4h), 40+ photos retouchées.</p>
-        </div>
+        ))}
       </div>
       <div class="text-center mt-12">
         <a
-          href="/services"
+          href="/services/"
           class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-fg border border-fg rounded-sm hover:bg-citron hover:text-ink hover:border-citron transition-colors duration-200"
         >
           Voir tous les services
@@ -192,7 +181,7 @@ const previewImages = photos.map((p) => ({
         Un show, un lancement, une séance portrait ou du contenu pour vos réseaux : écrivez-moi et on bâtit les images ensemble.
       </p>
       <a
-        href="/contact"
+        href="/contact/"
         class="flex w-fit mx-auto items-center justify-center px-6 py-3 min-h-11 text-xs font-semibold tracking-[0.14em] uppercase text-fg border border-fg rounded-sm hover:bg-citron hover:text-ink hover:border-citron transition-colors duration-200"
       >
         Prendre rendez-vous
@@ -288,7 +277,7 @@ const previewImages = photos.map((p) => ({
   const serviceCards = document.querySelectorAll<HTMLDivElement>('.service-card-item');
   serviceCards.forEach(card => {
     card.addEventListener('click', () => {
-      window.location.href = '/services';
+      window.location.href = '/services/';
     });
     card.addEventListener('touchstart', () => {
       card.classList.add('active');

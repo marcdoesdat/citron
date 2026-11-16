@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
 ---
 
 <Layout
@@ -22,7 +23,7 @@ import Layout from '../layouts/Layout.astro';
             Le présent site est édité par Alex Diotte, photographe et vidéaste.
           </p>
           <p class="text-sm text-muted leading-relaxed">
-            Contact : alexdiottephoto@gmail.com
+            Contact : {site.email}
           </p>
         </section>
 
@@ -66,7 +67,7 @@ import Layout from '../layouts/Layout.astro';
         <section class="space-y-3">
           <h2 class="font-display text-3xl text-fg">Contact</h2>
           <p class="text-sm text-muted leading-relaxed">
-            Pour toute question relative aux mentions légales : alexdiottephoto@gmail.com
+            Pour toute question relative aux mentions légales : {site.email}
           </p>
         </section>
       </div>

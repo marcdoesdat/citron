@@ -1,10 +1,12 @@
 ---
+import { site } from '../data/site';
+
 interface Props {
   posts: string[];        // URLs des posts Instagram publics
   handle?: string;
 }
 
-const { posts, handle = '_citronnnade_' } = Astro.props;
+const { posts, handle = site.instagram.handle } = Astro.props;
 ---
 
 <section id="instagram" class="py-16 px-6 border-t border-line">

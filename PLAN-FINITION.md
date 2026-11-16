@@ -51,7 +51,7 @@ techniques décrites plus bas — ces chiffres sont donc atteignables, pas théo
 | Photo la plus lourde servie | 33 Mo (6000 px, affichée à ~320 px) | ≤ ~300 Ko |
 | Taille de `dist/` | 251 Mo | ≤ 40 Mo (prototype : 19 Mo) |
 | `og:image` (`/og-default.jpg`) | 404 sur toutes les pages | 200, 1200×630 |
-| Favicons | 1 SVG hors marque, rien d'autre | jeu complet aux couleurs de la marque |
+| Favicons | 1 SVG hors marque, rien d'autre | jeu complet : un citron, aux couleurs de la marque |
 | État actif du menu sur Portfolio / Services / Contact | absent (0 `aria-current`) | présent |
 | Liens du menu mobile atteignables au clavier menu fermé | 6 | 0 |
 | Requêtes vers Google Fonts | sur chaque page | 0 |
@@ -307,13 +307,19 @@ aucune icône Apple, aucun manifeste, pas de `theme-color`. Et `/og-default.jpg`
 par `og:image`, `twitter:image` et le JSON-LD de toutes les pages, n'existe pas : un lien
 partagé sur Messenger, iMessage, LinkedIn ou Slack s'affiche sans aperçu.
 
-**Direction retenue.** Monogramme « AD » en Anton, encre `#0a0a0a` sur fond citron
-`#e4ff1a` — le logo ruban réduit à l'essentiel. Vérifié lisible à 16 px. L'image de partage
-reprend la photo de couverture, assombrie en bas, avec le logo ruban et la mention
-« Photographe et vidéaste · Montréal ».
+**Direction retenue (validée par Marc : le favicon est un citron).** Un citron incliné,
+couleur citron `#e4ff1a`, avec une petite feuille blanc cassé `#f3f3ef`, sur une tuile encre
+`#0a0a0a` à coins arrondis. La tuile sombre est volontaire : le jaune citron seul serait
+illisible sur une barre d'onglets claire. Dessin en aplats, sans dégradé ni reflet, pour
+rester net à 16 px — vérifié à 16, 32 et 180 px, sur barre claire et sombre, et dans le
+masque circulaire d'Android. Ne pas remplacer ce dessin par un monogramme ou un appareil
+photo. L'image de partage, elle, reprend la photo de couverture, assombrie en bas, avec le
+logo ruban « ALEX DIOTTE » et la mention « Photographe et vidéaste · Montréal ».
 
 **À faire.**
-1. `npm i -D opentype.js` (`@fontsource/anton` est déjà là depuis le lot 2).
+1. `npm i -D opentype.js` (`@fontsource/anton` est déjà là depuis le lot 2). Les deux
+   servent à tracer le logo ruban de l'image de partage ; le citron, lui, est un tracé SVG
+   écrit en dur dans le script.
 2. Créer `scripts/generate-brand-assets.mjs` avec le contenu de l'**annexe A** (script
    testé tel quel), ajouter le script npm `"brand": "node scripts/generate-brand-assets.mjs"`,
    lancer `npm run brand`. Il écrit dans `public/` : `favicon.svg` (remplace l'ancien),
@@ -349,8 +355,8 @@ reprend la photo de couverture, assombrie en bas, avec le logo ruban et la menti
 
 **Acceptation.** Les sept fichiers et le manifeste sont dans `dist/` ; chaque URL référencée
 dans le `<head>` répond 200 en prévisualisation ; ouvrir `og-default.jpg` et les icônes
-pour un contrôle visuel (texte net, rien de coupé) ; l'onglet du navigateur montre le
-monogramme citron.
+pour un contrôle visuel (citron entier et net, feuille visible, rien de coupé) ; l'onglet
+du navigateur montre le citron sur sa tuile sombre.
 
 ### Lot 4 — URL, référencement et données structurées (P1)
 
@@ -674,7 +680,8 @@ Script testé pendant l'audit (Node 22, `sharp` fourni par Astro, `opentype.js` 
 ```js
 /**
  * generate-brand-assets.mjs — Génère les icônes et l'image de partage du site
- * à partir de la marque (Anton, encre sur citron).
+ * à partir de la marque : un citron (couleur citron sur fond encre) pour les
+ * icônes, le logo ruban en Anton pour l'image de partage.
  *
  *   npm run brand
  *
@@ -708,12 +715,22 @@ function textPath(text, x, y, capHeight) {
   };
 }
 
-/** Icône carrée : monogramme « AD » occupant `fill` (0–1) de la hauteur. */
-function iconSvg({ size, fill, radius = 0 }) {
-  const cap = size * fill;
-  const { width } = textPath('AD', 0, 0, cap);
-  const { d } = textPath('AD', (size - width) / 2, (size - cap) / 2, cap);
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}"><rect width="${size}" height="${size}" rx="${radius}" fill="${CITRON}"/><path d="${d}" fill="${INK}"/></svg>\n`;
+// Citron dessiné à l'horizontale dans un repère 64×64, puis incliné par `iconSvg`.
+const LEMON_BODY =
+  'M4 32Q9 31 12 26.5C17 17.5 25 13.5 33 13.5C42 13.5 50 18.5 53.5 26.5Q56.5 31 61 32' +
+  'Q56.5 33 53.5 37.5C50 45.5 42 50.5 33 50.5C25 50.5 17 46.5 12 37.5Q9 33 4 32Z';
+const LEMON_LEAF = 'M50 20C50 12 55 7 62 6C63 13 59 19 50 20Z';
+
+/** Icône carrée : citron occupant `scale` (0–1) de la tuile, coins arrondis de `radius` (sur 64). */
+function iconSvg({ scale, radius = 0 }) {
+  return (
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">` +
+    `<rect width="64" height="64" rx="${radius}" fill="${INK}"/>` +
+    `<g transform="rotate(-32 32 32) translate(32 32) scale(${scale}) translate(-32 -32)">` +
+    `<path d="${LEMON_BODY}" fill="${CITRON}"/>` +
+    `<path d="${LEMON_LEAF}" fill="${FG}" transform="rotate(30 32 32)"/>` +
+    `</g></svg>\n`
+  );
 }
 
 const png = (svg, px) => sharp(Buffer.from(svg), { density: 600 }).resize(px, px).png().toBuffer();
@@ -761,9 +778,9 @@ async function ogImage() {
 }
 
 const write = (name, data) => fs.writeFileSync(new URL(name, OUT), data);
-const tab = iconSvg({ size: 64, fill: 0.62, radius: 8 });   // onglet de navigateur
-const flat = iconSvg({ size: 512, fill: 0.56 });            // iOS / Android (coins arrondis par l'OS)
-const safe = iconSvg({ size: 512, fill: 0.4 });             // maskable : contenu dans la zone sûre
+const tab = iconSvg({ scale: 0.95, radius: 12 });  // onglet de navigateur : citron le plus grand possible
+const flat = iconSvg({ scale: 0.8 });              // iOS / Android (coins arrondis par l'OS)
+const safe = iconSvg({ scale: 0.62 });             // maskable : contenu dans la zone sûre
 
 write('favicon.svg', tab);
 write('favicon.ico', ico(await Promise.all([16, 32, 48].map(async (size) => ({ size, data: await png(tab, size) })))));

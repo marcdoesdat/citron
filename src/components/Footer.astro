@@ -52,7 +52,10 @@ const currentYear = new Date().getFullYear();
 
     <div class="pt-6 border-t border-line text-center space-y-2">
       <p class="text-xs text-subtle">&copy; {currentYear} {site.name}. Tous droits réservés.</p>
-      <a href="/mentions-legales/" class="inline-block text-xs text-subtle uppercase tracking-[0.12em] hover:text-citron transition-colors">Mentions légales</a>
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <a href="/mentions-legales/" class="inline-block text-xs text-subtle uppercase tracking-[0.12em] hover:text-citron transition-colors">Mentions légales</a>
+        <a href="/politique-de-confidentialite/" class="inline-block text-xs text-subtle uppercase tracking-[0.12em] hover:text-citron transition-colors">Politique de confidentialité</a>
+      </div>
     </div>
 
   </div>

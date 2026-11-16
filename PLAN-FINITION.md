@@ -248,8 +248,12 @@ bio de l'accueil fait 1,8 Mo. `public/alex-bio.jpg` n'est référencé nulle par
 6. `src/pages/portfolio.astro` : passer `photoImage(p.file)` au lieu de `photoSrc(p)` et
    retirer `width` / `height` de l'objet.
 
-7. **Image de couverture : ne pas y toucher.** `hero.webp` (276 Ko) et `hero-mobile.webp`
-   (172 Ko) sont déjà raisonnables et le cadrage est réglé à la main.
+7. **Image de couverture.** Le plan initial demandait de ne pas y toucher. Après
+   exécution, Lighthouse plafonnait à 89–92 en performance sur l'accueil à cause d'elle
+   (168 Ko servis à tous les mobiles). À la demande de Marc, elle passe aussi par
+   `astro:assets` : mêmes deux cadrages (`src/assets/hero/hero.jpg` et
+   `hero-mobile.webp`), déclinés en AVIF (qualité 60) et WebP à plusieurs largeurs,
+   `sizes="100vw"`. Résultat mesuré : 95 en performance, rendu inchangé.
 
 **Acceptation.**
 - `du -sh dist` ≤ 40 Mo ; `find dist -type f -size +1M` ne renvoie rien.
@@ -701,7 +705,7 @@ const CITRON = '#e4ff1a';
 const INK = '#0a0a0a';
 const FG = '#f3f3ef';
 const OUT = new URL('../public/', import.meta.url);
-const HERO = new URL('../public/hero.jpg', import.meta.url); // adapter si la photo de couverture est déplacée
+const HERO = new URL('../src/assets/hero/hero.jpg', import.meta.url); // photo de couverture (source bureau)
 
 const buf = fs.readFileSync(require.resolve('@fontsource/anton/files/anton-latin-400-normal.woff'));
 const anton = opentype.parse(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength));

@@ -20,7 +20,7 @@ const CITRON = '#e4ff1a';
 const INK = '#0a0a0a';
 const FG = '#f3f3ef';
 const OUT = new URL('../public/', import.meta.url);
-const HERO = new URL('../public/hero.jpg', import.meta.url); // adapter si la photo de couverture est déplacée
+const HERO = new URL('../src/assets/hero/hero.jpg', import.meta.url); // photo de couverture (source bureau)
 
 const buf = fs.readFileSync(require.resolve('@fontsource/anton/files/anton-latin-400-normal.woff'));
 const anton = opentype.parse(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength));

@@ -2,11 +2,40 @@
 import Layout from '../layouts/Layout.astro';
 import InstagramFeed from '../components/InstagramFeed.astro';
 import SwipeGallery from '../components/SwipeGallery.astro';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import alexPortrait from '../assets/alex-diotte.jpg';
+import heroDesktop from '../assets/hero/hero.jpg';
+import heroMobile from '../assets/hero/hero-mobile.webp';
 import { photos, photoImage, shotTime } from '../data/photos';
 import { featuredServices, serviceKinds } from '../data/services';
 import { site } from '../data/site';
+
+// Photo de couverture : deux fichiers sources, cadrés à la main (16:9 pour le bureau,
+// recadrage vertical pour le mobile), déclinés au build en AVIF et WebP à plusieurs
+// largeurs. L'image s'affiche toujours sur toute la largeur de l'écran : sizes="100vw".
+const HERO_WIDTHS = [960, 1280, 1600, 1920, 2400];
+const HERO_MOBILE_WIDTHS = [480, 640, 750, 900];
+
+const heroSrcset = async (src: ImageMetadata, widths: number[], format: 'avif' | 'webp') => {
+  const image = await getImage({
+    src,
+    widths,
+    width: widths[widths.length - 1],
+    format,
+    quality: format === 'avif' ? 60 : 80,
+  });
+  return image.srcSet.attribute;
+};
+
+const hero = {
+  mobileAvif: await heroSrcset(heroMobile, HERO_MOBILE_WIDTHS, 'avif'),
+  mobileWebp: await heroSrcset(heroMobile, HERO_MOBILE_WIDTHS, 'webp'),
+  desktopAvif: await heroSrcset(heroDesktop, HERO_WIDTHS, 'avif'),
+  desktopWebp: await heroSrcset(heroDesktop, HERO_WIDTHS, 'webp'),
+  // Secours pour les navigateurs sans AVIF ni WebP
+  fallback: (await getImage({ src: heroDesktop, width: 1600, format: 'jpeg', quality: 80 })).src,
+};
 
 const previewImages = photos.map((p) => ({
   src: photoImage(p.file),
@@ -26,10 +55,12 @@ const previewImages = photos.map((p) => ({
   <section class="home-hero grain relative w-full overflow-hidden bg-ink">
     <!-- Recadrage vertical dédié au mobile, 16:9 ailleurs -->
     <picture>
-      <source media="(max-width: 767px)" srcset="/hero-mobile.webp" type="image/webp" />
-      <source srcset="/hero.webp" type="image/webp" />
+      <source media="(max-width: 767px)" type="image/avif" srcset={hero.mobileAvif} sizes="100vw" width="900" height="1600" />
+      <source media="(max-width: 767px)" type="image/webp" srcset={hero.mobileWebp} sizes="100vw" width="900" height="1600" />
+      <source type="image/avif" srcset={hero.desktopAvif} sizes="100vw" width="2400" height="1350" />
+      <source type="image/webp" srcset={hero.desktopWebp} sizes="100vw" width="2400" height="1350" />
       <img
-        src="/hero.jpg"
+        src={hero.fallback}
         alt="Fêtard qui crie face à l'objectif au milieu d'une foule serrée"
         width="2400"
         height="1350"

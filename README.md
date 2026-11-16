@@ -42,7 +42,7 @@ Pour retirer une photo, supprimer son entrée et son fichier.
 
 ### Photo de couverture et photo de bio (accueil)
 
-- Couverture : `public/hero.jpg`, `public/hero.webp` et `public/hero-mobile.webp` (recadrage vertical pour les écrans étroits), référencés dans `src/pages/index.astro`. Ces fichiers sont servis tels quels : les préparer à la bonne taille avant de les remplacer. `hero.jpg` sert aussi de base à l'image de partage (voir plus bas).
+- Couverture : deux fichiers sources dans `src/assets/hero/`, cadrés à la main — `hero.jpg` (16:9, 2400×1350, écrans larges) et `hero-mobile.webp` (vertical, 900×1600, écrans de moins de 768 px). Ils sont importés dans `src/pages/index.astro` et déclinés au build en AVIF et WebP à plusieurs largeurs. Pour changer la photo, remplacer ces deux fichiers en gardant leurs noms et leurs proportions ; avec des dimensions différentes, ajuster les listes `HERO_WIDTHS` et `HERO_MOBILE_WIDTHS` et les attributs `width`/`height` de la balise `<picture>`. `hero.jpg` sert aussi de base à l'image de partage (voir plus bas).
 - Photo de bio : `src/assets/alex-diotte.jpg`, importée dans `src/pages/index.astro` (optimisée au build). Le texte de la bio est dans le même fichier.
 
 ### Modifier un prix ou un forfait
@@ -75,7 +75,7 @@ Les polices (Anton, Inter, JetBrains Mono) sont hébergées avec le site via les
 
 ## Icônes et image de partage
 
-`npm run brand` exécute `scripts/generate-brand-assets.mjs` et écrit dans `public/` : `favicon.svg`, `favicon.ico`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` et `og-default.jpg` (1200×630, utilisée pour l'aperçu des liens partagés). Le favicon est un citron sur une tuile sombre ; l'image de partage reprend `public/hero.jpg` avec le logo ruban. Les fichiers générés sont versionnés : relancer le script seulement si la marque ou la photo de couverture change, puis commiter le résultat.
+`npm run brand` exécute `scripts/generate-brand-assets.mjs` et écrit dans `public/` : `favicon.svg`, `favicon.ico`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` et `og-default.jpg` (1200×630, utilisée pour l'aperçu des liens partagés). Le favicon est un citron sur une tuile sombre ; l'image de partage reprend `src/assets/hero/hero.jpg` avec le logo ruban. Les fichiers générés sont versionnés : relancer le script seulement si la marque ou la photo de couverture change, puis commiter le résultat.
 
 `public/site.webmanifest` décrit le site pour les navigateurs (nom, icônes, couleur de thème).
 
@@ -88,10 +88,11 @@ Les polices (Anton, Inter, JetBrains Mono) sont hébergées avec le site via les
 ├── scripts/
 │   └── generate-brand-assets.mjs   # npm run brand
 ├── public/                 # Servi tel quel : icônes, manifeste, robots.txt,
-│                           # image de partage, photos de couverture
+│                           # image de partage
 └── src/
     ├── assets/
     │   ├── alex-diotte.jpg # Photo de bio
+    │   ├── hero/           # Photo de couverture (sources bureau et mobile)
     │   └── portfolio/      # Photos du portfolio (optimisées au build)
     ├── components/
     │   ├── Button.astro

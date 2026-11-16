@@ -240,9 +240,10 @@ bio de l'accueil fait 1,8 Mo. `public/alex-bio.jpg` n'est référencé nulle par
    - `previewImages` utilise `photoImage(p.file)` ;
    - la photo de bio passe par un import :
      `import alexPortrait from '../assets/alex-diotte.jpg';` puis
-     `<Image src={alexPortrait} width={600} height={800} fit="cover" widths={[400, 600, 900, 1200]} sizes="(min-width: 768px) 480px, 100vw" …>`.
-     Le fichier est en 2:3 (3269×4892) mais l'affichage actuel le recadre en 3:4 :
-     `fit="cover"` conserve ce rendu.
+     `<Image src={alexPortrait} width={600} widths={[400, 600, 900, 1200]} sizes="(min-width: 768px) 480px, 100vw" …>`,
+     sans `height` ni `fit`. Le fichier est en 2:3 (3269×4892) et s'affiche en 2:3.
+     (Corrigé à l'exécution : l'audit supposait à tort un recadrage 3:4 ; le forcer
+     raccourcissait la photo de 78 px et décalait la mise en page.)
 
 6. `src/pages/portfolio.astro` : passer `photoImage(p.file)` au lieu de `photoSrc(p)` et
    retirer `width` / `height` de l'objet.

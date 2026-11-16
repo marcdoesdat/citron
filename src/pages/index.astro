@@ -143,7 +143,7 @@ const previewImages = photos.map((p) => ({
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
         {featuredServices.map((service) => (
-          <div class="service-card-item border border-line p-8 space-y-4 cursor-pointer transition-all duration-300">
+          <a href="/services/" class="service-card-item block border border-line p-8 space-y-4 transition-all duration-300">
             <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-subtle">{serviceKinds[service.icon]}</p>
             <h3 class="font-display text-2xl text-fg">{service.title}</h3>
             <div class="flex items-baseline gap-2">
@@ -151,7 +151,7 @@ const previewImages = photos.map((p) => ({
               {service.showStartingFrom && <span class="text-sm text-muted">à partir de</span>}
             </div>
             <p class="text-sm text-muted">{service.summary}</p>
-          </div>
+          </a>
         ))}
       </div>
       <div class="text-center mt-12">
@@ -268,24 +268,9 @@ const previewImages = photos.map((p) => ({
   }
 
   .service-card-item:hover::after,
-  .service-card-item.active::after {
+  .service-card-item:focus-visible::after {
     opacity: 1;
   }
 </style>
-
-<script>
-  const serviceCards = document.querySelectorAll<HTMLDivElement>('.service-card-item');
-  serviceCards.forEach(card => {
-    card.addEventListener('click', () => {
-      window.location.href = '/services/';
-    });
-    card.addEventListener('touchstart', () => {
-      card.classList.add('active');
-    });
-    card.addEventListener('touchend', () => {
-      setTimeout(() => card.classList.remove('active'), 300);
-    });
-  });
-</script>
 
 </Layout>

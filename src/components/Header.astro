@@ -45,28 +45,30 @@ const currentPath = Astro.url.pathname;
 
     <!-- Hamburger mobile (droite) -->
     <div class="md:hidden">
-      <input type="checkbox" id="nav-toggle" class="sr-only peer" />
-
       <!-- Bouton hamburger / croix -->
-      <label
-        for="nav-toggle"
+      <button
+        type="button"
+        id="nav-toggle"
         class="relative z-[60] flex flex-col justify-center gap-[5px] w-8 h-8 cursor-pointer"
-        aria-label="Ouvrir le menu de navigation"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Ouvrir le menu"
       >
-        <span class="block h-[2px] w-full bg-fg transition-transform duration-200 origin-center" id="bar1"></span>
-        <span class="block h-[2px] w-full bg-fg transition-opacity duration-150" id="bar2"></span>
-        <span class="block h-[2px] w-2/3 ml-auto bg-citron transition-transform duration-200 origin-center" id="bar3"></span>
-      </label>
+        <span class="nav-bar nav-bar-1 block h-[2px] w-full bg-fg origin-center"></span>
+        <span class="nav-bar nav-bar-2 block h-[2px] w-full bg-fg"></span>
+        <span class="nav-bar nav-bar-3 block h-[2px] w-2/3 ml-auto bg-citron origin-center"></span>
+      </button>
 
-      <!-- Overlay plein ecran -->
+      <!-- Overlay plein ecran : masqué (visibility) tant que le menu est fermé,
+           ce qui sort ses liens de l'ordre de tabulation -->
       <nav
         id="mobile-nav"
         aria-label="Menu mobile"
         class="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6
                bg-ink/96
-               opacity-0 pointer-events-none
-               transition-opacity duration-200
-               peer-checked:opacity-100 peer-checked:pointer-events-auto"
+               invisible opacity-0 pointer-events-none
+               transition-[opacity,visibility] duration-200
+               data-[open]:visible data-[open]:opacity-100 data-[open]:pointer-events-auto"
       >
         {navLinks.map(({ href, label }) => (
           <a
@@ -127,10 +129,77 @@ const currentPath = Astro.url.pathname;
     window.addEventListener('scroll', toggleHeaderState, { passive: true });
   }
 
+  // ── Menu mobile ─────────────────────────────────────────────────────────
+  const mobileNav = document.getElementById('mobile-nav');
+  const desktopQuery = window.matchMedia('(min-width: 768px)');
+
+  const setMenu = (open, { restoreFocus = false } = {}) => {
+    if (!navToggle || !mobileNav) return;
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    mobileNav.toggleAttribute('data-open', open);
+    // Le flou de l'en-tête créerait un contexte pour le panneau fixe : on le coupe tant que le menu est ouvert
+    header?.classList.toggle('menu-open', open);
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    // <main> et <footer> viennent après l'en-tête dans le document : on les cherche à chaque appel
+    document.querySelectorAll('main, footer').forEach((el) => { el.inert = open; });
+    if (!open && restoreFocus) navToggle.focus();
+  };
+
+  const isOpen = () => navToggle?.getAttribute('aria-expanded') === 'true';
+
+  navToggle?.addEventListener('click', () => setMenu(!isOpen()));
+
   // Fermer le menu au clic sur un lien
-  document.querySelectorAll('#mobile-nav a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (navToggle) navToggle.checked = false;
-    });
+  mobileNav?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenu(false));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (!isOpen()) return;
+    if (event.key === 'Escape') {
+      setMenu(false, { restoreFocus: true });
+    } else if (event.key === 'Tab') {
+      // Garde le focus dans l'en-tête tant que le panneau est ouvert
+      const stops = [...header.querySelectorAll('a[href], button')].filter((el) => el.offsetParent !== null || el.closest('#mobile-nav'));
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  // Passer en mise en page bureau referme le menu
+  desktopQuery.addEventListener('change', (event) => {
+    if (event.matches) setMenu(false);
   });
 </script>
+
+<style>
+  .nav-bar {
+    transition: transform 200ms, opacity 150ms;
+  }
+
+  /* Hamburger -> croix */
+  #nav-toggle[aria-expanded='true'] .nav-bar-1 {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  #nav-toggle[aria-expanded='true'] .nav-bar-2 {
+    opacity: 0;
+  }
+
+  #nav-toggle[aria-expanded='true'] .nav-bar-3 {
+    width: 100%;
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  #site-header.menu-open {
+    backdrop-filter: none;
+  }
+</style>

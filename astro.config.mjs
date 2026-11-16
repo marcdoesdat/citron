@@ -1,13 +1,13 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   output: 'static',
   site: 'https://citronphoto.netlify.app',
+  trailingSlash: 'always',
+  integrations: [sitemap({ filter: (page) => !page.includes('/merci/') })],
   vite: {
     plugins: [tailwindcss()],
   },
-  // NOTE : en production, les vraies photos du photographe seront stockées dans
-  // src/assets/ et importées avec <Image /> d'astro:assets pour l'optimisation complète.
-  // Les images distantes (ex: picsum) utilisent des redirects incompatibles avec l'optimiseur Astro.
 });

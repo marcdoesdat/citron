@@ -1,19 +1,30 @@
 {
-  "name": "sophie-moreau-photographie",
+  "name": "alex-diotte-photographie",
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "node ./node_modules/astro/bin/astro.mjs dev",
-    "build": "node ./node_modules/astro/bin/astro.mjs build",
-    "preview": "node ./node_modules/astro/bin/astro.mjs preview"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "brand": "node scripts/generate-brand-assets.mjs"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.8",
+    "@astrojs/sitemap": "^3.7.5",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource/anton": "^5.3.0",
     "astro": "^6.1.5",
-    "typescript": "^5.9.3"
+    "photoswipe": "^5.4.4"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.8",
     "@tailwindcss/vite": "^4.0.0",
-    "tailwindcss": "^4.0.0"
+    "opentype.js": "^2.0.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

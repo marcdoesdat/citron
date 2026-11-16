@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+---
+
+<Layout
+  title="Politique de confidentialité"
+  description="Comment le site d'Alex Diotte, photographe et vidéaste à Montréal, traite les renseignements personnels transmis par le formulaire de contact."
+>
+  <section class="py-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="font-display text-6xl sm:text-8xl text-fg mb-6">
+        Politique de confidentialité
+      </h1>
+      <p class="text-sm text-muted leading-relaxed mb-12">
+        Dernière mise à jour : 16 novembre 2026
+      </p>
+
+      <div class="space-y-10">
+        <section class="space-y-3">
+          <h2 class="font-display text-3xl text-fg">En bref</h2>
+          <p class="text-sm text-muted leading-relaxed">
+            Ce site ne recueille de renseignements personnels que si vous remplissez le formulaire de la page Contact. Ils servent uniquement à vous répondre. Ils ne sont ni vendus ni cédés. Aucun outil de mesure d'audience n'est installé.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-3xl text-fg">Renseignements recueillis</h2>
+          <p class="text-sm text-muted leading-relaxed">
+            Lorsque vous envoyez le formulaire de contact, les renseignements suivants sont transmis :
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-sm text-muted leading-relaxed">
+            <li>votre nom et votre courriel (obligatoires) ;</li>
+            <li>le type de séance souhaité (obligatoire) ;</li>
+            <li>votre message (obligatoire) ;</li>
+            <li>la date souhaitée, si vous l'indiquez ;</li>
+            <li>selon le type de séance : le nom de votre entreprise et une fourchette de budget (corporatif, événementiel), ou le lieu de la réception et le budget photographique (mariage).</li>
+          </ul>
+          <p class="text-sm text-muted leading-relaxed">
+            Si vous écrivez directement à {site.email}, votre message passe par le service de courriel de cette adresse (Gmail) et contient les renseignements que vous choisissez d'y mettre.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-3xl text-fg">Pourquoi ces renseignements</h2>
+          <p class="text-sm text-muted leading-relaxed">
+            Ils servent à répondre à votre demande. Ils ne sont ni vendus ni cédés à des tiers.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-3xl text-fg">Hébergement et traitement du formulaire</h2>
+          <p class="text-sm text-muted leading-relaxed">
+            Le site est hébergé par Netlify, Inc. (États-Unis), qui reçoit et traite aussi les envois du formulaire de contact. Vos renseignements sont donc traités hors du Québec. Netlify applique sa propre politique de confidentialité.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-3xl text-fg">Témoins et services tiers</h2>
+          <ul class="list-disc pl-5 space-y-1 text-sm text-muted leading-relaxed">
+            <li>Le site n'utilise aucun outil de mesure d'audience et ne dépose pas lui-même de témoins (cookies).</li>
+            <li>Les polices de caractères sont hébergées sur le site : aucune requête n'est envoyée à un service de polices tiers.</li>
+            <li>La page d'accueil intègre des publications Instagram. Ces contenus sont fournis par Instagram (Meta), qui peut recevoir votre adresse IP et des informations sur votre appareil, et déposer des témoins, selon sa propre politique.</li>
+            <li>Les liens vers Instagram et YouTube mènent à ces services, qui ont leur propre politique de confidentialité.</li>
+          </ul>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-3xl text-fg">Vos droits</h2>
+          <p class="text-sm text-muted leading-relaxed">
+            Vous pouvez demander l'accès aux renseignements que nous détenons à votre sujet, leur rectification, ou leur retrait. Pour cela, écrivez à {site.email}.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-3xl text-fg">Responsable de la protection des renseignements personnels</h2>
+          <p class="text-sm text-muted leading-relaxed">
+            {site.person}, éditeur du site, est la personne responsable de la protection des renseignements personnels. Pour toute question ou demande : {site.email}.
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+</Layout>

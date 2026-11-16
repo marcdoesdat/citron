@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+---
+
+<Layout
+  title="Message envoyé"
+  description="Votre message a bien été envoyé à Alex Diotte, photographe et vidéaste à Montréal."
+  noindex
+>
+  <section class="py-20 px-6 text-center">
+    <h1 class="font-display text-6xl sm:text-8xl text-fg mb-4">Message envoyé</h1>
+    <p class="text-muted text-sm max-w-md mx-auto leading-relaxed">
+      Merci pour votre message ! Je vous réponds dans les 24 heures.
+    </p>
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+      <Button href="/portfolio/">Voir le portfolio</Button>
+      <Button href="/" variant="secondary">Retour à l'accueil</Button>
+    </div>
+  </section>
+</Layout>

@@ -102,10 +102,90 @@ const categories = [
       items.forEach(item => {
         const itemCategory = normalize(item.dataset.category || '');
         const show = filter === 'all' || itemCategory === filter;
-        item.style.display = show ? '' : 'none';
+        item.hidden = !show;
       });
     });
   });
 </script>
+
+<script>
+  // Visionneuse plein écran. Le module principal de PhotoSwipe et sa feuille de
+  // style ne sont téléchargés qu'au premier clic ; sans JavaScript, chaque lien
+  // ouvre simplement la grande image.
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+
+  const gallery = document.querySelector<HTMLElement>('[data-photo-gallery]');
+
+  if (gallery) {
+    const lightbox = new PhotoSwipeLightbox({
+      gallery,
+      // Seulement les photos visibles : le filtre de catégories pose l'attribut hidden.
+      children: 'figure:not([hidden]) a',
+      pswpModule: () => import('photoswipe'),
+      openPromise: () => import('photoswipe/photoswipe.css'),
+      padding: { top: 48, bottom: 88, left: 0, right: 0 },
+      bgOpacity: 1,
+      closeTitle: 'Fermer (Échap)',
+      zoomTitle: 'Zoom',
+      arrowPrevTitle: 'Photo précédente',
+      arrowNextTitle: 'Photo suivante',
+      errorMsg: "Cette photo n'a pas pu être chargée.",
+    });
+
+    // Légende et ligne de méta, reprises de la figure de la vignette
+    lightbox.on('uiRegister', () => {
+      lightbox.pswp?.ui?.registerElement({
+        name: 'photo-caption',
+        order: 9,
+        isButton: false,
+        appendTo: 'root',
+        onInit: (el, pswp) => {
+          const render = () => {
+            const figure = pswp.currSlide?.data.element?.closest('figure');
+            const [plate, title, meta] = Array.from(
+              figure?.querySelectorAll<HTMLElement>('figcaption > span') ?? [],
+            ).map((part) => part.textContent ?? '');
+            const line = (text: string | undefined, className: string) => {
+              const span = document.createElement('span');
+              span.textContent = text ?? '';
+              span.className = className;
+              return span;
+            };
+            el.replaceChildren(
+              line([plate, title].filter(Boolean).join('  '), 'pswp-caption-title'),
+              ...(meta ? [line(meta, 'pswp-caption-meta')] : []),
+            );
+          };
+          pswp.on('change', render);
+        },
+      });
+    });
+
+    lightbox.init();
+  }
+</script>
+
+<style is:global>
+  .pswp__photo-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 0 24px 24px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    pointer-events: none;
+  }
+  .pswp-caption-title { color: var(--color-fg); }
+  .pswp-caption-meta { color: var(--color-muted); }
+</style>
 
 </Layout>
